@@ -34,4 +34,7 @@ public class BoardService {
 	public List<CommentVO> getPostsComment(int boardNo) throws Exception {
 		return boardMapper.getPostsComment(boardNo);
 	}
+	public void insertComment(CommentVO vo) {
+		boardMapper.insertComment(vo);
+	}
 }

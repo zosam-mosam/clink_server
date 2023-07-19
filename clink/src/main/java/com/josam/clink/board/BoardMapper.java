@@ -13,4 +13,5 @@ public interface BoardMapper {
 	public BoardVO bestPost(int boardNo);
 	public List<BoardVO>getHotCategoryPosts(int categoryNo);
 	public List<BoardVO>getHotBestCategoryPosts();
+	public void insertComment(CommentVO vo);
 }

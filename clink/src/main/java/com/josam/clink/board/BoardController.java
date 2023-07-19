@@ -41,4 +41,10 @@ public class BoardController {
 		return boardService.getPostsComment(boardNo);
 	}
 	
+	@PostMapping("/post/comment/insert")
+	public @ResponseBody void InsertComment(@RequestBody CommentVO vo){
+		boardService.insertComment(vo);
+	}
+	
+	
 }

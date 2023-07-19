@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.josam.clink.community.CommunityMapper">
+	<select id="list">
+		select * from Board order by boardLikes desc Limit 5
+	</select>
+	<select id="freeList">
+		select * from Board where boardCategoryNo=1 order by boardLikes desc Limit 5
+	</select>
+	<select id="infoList">
+		select * from Board where boardCategoryNo=2 order by boardLikes desc Limit 5
+	</select>
+	<select id="annList">
+		select * from Board where boardCategoryNo=0 order by boardLikes desc Limit 5
+	</select>
+	<insert id="insertPost" parameterType="com.josam.clink.community.CommunityVO">
+		insert into Board values(0,#{boardCategoryNo},0,0,#{boardTitle},#{boardContent},now(),"작성자",0);
+	</insert>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.josam.clink.challenge.ChallengeMapper">
+  
+  	<select id="myChallenge" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.ChallengeVO">
+		SELECT * FROM Challenge WHERE userNO=#{userNo}
+	</select>
+	
+	<select id="todayExpense" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.ExpenseVO">
+		SELECT * FROM Expense WHERE userNO=#{userNo} AND DATE_FORMAT(expenseDate, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') 
+	</select>
+	
+	<select id="weekExpense" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.ChartVO">
+		SELECT 
+	DATE_FORMAT(expenseDate, '%Y-%m-%d') as date,
+	SUM(if(categoryId=1, expenseAmount, 0)) as "c1",
+    SUM(if(categoryId=2, expenseAmount, 0)) as "c2",
+    SUM(if(categoryId=3, expenseAmount, 0)) as "c3",
+    SUM(if(categoryId=4, expenseAmount, 0)) as "c4",
+    SUM(if(categoryId=5, expenseAmount, 0)) as "c5",
+    SUM(if(categoryId=6, expenseAmount, 0)) as "c6",
+    SUM(if(categoryId=7, expenseAmount, 0)) as "c7",
+    SUM(if(categoryId=8, expenseAmount, 0)) as "c8",
+    SUM(if(categoryId=9, expenseAmount, 0)) as "c9"
+FROM 	Expense
+WHERE	userNO=#{userNo}
+	AND expenseDate BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
+GROUP BY DATE_FORMAT(expenseDate, '%Y-%m-%d'); 
+	</select>
+	
+	<select id="selectedExpense" parameterType="com.josam.clink.challenge.ExpenseVO" resultType="com.josam.clink.challenge.ExpenseVO">
+		SELECT * FROM Expense WHERE userNO=#{userNo} AND expenseDate BETWEEN #{startDate} AND #{endDate} ORDER BY expenseDate DESC;
+	</select>
+	<!-- data 넣는 용도 -->
+	<select id="getAllExpense" parameterType="com.josam.clink.challenge.ExpenseVO" resultType="com.josam.clink.challenge.DayChallengeVO">
+		SELECT userNo, sum(expenseAmount) as amount,DATE_FORMAT(expenseDate, '%Y-%m-%d') as successDate  FROM clink.Expense GROUP BY DATE_FORMAT(expenseDate, '%Y-%m-%d');
+	</select>
+	<select id="getTodayExpense" parameterType="com.josam.clink.challenge.ExpenseVO" resultType="com.josam.clink.challenge.DayChallengeVO">
+		SELECT userNo, sum(expenseAmount) as amount,DATE_FORMAT(expenseDate, '%Y-%m-%d') as successDate  FROM clink.Expense WHERE DATE_FORMAT(expenseDate, '%Y-%m-%d')=DATE_FORMAT(NOW(), '%Y-%m-%d') GROUP BY DATE_FORMAT(expenseDate, '%Y-%m-%d') ;
+	</select>
+	<insert id="insertDayChallenge" parameterType="com.josam.clink.challenge.DayChallengeVO">
+		INSERT INTO dayChallenge (userNo, successDate, amount) VALUES (#{userNo}, #{successDate}, #{amount})
+	</insert>
+</mapper>

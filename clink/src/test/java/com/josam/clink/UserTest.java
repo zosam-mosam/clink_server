@@ -30,7 +30,7 @@ public class UserTest {
 	@Test
 	public void challenge() {
 		UserVO user= new UserVO();
-		user.setUserNO(1);
+		user.setUserNo(1);
 		ChallengeVO c= new ChallengeVO();
 		c.setUvo(user);
 		c = mapper.myChallenge(user);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.josam.clink.communityPost.CommunityPostMapper">
+	<select id="list">
+		select * from Board_Detail order by board_like_count desc Limit 5
+	</select>
+	<select id="freeList">
+		select * from Board_Detail order by board_like_count desc Limit 5
+	</select>
+	<select id="infoList">
+		select * from Board_Detail order by board_like_count desc Limit 5
+	</select>
+	<select id="annList">
+		select * from Board_Detail order by board_like_count desc Limit 5
+	</select>
+	<select id="testss">
+		select user_id from User_Master where user_no="0";
+	</select>
+</mapper>

@@ -35,8 +35,10 @@ public class UserController {
 	@PostMapping("/login.do")
 	@ResponseBody
 	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req, HttpSession sess) throws Exception {
+		System.out.println(user_MasterVO);
 		User_MasterVO login = userService.login(user_MasterVO);
 		System.out.println("login:" + login);
+		System.out.println("조인메서드에 도착했니??");
 		if (login == null) {
 			return null;
 		} else {

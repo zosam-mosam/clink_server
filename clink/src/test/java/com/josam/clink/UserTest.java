@@ -29,6 +29,7 @@ public class UserTest {
 	@Autowired
 	ChallengeMapper mapper;
 	
+
 //	@Test
 //	public void challenge() {
 //		UserVO user= new UserVO();
@@ -40,6 +41,19 @@ public class UserTest {
 //		System.out.println(c.getDescription());
 //		System.out.println(c.getGoal());
 //	}
+
+//	@Test
+//	public void challenge() {
+//		UserVO user= new UserVO();
+//		user.setUserNo(1);
+//		ChallengeVO c= new ChallengeVO();
+//		c.setUvo(user);
+//		c = mapper.myChallenge(user);
+//		System.out.println(c.getTitle());
+//		System.out.println(c.getDescription());
+//		System.out.println(c.getGoal());
+//	}
+
 	
 //	@Test
 //	public void expense() {
@@ -53,34 +67,34 @@ public class UserTest {
 //			System.out.println(cvo.getDate());
 //		}
 //	}
-	@Test
-	public void selectedExpense() {
-		ExpenseVO expense = new ExpenseVO();
-		expense.setUserNo(1);
-		String five = "2023-07-05%";
-		String seven = "2023-07-07%";
-		expense.setStartDate(five);
-		expense.setEndDate(seven);
-		List<ExpenseVO> vo_list =mapper.selectedExpense(expense);
-		for(ExpenseVO evo: vo_list) {
-			System.out.println(evo.getExpenseDate()+evo.getExpenseDescription()+" "+evo.getExpenseAmount());
-		}
-	}
-	
-	@Test
-	public void insertDayChall() {
-		ExpenseVO expense = new ExpenseVO();
-		expense.setUserNo(1);
-		List<DayChallengeVO> vo_list =mapper.getTodayExpense(expense);
-		BigDecimal goal = new BigDecimal(50000);
-		for(DayChallengeVO evo: vo_list) {
-			System.out.println(evo.getUserNo()+" "+evo.getSuccessDate()+" "+evo.getAmount());
-				
-			if (evo.getAmount().compareTo(goal)<=0) {
-				mapper.insertDayChallenge(evo);
-			}
-		}
-	}
+//	@Test
+//	public void selectedExpense() {
+//		ExpenseVO expense = new ExpenseVO();
+//		expense.setUserNo(1);
+//		String five = "2023-07-05%";
+//		String seven = "2023-07-07%";
+//		expense.setStartDate(five);
+//		expense.setEndDate(seven);
+//		List<ExpenseVO> vo_list =mapper.selectedExpense(expense);
+//		for(ExpenseVO evo: vo_list) {
+//			System.out.println(evo.getExpenseDate()+evo.getExpenseDescription()+" "+evo.getExpenseAmount());
+//		}
+//	}
+//	
+//	@Test
+//	public void insertDayChall() {
+//		ExpenseVO expense = new ExpenseVO();
+//		expense.setUserNo(1);
+//		List<DayChallengeVO> vo_list =mapper.getTodayExpense(expense);
+//		BigDecimal goal = new BigDecimal(50000);
+//		for(DayChallengeVO evo: vo_list) {
+//			System.out.println(evo.getUserNo()+" "+evo.getSuccessDate()+" "+evo.getAmount());
+//				
+//			if (evo.getAmount().compareTo(goal)<=0) {
+//				mapper.insertDayChallenge(evo);
+//			}
+//		}
+//	}
 //	@Autowired
 //	UserMapper mapper;
 //	
@@ -96,22 +110,22 @@ public class UserTest {
 //		mapper.insert(user);
 //	}
 	
-	@Autowired
-	UserMapper usermapper;
-	
-	@Test
-	public void UserLoginTest() {
-		User_MasterVO uvo = new User_MasterVO();
-		uvo.setUser_id("test");
-		uvo.setPassword("1234");
-		usermapper.login(uvo);
-		if(usermapper.login(uvo)!=null) {
-			System.out.println("로그인 성공");
-		}else {
-			System.out.println("로그인 실패");
-		}
-		
-	}
+//	@Autowired
+//	UserMapper usermapper;
+//	
+//	@Test
+//	public void UserLoginTest() {
+//		User_MasterVO uvo = new User_MasterVO();
+//		uvo.setUser_id("test");
+//		uvo.setPassword("1234");
+//		usermapper.login(uvo);
+//		if(usermapper.login(uvo)!=null) {
+//			System.out.println("로그인 성공");
+//		}else {
+//			System.out.println("로그인 실패");
+//		}
+//		
+//	}
 	
 	
 }

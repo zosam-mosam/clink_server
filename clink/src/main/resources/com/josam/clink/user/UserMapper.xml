@@ -4,29 +4,29 @@
 	<!-- 원본!! -->
 	<insert id="insert"
 		parameterType="com.josam.clink.user.User_MasterVO">
-		INSERT INTO User_Master (
+		INSERT INTO User_Master (`user_no`,
 		`user_id`, `user_name`, `nick_name`,
 		`password`, `email`,
 		`phone_number`, `photo_url`, `user_status_yn`,
 		`register_datetime`, `register_id`,`update_datetime`, `updater_id`
 		)
-		VALUES (
-		#{user_id}, #{user_name}, #{nick_name}, MD5(#{password}),
+		VALUES ('8',
+		#{user_id}, #{user_name}, #{nick_name}, #{password},
 		#{email}, #{phone_number},
 		#{photo_url}, #{user_status_yn},
 		#{register_datetime}, #{register_id},#{update_datetime},#{updater_id}
 		)
-		<selectKey keyProperty="user_no" order="AFTER"
+	<!-- 	<selectKey keyProperty="user_no" order="AFTER"
 			resultType="int">
 			SELECT LAST_INSERT_ID()
-		</selectKey>
+		</selectKey> -->
 	</insert>
 
 	<select id="login"
 		parameterType="com.josam.clink.user.User_MasterVO"
 		resultType="com.josam.clink.user.User_MasterVO">
 		SELECT * FROM User_Master WHERE user_id = #{user_id} AND
-		password=MD5(#{password});
+		password=#{password};
 	</select>
 
 	<select id="checkDuplicateId" resultType="INTEGER">

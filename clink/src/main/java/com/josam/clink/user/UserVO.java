@@ -1,20 +1,23 @@
 package com.josam.clink.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+
 
 @Data
 public class UserVO {
-	private int userNo;
-	private String userId;
-	private String userName;
-	private String nickname;
-	private String pwd;
+	private String user_no;
+	private String user_id;
+	private String user_name;
+	private String nick_name;
+	private String password;
 	private String email;
-	private String phoneNumber;
-	private String photoUrl;
-	private String userStatus;
-	private String userSocial;
-	private String userAccessToken;
-	private String userUpdateToken;	
-
+	private String phone_number;
+	private String photo_url;
+	private String user_status_yn;
+	
+	private String register_datetime;
+	private String register_id;
+	private String update_datetime;
+	private String update_id;
 }

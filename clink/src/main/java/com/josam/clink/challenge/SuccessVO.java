@@ -1,22 +1,20 @@
 package com.josam.clink.challenge;
 
 import java.math.BigDecimal;
-
-import com.josam.clink.user.UserVO;
+import java.sql.Timestamp;
 
 import lombok.Data;
 
 @Data
-public class ChallengeVO {
+public class SuccessVO {
 	
+	private String challenge_detail_success_date;
 	private String challenge_no;
 	private String user_no;
-	private String challenge_title;
-	private String challenge_description;
-	private BigDecimal challenge_amount;
+	private BigDecimal challenge_detail_success_amount;
 	
 	private String register_datetime;
-	private String	register_id;
+	private String register_id;
 	private String update_datetime;
 	private String update_id;
 }

@@ -5,24 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 @Service
 public class ChallengeService {
 	@Autowired
 	ChallengeMapper mapper;
 
-	public ChallengeVO myChallenge(UserVO uservo) {
+	public ChallengeVO myChallenge(User_MasterVO uservo) {
 		// 비밀번호 암호화
 		return mapper.myChallenge(uservo);
 	}
 	
-	public List<ExpenseVO> todayExpense(UserVO vo) {
+	public List<ExpenseVO> todayExpense(User_MasterVO vo) {
 		
 		return mapper.todayExpense(vo);
 	}
 	
-	public List<ChartVO> weekExpense(UserVO uvo){
+	public List<ChartVO> weekExpense(User_MasterVO uvo){
 		
 		return mapper.weekExpense(uvo);
 	};

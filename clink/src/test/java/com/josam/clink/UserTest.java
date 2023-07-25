@@ -13,7 +13,9 @@ import com.josam.clink.challenge.ChallengeVO;
 import com.josam.clink.challenge.ChartVO;
 import com.josam.clink.challenge.DayChallengeVO;
 import com.josam.clink.challenge.ExpenseVO;
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.UserController;
+import com.josam.clink.user.UserMapper;
+import com.josam.clink.user.User_MasterVO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,30 +29,30 @@ public class UserTest {
 	@Autowired
 	ChallengeMapper mapper;
 	
-	@Test
-	public void challenge() {
-		UserVO user= new UserVO();
-		user.setUserNO(1);
-		ChallengeVO c= new ChallengeVO();
-		c.setUvo(user);
-		c = mapper.myChallenge(user);
-		System.out.println(c.getTitle());
-		System.out.println(c.getDescription());
-		System.out.println(c.getGoal());
-	}
+//	@Test
+//	public void challenge() {
+//		UserVO user= new UserVO();
+//		user.setUserNO(1);
+//		ChallengeVO c= new ChallengeVO();
+//		c.setUvo(user);
+//		c = mapper.myChallenge(user);
+//		System.out.println(c.getTitle());
+//		System.out.println(c.getDescription());
+//		System.out.println(c.getGoal());
+//	}
 	
-	@Test
-	public void expense() {
-		ExpenseVO expense = new ExpenseVO();
-		UserVO user= new UserVO();
-		user.setUserNo(1);
-		ExpenseVO vo = new ExpenseVO();
-		vo.setUserNo(1);
-		List<ChartVO> vo_list = mapper.weekExpense(user);
-		for(ChartVO cvo: vo_list) {
-			System.out.println(cvo.getDate());
-		}
-	}
+//	@Test
+//	public void expense() {
+//		ExpenseVO expense = new ExpenseVO();
+//		User_MasterVO user= new User_MasterVO();
+//		user.setUserNo(1);
+//		ExpenseVO vo = new ExpenseVO();
+//		vo.setUserNo(1);
+//		List<ChartVO> vo_list = mapper.weekExpense(user);
+//		for(ChartVO cvo: vo_list) {
+//			System.out.println(cvo.getDate());
+//		}
+//	}
 	@Test
 	public void selectedExpense() {
 		ExpenseVO expense = new ExpenseVO();
@@ -93,5 +95,23 @@ public class UserTest {
 //		
 //		mapper.insert(user);
 //	}
+	
+	@Autowired
+	UserMapper usermapper;
+	
+	@Test
+	public void UserLoginTest() {
+		User_MasterVO uvo = new User_MasterVO();
+		uvo.setUser_id("test");
+		uvo.setPassword("1234");
+		usermapper.login(uvo);
+		if(usermapper.login(uvo)!=null) {
+			System.out.println("로그인 성공");
+		}else {
+			System.out.println("로그인 실패");
+		}
+		
+	}
+	
 	
 }

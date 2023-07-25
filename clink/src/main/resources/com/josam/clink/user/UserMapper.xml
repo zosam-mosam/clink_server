@@ -1,61 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.josam.clink.user.UserMapper">
-<!-- 로컬 테스트용 
-	<insert id="insert" parameterType="com.josam.clink.user.UserVO">
-		INSERT INTO user (
-			`userId`, `userName`, `nickname`, `pwd`, `email`, 
-			`phoneNumber`, `photoUrl`, `userStatus`, `userSocial`, `userAccessToken`, `userUpdateToken`
-		) VALUES (
-			#{userId}, #{userName}, #{nickname}, MD5(#{pwd}),#{email}, #{phoneNumber},
-			#{photoUrl}, #{userStatus}, #{userSocial}, #{userAccessToken}, #{userUpdateToken}
+	<!-- 원본!! -->
+	<insert id="insert"
+		parameterType="com.josam.clink.user.User_MasterVO">
+		INSERT INTO User_Master (
+		`user_id`, `user_name`, `nick_name`,
+		`password`, `email`,
+		`phone_number`, `photo_url`, `user_status_yn`,
+		`register_datetime`, `register_id`,`update_datetime`, `updater_id`
 		)
-		<selectKey keyProperty="userNo" order="AFTER" resultType="int">
+		VALUES (
+		#{user_id}, #{user_name}, #{nick_name}, MD5(#{password}),
+		#{email}, #{phone_number},
+		#{photo_url}, #{user_status_yn},
+		#{register_datetime}, #{register_id},#{update_datetime},#{updater_id}
+		)
+		<selectKey keyProperty="user_no" order="AFTER"
+			resultType="int">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-  
-  	<select id="login" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.user.UserVO">
-		SELECT * FROM user WHERE userId = #{userId} AND pwd=MD5(#{pwd});
+
+	<select id="login"
+		parameterType="com.josam.clink.user.User_MasterVO"
+		resultType="com.josam.clink.user.User_MasterVO">
+		SELECT * FROM User_Master WHERE user_id = #{user_id} AND
+		password=MD5(#{password});
 	</select>
-	
+
 	<select id="checkDuplicateId" resultType="INTEGER">
-		select count(*) from user where userId =#{userId}
+		select count(*) from
+		User_Master where user_id =#{user_id}
 	</select>
-	
-	 <select id="selectUserById" parameterType="int" resultType="com.josam.clink.user.UserVO">
-        SELECT * FROM user WHERE userId = #{userId}
-    </select>
--->
-	
-<!-- 원본!!-->
-	<insert id="insert" parameterType="com.josam.clink.user.UserVO">
-		INSERT INTO User (
-			`userId`, `userName`, `nickname`, `pwd`, `email`, 
-			`phoneNumber`, `photoUrl`, `userStatus`, `userSocial`, `userAccessToken`, `userUpdateToken`
+
+	<select id="selectUserById" parameterType="INTEGER"
+		resultType="com.josam.clink.user.User_MasterVO">
+		SELECT * FROM User_Master WHERE user_id = #{user_id}
+	</select>
+
+	<update id="update"
+		parameterType="com.josam.clink.user.User_MasterVO">
+		update User_Master set user_name= #{user_name},
+		nick_name= #{nick_name}, password=
+		#{password} where user_no =
+		#{user_no}
+	</update>
+
+	<insert id="registAccount"
+		parameterType="com.josam.clink.user.Account_DetailVO">
+		INSERT INTO Account_Detail (
+		`user_no`, `account_no`,
+		`account_balance`, `account_code`, `bank_code`
+
 		) VALUES (
-			#{userId}, #{userName}, #{nickname}, MD5(#{pwd}),   #{email}, #{phoneNumber},
-			#{photoUrl}, #{userStatus}, #{userSocial}, #{userAccessToken}, #{userUpdateToken}
+		#{user_no},
+		#{account_no}, #{account_balance}, #{account_code}, #{bank_code}
 		)
-			<selectKey keyProperty="userNo" order="AFTER" resultType="int">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
 	</insert>
-  
-  	<select id="login" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.user.UserVO">
-		SELECT * FROM User WHERE userId = #{userId} AND pwd=MD5(#{pwd});
+
+	<select id="checkAccount"
+		parameterType="com.josam.clink.user.Account_DetailVO"
+		resultType="com.josam.clink.user.Account_DetailVO">
+		SELECT * FROM Account_Detail WHERE (account_code = 1 OR account_code = 2)
+		AND user_no=${user_no};
 	</select>
-	
-	<select id="checkDuplicateId" resultType="INTEGER">
-		select count(*) from User where userId =#{userId}
-	</select>
-	
-	 <select id="selectUserById" parameterType="INTEGER" resultType="com.josam.clink.user.UserVO">
-        SELECT * FROM User WHERE userId = #{userId}
-    </select>
-    
-    <update id="update" parameterType="com.josam.clink.user.UserVO"  >
-    update User set userName= #{userName}, nickname= #{nickname},  pwd= #{pwd} where userNo = #{userNo}
-    </update>
+
+	<!-- 로컬 테스트용 <insert id="insert" parameterType="com.josam.clink.user.UserVO"> 
+		INSERT INTO user ( `userId`, `userName`, `nickname`, `pwd`, `email`, `phoneNumber`, 
+		`photoUrl`, `userStatus`, `userSocial`, `userAccessToken`, `userUpdateToken` 
+		) VALUES ( #{userId}, #{userName}, #{nickname}, MD5(#{pwd}),#{email}, #{phoneNumber}, 
+		#{photoUrl}, #{userStatus}, #{userSocial}, #{userAccessToken}, #{userUpdateToken} 
+		) <selectKey keyProperty="userNo" order="AFTER" resultType="int"> SELECT 
+		LAST_INSERT_ID() </selectKey> </insert> 
+		
+		<select id="login" parameterType="com.josam.clink.user.UserVO" 
+		resultType="com.josam.clink.user.UserVO"> SELECT * FROM user WHERE userId 
+		= #{userId} AND pwd=MD5(#{pwd}); </select> 
+		<select id="checkDuplicateId" 
+		resultType="INTEGER"> select count(*) from user where userId =#{userId} </select> 
+		
+		<select id="selectUserById" parameterType="int" resultType="com.josam.clink.user.UserVO"> 
+		SELECT * FROM user WHERE userId = #{userId} </select>
+		 -->
 </mapper>
 

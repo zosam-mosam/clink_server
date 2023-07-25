@@ -2,7 +2,7 @@ package com.josam.clink.challenge;
 
 import java.sql.Timestamp;
 
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 import lombok.Data;
 

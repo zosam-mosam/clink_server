@@ -16,6 +16,7 @@
 		#{photo_url}, #{user_status_yn},
 		#{register_datetime}, #{register_id},#{update_datetime},#{updater_id}
 		)
+		
 	<!-- 	<selectKey keyProperty="user_no" order="AFTER"
 			resultType="int">
 			SELECT LAST_INSERT_ID()

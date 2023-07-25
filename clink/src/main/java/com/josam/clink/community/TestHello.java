@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestHello {
 	@GetMapping("/hello")
 	@ResponseBody
-	public TestVO hello() {
+	public String hello() {
 		System.out.println("하이");
-		TestVO test = new TestVO();
-		test.setUser("바보야");
-		return test;
+		return "안녕";
 	}
 }

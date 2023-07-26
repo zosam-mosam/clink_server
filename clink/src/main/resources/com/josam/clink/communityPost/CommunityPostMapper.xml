@@ -5,13 +5,13 @@
 		select * from Board_Detail order by board_like_count desc Limit 5
 	</select>
 	<select id="freeList">
-		select * from Board_Detail order by board_like_count desc Limit 5
+		select * from Board_Detail where category_no=1 order by board_like_count desc Limit 5
 	</select>
 	<select id="infoList">
-		select * from Board_Detail order by board_like_count desc Limit 5
+		select * from Board_Detail where category_no=2 order by board_like_count desc Limit 5
 	</select>
 	<select id="annList">
-		select * from Board_Detail order by board_like_count desc Limit 5
+		select * from Board_Detail where category_no=3 order by board_like_count desc Limit 5
 	</select>
 	<select id="testss">
 		select user_id from User_Master where user_no="0";

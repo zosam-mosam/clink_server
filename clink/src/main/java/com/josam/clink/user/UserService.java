@@ -12,9 +12,9 @@ public class UserService {
 
 	public int insert(UserVO vo) {
 		// 비밀번호 암호화
-		System.out.println(vo.getUserNo());
+		System.out.println(vo.getUser_no());
 		int r = userMapper.insert(vo);
-		System.out.println(vo.getUserNo());
+		System.out.println(vo.getUser_no());
 		return r;
 	}
 	

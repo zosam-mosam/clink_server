@@ -35,15 +35,13 @@ public class UserController {
 	@PostMapping("/login.do")
 	@ResponseBody
 	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req, HttpSession sess) throws Exception {
-		System.out.println(user_MasterVO);
 		User_MasterVO login = userService.login(user_MasterVO);
 		System.out.println("login:" + login);
-		System.out.println("조인메서드에 도착했니??");
 		if (login == null) {
 			return null;
 		} else {
-			sess.setAttribute("loginSess", user_MasterVO);
-			System.out.println("loginSess:" + sess.getAttribute("loginSess"));
+//			sess.setAttribute("loginSess", user_MasterVO);
+//			System.out.println("loginSess:" + sess.getAttribute("loginSess"));
 			return login;
 		}
 	}
@@ -74,6 +72,8 @@ public class UserController {
 		}
 	}
 	
+	// 계좌 등록
+	// 유형별로 1개 등록하면 더 이상 등록은 못하고 수정만 가능하다~~ 
 	@PostMapping("/registAccount.do")
 	@ResponseBody
 	public int registAccount(@RequestBody Account_DetailVO account_DetailVO, HttpServletRequest req) throws Exception {
@@ -86,12 +86,16 @@ public class UserController {
 		}
 	}
 
+	// 등록된 계좌 있는지 확인
 	@PostMapping("/checkAccount.do")
 	@ResponseBody
 	public List<Account_DetailVO> checkAccount(@RequestBody Account_DetailVO account_DetailVO, HttpServletRequest req) throws Exception {
+		System.out.println("계좌 있는지 확인하자~~");
+		System.out.println(account_DetailVO);
+		
 		List<Account_DetailVO> checkAccount = userService.checkAccount(account_DetailVO);
 		return checkAccount;
-// 없으면 null 반환	
+		// 없으면 null 반환	
 
 	}
 }

@@ -5,22 +5,23 @@
 	<insert id="insert"
 		parameterType="com.josam.clink.user.User_MasterVO">
 		INSERT INTO User_Master (`user_no`,
-		`user_id`, `user_name`, `nick_name`,
+		`user_id`, `user_name`,
+		`nick_name`,
 		`password`, `email`,
-		`phone_number`, `photo_url`, `user_status_yn`,
-		`register_datetime`, `register_id`,`update_datetime`, `updater_id`
+		`phone_number`, `photo_url`,
+		`user_status_yn`,
+		`register_datetime`, `register_id`,`update_datetime`,
+		`updater_id`
 		)
 		VALUES ('8',
-		#{user_id}, #{user_name}, #{nick_name}, #{password},
+		#{user_id}, #{user_name}, #{nick_name},
+		#{password},
 		#{email}, #{phone_number},
 		#{photo_url}, #{user_status_yn},
 		#{register_datetime}, #{register_id},#{update_datetime},#{updater_id}
 		)
-		
-	<!-- 	<selectKey keyProperty="user_no" order="AFTER"
-			resultType="int">
-			SELECT LAST_INSERT_ID()
-		</selectKey> -->
+		<!-- <selectKey keyProperty="user_no" order="AFTER" resultType="int"> SELECT 
+			LAST_INSERT_ID() </selectKey> -->
 	</insert>
 
 	<select id="login"
@@ -28,6 +29,12 @@
 		resultType="com.josam.clink.user.User_MasterVO">
 		SELECT * FROM User_Master WHERE user_id = #{user_id} AND
 		password=#{password};
+		
+<!-- 		SELECT um.*, ad.account_no
+		FROM User_Master as um JOIN Account_Detail as ad
+		ON um.user_no = ad.user_no
+		WHERE user_no = ${user_no}; -->
+		
 	</select>
 
 	<select id="checkDuplicateId" resultType="INTEGER">
@@ -63,8 +70,7 @@
 	<select id="checkAccount"
 		parameterType="com.josam.clink.user.Account_DetailVO"
 		resultType="com.josam.clink.user.Account_DetailVO">
-		SELECT * FROM Account_Detail WHERE (account_code = 1 OR account_code = 2)
-		AND user_no=${user_no};
+		SELECT * FROM Account_Detail WHERE user_no = #{user_no};
 	</select>
 
 	<!-- 로컬 테스트용 <insert id="insert" parameterType="com.josam.clink.user.UserVO"> 
@@ -73,16 +79,11 @@
 		) VALUES ( #{userId}, #{userName}, #{nickname}, MD5(#{pwd}),#{email}, #{phoneNumber}, 
 		#{photoUrl}, #{userStatus}, #{userSocial}, #{userAccessToken}, #{userUpdateToken} 
 		) <selectKey keyProperty="userNo" order="AFTER" resultType="int"> SELECT 
-		LAST_INSERT_ID() </selectKey> </insert> 
-		
-		<select id="login" parameterType="com.josam.clink.user.UserVO" 
+		LAST_INSERT_ID() </selectKey> </insert> <select id="login" parameterType="com.josam.clink.user.UserVO" 
 		resultType="com.josam.clink.user.UserVO"> SELECT * FROM user WHERE userId 
-		= #{userId} AND pwd=MD5(#{pwd}); </select> 
-		<select id="checkDuplicateId" 
+		= #{userId} AND pwd=MD5(#{pwd}); </select> <select id="checkDuplicateId" 
 		resultType="INTEGER"> select count(*) from user where userId =#{userId} </select> 
-		
 		<select id="selectUserById" parameterType="int" resultType="com.josam.clink.user.UserVO"> 
-		SELECT * FROM user WHERE userId = #{userId} </select>
-		 -->
+		SELECT * FROM user WHERE userId = #{userId} </select> -->
 </mapper>
 

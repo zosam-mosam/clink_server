@@ -16,6 +16,25 @@ public class CommunityPostController {
 	@Autowired
 	CommunityPostService commPService;
 	
+	@GetMapping("/community/posts")
+	@ResponseBody
+	public List<CommunityPostVO> getPosts(@RequestParam String category_no, @RequestParam String filter){
+		// 1. category_no = 0 => 베스트 게시판
+		if("0".equals(category_no)) {
+			return commPService.getBestPosts();
+		}
+		// 2. category_no != 0 && filter = 1 (최신순)
+		if("1".equals(filter)){
+			return commPService.getPostsbyRecent(category_no);
+		}
+		// 3. category_no != 0 && filter = 2 (인기순)
+		if("2".equals(filter)){
+			return commPService.getPostsbyLike(category_no);
+		}
+		return null;
+		
+	}
+	
 	@GetMapping("/community/hot-posts")
 	@ResponseBody
 	public HotPostList getHotPost(){//최근 인기 게시물 가져오기
@@ -32,10 +51,4 @@ public class CommunityPostController {
 //		List<CommunityPostVO> PoList = commPService.getPost();
 //		return PoList;
 //	}
-	@GetMapping("community/posts")
-	@ResponseBody
-	public void getPost(@RequestParam int category_no,@RequestParam int filter) {
-		System.out.println("이건 카테고리번호:"+category_no);
-		System.out.println("이건 필터번호:"+filter);
-	}
 }

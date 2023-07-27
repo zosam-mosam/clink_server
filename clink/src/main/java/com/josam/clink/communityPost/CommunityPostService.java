@@ -16,6 +16,15 @@ public class CommunityPostService {
 		String test=mapper.testss();
 		return test;
 	}
+	public List<CommunityPostVO> getPostsbyRecent(String category_no) {
+		return mapper.getPostsbyRecent(category_no);
+	}
+	public List<CommunityPostVO> getPostsbyLike(String category_no){
+		return mapper.getPostsbyLike(category_no);
+	}
+	public List<CommunityPostVO> getBestPosts(){
+		return mapper.getBestPosts();
+	}
 	
 	public List<CommunityPostVO> HotPost(){
 		List<CommunityPostVO> list = mapper.list();

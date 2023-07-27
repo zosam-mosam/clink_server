@@ -49,10 +49,21 @@
 
 	<update id="update"
 		parameterType="com.josam.clink.user.User_MasterVO">
-		update User_Master set user_name= #{user_name},
-		nick_name= #{nick_name}, password=
-		#{password} where user_no =
-		#{user_no}
+		<!-- UPDATE User_Master SET user_name= #{user_name},nick_name= #{nick_name}, 
+			password=#{password} -->
+		UPDATE User_Master 
+		<set>
+			<if test="user_name != null and user_name != ''">
+				user_name = #{user_name},
+			</if>
+			<if test="nick_name != null and nick_name != ''">
+				nick_name = #{nick_name},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+		</set>
+		WHERE user_no =#{user_no}
 	</update>
 
 	<insert id="registAccount"
@@ -60,7 +71,6 @@
 		INSERT INTO Account_Detail (
 		`user_no`, `account_no`,
 		`account_balance`, `account_code`, `bank_code`
-
 		) VALUES (
 		#{user_no},
 		#{account_no}, #{account_balance}, #{account_code}, #{bank_code}

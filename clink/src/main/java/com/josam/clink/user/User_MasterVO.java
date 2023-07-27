@@ -1,11 +1,12 @@
 package com.josam.clink.user;
 
-import lombok.AllArgsConstructor;
+import java.sql.Timestamp;
+
 import lombok.Data;
 
-
 @Data
-public class UserVO {
+public class User_MasterVO {
+	
 	private String user_no;
 	private String user_id;
 	private String user_name;
@@ -19,5 +20,7 @@ public class UserVO {
 	private String register_datetime;
 	private String register_id;
 	private String update_datetime;
-	private String update_id;
+	private String updater_id;	
+	
+	Account_DetailVO account_DetailVO;
 }

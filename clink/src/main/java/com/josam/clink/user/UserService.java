@@ -1,16 +1,18 @@
 package com.josam.clink.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class UserService {
 	@Autowired
 	UserMapper userMapper;
 
-	public int insert(UserVO vo) {
+	public int insert(User_MasterVO vo) {
 		// 비밀번호 암호화
 		System.out.println(vo.getUser_no());
 		int r = userMapper.insert(vo);
@@ -18,20 +20,28 @@ public class UserService {
 		return r;
 	}
 	
-	public UserVO login(UserVO vo) {
+	public User_MasterVO login(User_MasterVO vo) {
 		return userMapper.login(vo);
 	}
 	
-	public UserVO getUserById(int userId) {
-		return userMapper.selectUserById(userId);
+	public User_MasterVO getUserById(int user_id) {
+		return userMapper.selectUserById(user_id);
 	}
 	
-	public int checkDuplicateId(String userId) {
-		return userMapper.checkDuplicateId(userId);
+	public int checkDuplicateId(String user_id) {
+		return userMapper.checkDuplicateId(user_id);
 	}
 	
-	public int update(UserVO vo) {
+	public int update(User_MasterVO vo) {
 		return userMapper.update(vo);
+	}
+	
+	public int registAccount(Account_DetailVO vo) {
+		return userMapper.registAccount(vo);
+	}
+	
+	public List<Account_DetailVO> checkAccount(Account_DetailVO vo) {
+		return userMapper.checkAccount(vo);
 	}
 	
 	   

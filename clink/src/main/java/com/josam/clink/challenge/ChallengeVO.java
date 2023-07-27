@@ -2,8 +2,6 @@ package com.josam.clink.challenge;
 
 import java.math.BigDecimal;
 
-import com.josam.clink.user.UserVO;
-
 import lombok.Data;
 
 @Data
@@ -22,4 +20,5 @@ public class ChallengeVO {
 	
 	private String from;
 	private String to;
+
 }

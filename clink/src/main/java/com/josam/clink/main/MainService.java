@@ -1,6 +1,5 @@
 package com.josam.clink.main;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.josam.clink.challenge.ChallengeVO;
 import com.josam.clink.challenge.SuccessVO;
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 
 @Service
@@ -19,7 +18,7 @@ public class MainService {
 	@Autowired
 	MainMapper mainMapper;
 	
-	public BadgeVO getBadge (UserVO vo) {
+	public BadgeVO getBadge (User_MasterVO vo) {
 		return mainMapper.getBadge(vo);
 	}
 	
@@ -71,7 +70,7 @@ public ReportVO getReportData(ChallengeVO cvo){
 		
 		//Report
 		//총 사용금액
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no(cvo.getUser_no());
 		ReportVO temp = mainMapper.getReportData(uvo);
 		rvo.setSum(temp.sum);

@@ -1,7 +1,5 @@
 package com.josam.clink.main;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.josam.clink.challenge.ChallengeService;
 import com.josam.clink.challenge.ChallengeVO;
-import com.josam.clink.challenge.SuccessVO;
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 @Controller
 @RequestMapping("/main")
@@ -30,7 +27,7 @@ public class MainController {
 
 		MainPageVO mpvo = new MainPageVO();
 		mpvo.setUser_no(userNo);
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no(userNo);
 		
 		//Badge

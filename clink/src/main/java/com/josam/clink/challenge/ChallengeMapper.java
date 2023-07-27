@@ -4,28 +4,20 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 @Mapper
 public interface ChallengeMapper {
 	
-	List<HistoryVO> getALLHistory(UserVO vo);
-	List<SuccessVO> getAllHistoryForInsertSuccess(UserVO vo);
+	List<HistoryVO> getALLHistory(User_MasterVO vo);
+	List<SuccessVO> getAllHistoryForInsertSuccess(User_MasterVO vo);
 	int insertSuccess(SuccessVO svo);
-	ChallengeVO myChallenge(UserVO vo);
-	List<HistoryVO> todayHistory(UserVO vo);
-	List<HistoryVO> yesterdayHistory(UserVO vo);
-	List<ChartVO> weekHistory(UserVO vo);
+	ChallengeVO myChallenge(User_MasterVO vo);
+	List<HistoryVO> todayHistory(User_MasterVO vo);
+	List<HistoryVO> yesterdayHistory(User_MasterVO vo);
+	List<ChartVO> weekHistory(User_MasterVO vo);
 	List<HistoryVO> selectedHistory(HistoryVO vo);
 	int deleteHistory(HistoryVO vo);
 	int updateHistory(HistoryVO vo);
 	
-	
-//	ChallengeVO myChallenge(UserVO vo);
-//	List<HistoryVO> todayExpense(UserVO vo);
-//	List<ChartVO> weekExpense(UserVO vo);
-//	List<HistoryVO> selectedExpense(HistoryVO vo);
-//	List<HistoryVO> allExpense(UserVO vo);
-//	List<DayChallengeVO> getTodayExpense(HistoryVO vo);
-//	int insertDayChallenge(DayChallengeVO vo);
 }

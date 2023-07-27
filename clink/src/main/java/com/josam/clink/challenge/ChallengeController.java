@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 //http://localhost:port/challenge/index.do?userNo=1
 @RequestMapping("/challenge")
@@ -30,8 +30,7 @@ public class ChallengeController {
 	@GetMapping("/main-info")
 	@ResponseBody
 	public ChallengePageVO challenge(@RequestParam String userNo) {
-		
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no(userNo);
 		ChallengeVO cvo = challengeService.myChallenge(uvo);
 		List<HistoryVO> today = challengeService.todayHistory(uvo);

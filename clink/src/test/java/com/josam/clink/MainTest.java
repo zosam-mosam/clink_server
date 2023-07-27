@@ -15,7 +15,7 @@ import com.josam.clink.main.QuoteVO;
 import com.josam.clink.main.ReportVO;
 import com.josam.clink.main.StreakVO;
 import com.josam.clink.main.StreakdataVO;
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,7 +37,7 @@ public class MainTest {
 	
 	@Test
 	public void badgeTest(){ 
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		BadgeVO bvo = ms.getBadge(uvo);
 		
@@ -53,7 +53,7 @@ public class MainTest {
 	
 	@Test
 	public void streakTest() {
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		ChallengeVO cvo = cs.myChallenge(uvo);
 		StreakVO svoList = ms.getStreakData(cvo);
@@ -66,7 +66,7 @@ public class MainTest {
 	@Test
 	public void savingYesteday() {
 		
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		ChallengeVO cvo = cs.myChallenge(uvo);
 		SuccessVO svo = mapper.getYesterdaySaving(cvo);
@@ -76,7 +76,7 @@ public class MainTest {
 	@Test
 	public void savingTotal() {
 		
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		ChallengeVO cvo = cs.myChallenge(uvo);
 		System.out.println(cvo.getChallenge_no()+" "+cvo.getUser_no()+" "+cvo.getChallenge_amount());
@@ -87,7 +87,7 @@ public class MainTest {
 	@Test
 	public void reportData() {
 		
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		
 		//System.out.println(cvo.getChallenge_no()+" "+cvo.getUser_no()+" "+cvo.getChallenge_amount());
@@ -98,7 +98,7 @@ public class MainTest {
 	@Test
 	public void category() {
 		
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		
 		//System.out.println(cvo.getChallenge_no()+" "+cvo.getUser_no()+" "+cvo.getChallenge_amount());

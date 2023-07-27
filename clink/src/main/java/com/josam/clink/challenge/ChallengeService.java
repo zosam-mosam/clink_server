@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 @Service
 public class ChallengeService {
 	@Autowired
 	ChallengeMapper mapper;
 	
-	public List<SuccessVO> getAllHistoryForInsertSuccess(UserVO vo){
+	public List<SuccessVO> getAllHistoryForInsertSuccess(User_MasterVO vo){
 		return mapper.getAllHistoryForInsertSuccess(vo);
 	}
 	
@@ -20,21 +20,21 @@ public class ChallengeService {
 		return mapper.insertSuccess(vo);
 	}
 	
-	public ChallengeVO myChallenge(UserVO vo) {
+	public ChallengeVO myChallenge(User_MasterVO vo) {
 		return mapper.myChallenge(vo);
 	};
 	
-	public List<HistoryVO> todayHistory(UserVO vo) {
+	public List<HistoryVO> todayHistory(User_MasterVO vo) {
 			
 			return mapper.todayHistory(vo);
 	}
 	
-	public List<HistoryVO> yesterdayHistory(UserVO vo) {
+	public List<HistoryVO> yesterdayHistory(User_MasterVO vo) {
 		
 		return mapper.yesterdayHistory(vo);
 }
 	
-	public List<ChartVO> weekHistory(UserVO vo){
+	public List<ChartVO> weekHistory(User_MasterVO vo){
 		
 		return mapper.weekHistory(vo);
 	};
@@ -53,23 +53,4 @@ public class ChallengeService {
 		return mapper.updateHistory(vo);
 	};
 	
-//	public ChallengeVO myChallenge(UserVO uservo) {
-//		// 비밀번호 암호화
-//		return mapper.myChallenge(uservo);
-//	}
-//	
-//	public List<HistoryVO> todayExpense(UserVO vo) {
-//		
-//		return mapper.todayExpense(vo);
-//	}
-//	
-//	public List<ChartVO> weekExpense(UserVO uvo){
-//		
-//		return mapper.weekExpense(uvo);
-//	};
-//	
-//	public List<HistoryVO> selectedExpense(HistoryVO vo){
-//		
-//		return mapper.selectedExpense(vo);
-//	};
 }

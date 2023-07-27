@@ -11,24 +11,46 @@ import com.josam.clink.user.User_MasterVO;
 public class ChallengeService {
 	@Autowired
 	ChallengeMapper mapper;
-
-	public ChallengeVO myChallenge(User_MasterVO uservo) {
-		// 비밀번호 암호화
-		return mapper.myChallenge(uservo);
+	
+	public List<SuccessVO> getAllHistoryForInsertSuccess(User_MasterVO vo){
+		return mapper.getAllHistoryForInsertSuccess(vo);
 	}
 	
-	public List<ExpenseVO> todayExpense(User_MasterVO vo) {
-		
-		return mapper.todayExpense(vo);
+	public int insertSuccess(SuccessVO vo) {
+		return mapper.insertSuccess(vo);
 	}
 	
-	public List<ChartVO> weekExpense(User_MasterVO uvo){
-		
-		return mapper.weekExpense(uvo);
+	public ChallengeVO myChallenge(User_MasterVO vo) {
+		return mapper.myChallenge(vo);
 	};
 	
-	public List<ExpenseVO> selectedExpense(ExpenseVO vo){
+	public List<HistoryVO> todayHistory(User_MasterVO vo) {
+			
+			return mapper.todayHistory(vo);
+	}
+	
+	public List<HistoryVO> yesterdayHistory(User_MasterVO vo) {
 		
-		return mapper.selectedExpense(vo);
+		return mapper.yesterdayHistory(vo);
+}
+	
+	public List<ChartVO> weekHistory(User_MasterVO vo){
+		
+		return mapper.weekHistory(vo);
 	};
+	
+	public List<HistoryVO> selectedHistory(HistoryVO vo){
+		
+		return mapper.selectedHistory(vo);
+	};
+	
+	public int deleteHistory(HistoryVO vo) {
+		
+		return mapper.deleteHistory(vo);
+	};
+	public int updateHistory(HistoryVO vo) {
+			
+		return mapper.updateHistory(vo);
+	};
+	
 }

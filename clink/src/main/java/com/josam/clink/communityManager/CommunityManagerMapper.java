@@ -16,4 +16,7 @@ public interface CommunityManagerMapper {
 	public int getCommentId();
 	public void deleteBoard(int board_no);
 	public void deleteComment(int comment_id);
+	public List<CommentVO> getComment(int board_no);
+	void insertPost(CommunityPostVO pvo);
+	void insertHashtag(String category_no,String hashtag);
 }

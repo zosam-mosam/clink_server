@@ -16,9 +16,9 @@ import com.josam.clink.communityPost.CommunityPostVO;
 @Controller
 @RequestMapping("/community")
 public class CommunityManagerController {
+	
 	@Autowired
 	CommunityManagerService communityManagerService;
-	
 	/**
 	 * 
 	 * @param board_no 게시물 번호
@@ -28,6 +28,19 @@ public class CommunityManagerController {
 	@ResponseBody	
 	public CommunityPostVO getPost(@RequestParam String board_no) {
 		return communityManagerService.getPost(board_no);
+	}
+
+	@PostMapping("/post/insert")
+	@ResponseBody
+	public void insertPost(@RequestBody CommunityPostVO pvo) {
+		communityManagerService.insertPost(pvo);		
+		System.out.println("여기는 인설트 컨드롤러");
+		System.out.println(pvo);
+		String[] hashtag_list=pvo.getHashtag_content().split(",");
+		for(int i=0;i<hashtag_list.length;i++) {
+			System.out.println(hashtag_list[i]);
+			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i]);
+		}
 	}
 	
 	@PostMapping("/post/update")

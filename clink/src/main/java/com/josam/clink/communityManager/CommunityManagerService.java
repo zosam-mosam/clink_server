@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.josam.clink.communityPost.CommunityPostVO;
 
+import com.josam.clink.communityPost.CommunityPostVO;
+
 @Service
 public class CommunityManagerService {
 
@@ -31,7 +33,6 @@ public class CommunityManagerService {
 	public void insertComment(CommentVO cvo) {
 		communityManagerMapper.insertComment(cvo);
 	}
-	
 	public int getCommentId() {
 		return communityManagerMapper.getCommentId();
 	}
@@ -42,5 +43,11 @@ public class CommunityManagerService {
 	
 	public void deleteComment(int comment_id) {
 		communityManagerMapper.deleteComment(comment_id);
+	}
+	public void insertPost(CommunityPostVO pvo) {
+		communityManagerMapper.insertPost(pvo);
+	}
+	public void insertHashtag(String category_no,String hashtag) {
+		communityManagerMapper.insertHashtag(category_no,hashtag);
 	}
 }

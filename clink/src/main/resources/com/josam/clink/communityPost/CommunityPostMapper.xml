@@ -19,13 +19,13 @@
 	<select id="getPostsbyRecent" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
-		WHERE category_no=#{category_no}
+		WHERE category_no=#{category_no} and hashtag_content like CONCAT('%', #{hashtag}, '%')
 		ORDER BY register_datetime DESC;
 	</select>
 	<select id="getPostsbyLike" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
-		WHERE category_no=#{category_no}
+		WHERE category_no=#{category_no} and hashtag_content like CONCAT('%', #{hashtag}, '%')
 		ORDER BY board_like_count DESC, register_datetime DESC;
 	</select>
 	<select id="getBestPosts" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
@@ -33,5 +33,12 @@
 		FROM Board_Detail
 		WHERE board_like_count >= 10
 		ORDER BY register_datetime DESC;
+	</select>
+	<select id="getHashtag">
+		SELECT hashtag_content
+		FROM clink1.Hashtag_Detail
+		where category_no=#{category_no}
+		group by hashtag_content
+		order by count(hashtag_content) desc Limit 3;
 	</select>
 </mapper>

@@ -16,11 +16,11 @@ public class CommunityPostService {
 		String test=mapper.testss();
 		return test;
 	}
-	public List<CommunityPostVO> getPostsbyRecent(String category_no) {
-		return mapper.getPostsbyRecent(category_no);
+	public List<CommunityPostVO> getPostsbyRecent(String category_no,String hashtag) {
+		return mapper.getPostsbyRecent(category_no,hashtag);
 	}
-	public List<CommunityPostVO> getPostsbyLike(String category_no){
-		return mapper.getPostsbyLike(category_no);
+	public List<CommunityPostVO> getPostsbyLike(String category_no,String hashtag){
+		return mapper.getPostsbyLike(category_no,hashtag);
 	}
 	public List<CommunityPostVO> getBestPosts(){
 		return mapper.getBestPosts();
@@ -52,6 +52,10 @@ public class CommunityPostService {
 		if(list.isEmpty()) {
 			list.add(CPV);
 		}
+	}
+	public List<String> getHashtag(int category_no){
+		List<String> list = mapper.getHashtag(category_no);
+		return list;
 	}
 	
 }

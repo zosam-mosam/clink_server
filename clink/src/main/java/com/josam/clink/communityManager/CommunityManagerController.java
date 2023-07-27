@@ -23,8 +23,7 @@ public class CommunityManagerController {
 	@PostMapping("/post/insert")
 	@ResponseBody
 	public void insertPost(@RequestBody CommunityPostVO pvo) {
-		communityManagerService.insertPost(pvo);		
-		System.out.println("여기는 인설트 컨드롤러");
+		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
 		for(int i=0;i<hashtag_list.length;i++) {

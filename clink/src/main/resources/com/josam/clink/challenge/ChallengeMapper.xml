@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.josam.clink.challenge.ChallengeMapper">
   
-  	<select id="myChallenge" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.ChallengeVO">
+  	<select id="myChallenge" parameterType="com.josam.clink.user.User_MasterVO" resultType="com.josam.clink.challenge.ChallengeVO">
 		SELECT * FROM Challenge WHERE userNO=#{userNo}
 	</select>
 	
-	<select id="todayExpense" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.ExpenseVO">
+	<select id="todayExpense" parameterType="com.josam.clink.user.User_MasterVO" resultType="com.josam.clink.challenge.ExpenseVO">
 		SELECT * FROM Expense WHERE userNO=#{userNo} AND DATE_FORMAT(expenseDate, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') 
 	</select>
 	
-	<select id="weekExpense" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.ChartVO">
+	<select id="weekExpense" parameterType="com.josam.clink.user.User_MasterVO" resultType="com.josam.clink.challenge.ChartVO">
 		SELECT 
 	DATE_FORMAT(expenseDate, '%Y-%m-%d') as date,
 	SUM(if(categoryId=1, expenseAmount, 0)) as "c1",
-    SUM(if(categoryId=2, expenseAmount, 0)) as "c2",
+    SUM(if(categoryId=2, expenseAmount, 0)) as "c2",0
     SUM(if(categoryId=3, expenseAmount, 0)) as "c3",
     SUM(if(categoryId=4, expenseAmount, 0)) as "c4",
     SUM(if(categoryId=5, expenseAmount, 0)) as "c5",

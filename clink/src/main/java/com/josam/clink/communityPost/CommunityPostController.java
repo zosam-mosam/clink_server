@@ -19,11 +19,7 @@ public class CommunityPostController {
 	@GetMapping("/community/hot-posts")
 	@ResponseBody
 	public HotPostList getHotPost(){//최근 인기 게시물 가져오기
-//		System.out.println("커뮤니티");
 		HotPostList hpl = new HotPostList();
-//		System.out.println("핫포스트");
-//		String testDB=commPService.test();
-//		System.out.println(testDB);
 		hpl.setHotPost(commPService.HotPost());
 		hpl.setHotFreePost(commPService.HotFreePost());
 		hpl.setHotInfoPost(commPService.HotInfoPost());

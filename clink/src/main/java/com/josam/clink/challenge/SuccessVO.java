@@ -13,6 +13,8 @@ public class SuccessVO {
 	private String user_no;
 	private BigDecimal challenge_detail_success_amount;
 	
+	private BigDecimal result_success_amount;
+	
 	private String register_datetime;
 	private String register_id;
 	private String update_datetime;

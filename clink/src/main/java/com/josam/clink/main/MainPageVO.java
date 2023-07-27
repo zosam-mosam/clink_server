@@ -1,18 +1,21 @@
 package com.josam.clink.main;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.List;
 
-@Setter @Getter
-public class MainVO {
+import com.josam.clink.challenge.SuccessVO;
 
-	int status = 200;
-	String userID;
+import lombok.Data;
+
+@Data
+public class MainPageVO {
+	
+	String user_no;
+	BadgeVO badge;
 	QuoteVO quote;
-	List<MonthDataVO> monthData;
-	DataVO vo;
+	StreakVO streakData;
+	ReportVO report;
+//	List<MonthDataVO> monthData;
+//	DataVO vo;
 
 	// 받는 값 :
 	// userid / 퀴리조회를 위한 아이디 받기

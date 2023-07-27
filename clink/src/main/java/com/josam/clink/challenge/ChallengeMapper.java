@@ -14,6 +14,7 @@ public interface ChallengeMapper {
 	int insertSuccess(SuccessVO svo);
 	ChallengeVO myChallenge(UserVO vo);
 	List<HistoryVO> todayHistory(UserVO vo);
+	List<HistoryVO> yesterdayHistory(UserVO vo);
 	List<ChartVO> weekHistory(UserVO vo);
 	List<HistoryVO> selectedHistory(HistoryVO vo);
 	int deleteHistory(HistoryVO vo);

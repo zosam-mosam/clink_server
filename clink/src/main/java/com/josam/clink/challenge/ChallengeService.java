@@ -29,6 +29,11 @@ public class ChallengeService {
 			return mapper.todayHistory(vo);
 	}
 	
+	public List<HistoryVO> yesterdayHistory(UserVO vo) {
+		
+		return mapper.yesterdayHistory(vo);
+}
+	
 	public List<ChartVO> weekHistory(UserVO vo){
 		
 		return mapper.weekHistory(vo);

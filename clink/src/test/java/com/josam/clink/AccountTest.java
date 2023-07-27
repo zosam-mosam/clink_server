@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.josam.clink.challenge.ChallengeMapper;
 import com.josam.clink.challenge.ChallengeService;
 import com.josam.clink.challenge.ChartVO;
+import com.josam.clink.challenge.HistoryVO;
 import com.josam.clink.challenge.SuccessVO;
 import com.josam.clink.user.UserVO;
 
@@ -42,7 +43,12 @@ public class AccountTest {
 			if (svo.getChallenge_detail_success_amount().compareTo(goal)<=0) {
 				svo.setChallenge_no("10721");
 				svo.setRegister_id("01010");
-				mapper.insertSuccess(svo);
+				try {
+					mapper.insertSuccess(svo);
+				}catch(Exception e) {
+					System.out.println(e);
+				}
+				
 			}
 		}
 	}
@@ -58,5 +64,15 @@ public class AccountTest {
 			System.out.println(vo.getDate()+" "+vo.getC1()+" "+vo.getC2()+" "+vo.getC3());
 		}
 		
+	}
+	
+	@Test
+	public void yesterdayHistory() {
+		UserVO uvo = new UserVO();
+		uvo.setUser_no("00000");
+		List<HistoryVO> list = mapper.yesterdayHistory(uvo);
+		for(HistoryVO vo: list) {
+			System.out.println(vo.getTransaction_datetime()+" "+vo.getAccount_no());
+		}
 	}
 }

@@ -14,6 +14,13 @@
 			AND history_delete_yn LIKE "n";
 	</select>
 	
+	<select id="yesterdayHistory" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.HistoryVO">
+		SELECT  *
+		FROM	Account_History
+		WHERE	DATE_FORMAT(transaction_datetime, '%Y-%m-%d') = DATE_FORMAT(now() - INTERVAL 1 DAY, '%Y-%m-%d')
+			AND history_delete_yn LIKE 'n';
+	</select>
+	
 	<select id="weekHistory" parameterType="com.josam.clink.user.UserVO" resultType="com.josam.clink.challenge.ChartVO">
 		SELECT 
 			DATE_FORMAT(transaction_datetime, '%Y-%m-%d') as date,
@@ -67,6 +74,7 @@
 		SELECT user_no, sum(transaction_amount) as challenge_detail_success_amount, DATE_FORMAT(transaction_datetime, '%Y-%m-%d') as challenge_detail_success_date  
 		FROM clink1.Account_History 
 		WHERE user_no LIKE #{user_no}
+			AND history_delete_yn LIKE 'n'
 		GROUP BY DATE_FORMAT(transaction_datetime, '%Y-%m-%d');
 	</select>
 	

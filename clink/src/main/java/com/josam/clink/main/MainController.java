@@ -1,12 +1,18 @@
 package com.josam.clink.main;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.josam.clink.challenge.ChallengeService;
+import com.josam.clink.challenge.ChallengeVO;
+import com.josam.clink.challenge.SuccessVO;
+import com.josam.clink.user.UserVO;
 
 @Controller
 @RequestMapping("/main")
@@ -15,37 +21,33 @@ public class MainController {
 	@Autowired
 	MainService mainService;
 	
+	@Autowired
+	ChallengeService cService;
+	
 	@GetMapping("/info")
 	@ResponseBody
-	public MainVO getMainInfo(@RequestParam String userId) {
+	public MainPageVO getMainInfo(@RequestParam String userNo) {
 
-		MainVO mainVO = new MainVO();
-
-		//userID
-		mainVO.setUserID(userId);
-
-		//userNo
-		int userNo = mainService.getUserNo(userId);
+		MainPageVO mpvo = new MainPageVO();
+		mpvo.setUser_no(userNo);
+		UserVO uvo = new UserVO();
+		uvo.setUser_no(userNo);
+		
+		//Badge
+		mpvo.setBadge(mainService.getBadge(uvo));
 		
 		//Quote
-		int quoteNumber = 2;
-		QuoteVO quote = mainService.getQuote(quoteNumber);
+		mpvo.setQuote(mainService.getQuote());
 
-		if(quote == null) System.out.println("quote Error");
-		else mainVO.setQuote(quote);
-
-		//Time set
-		Date yesterday = Date.valueOf(LocalDate.now().plusDays(-1));
+		//StreakData
+		ChallengeVO cvo = cService.myChallenge(uvo);
+		StreakVO svo =  mainService.getStreakData(cvo);
+		mpvo.setStreakData(svo);
 		
-		// Month data Test
-		List<MonthDataVO> monthData = mainService.getMonthData(userNo, yesterday);
-		mainVO.setMonthData(monthData);
+		//ReportData
+		mpvo.setReport(mainService.getReportData(cvo));
 
-		//Data test
-		DataVO dataVO = mainService.getData(userNo, yesterday);
-		mainVO.setVo(dataVO);
-		
-		return mainVO;
+		return mpvo;
 	}
 	
 }

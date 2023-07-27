@@ -19,4 +19,7 @@ public class ChallengeVO {
 	private String	register_id;
 	private String update_datetime;
 	private String update_id;
+	
+	private String from;
+	private String to;
 }

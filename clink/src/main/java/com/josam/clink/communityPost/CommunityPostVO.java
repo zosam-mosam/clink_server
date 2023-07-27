@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class CommunityPostVO {
-	private String board_no;
+	private int board_no;
 	private String user_no;
 	private String category_no;
 	private int board_views;

@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.josam.clink.communityManager.CommunityManagerMapper">
-	<insert id="insertComment" parameterType="com.josam.clink.communityPost.CommunityPostsVO" useGeneratedKeys="true" keyProperty="commentId">
+	<insert id="insertComment" parameterType="com.josam.clink.communityPost.CommunityPostVO" useGeneratedKeys="true" keyProperty="comment_id">
 		INSERT INTO Comment_Detail 
 				(board_no, register_id, register_datetime, comment_content, parent_id)
 		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id})
 	</insert>
-	<select id="getPost" parameterType="INTEGER" resultType="com.josam.clink.communityPost.CommunityPostsVO">
-		SELECT boardNo, boardTitle, boardContent, boardDate, boardWriter, boardLikes FROM Board WHERE boardNo=#{boardNo} ORDER BY boardDate DESC;
+	<select id="getCommentId">
+		SELECT MAX(comment_id)
+		FROM Comment_Detail
+	</select>
+	<insert id="insertReply" parameterType="com.josam.clink.communityPost.CommunityPostVO" useGeneratedKeys="true" keyProperty="comment_id">
+		INSERT INTO Comment_Detail 
+				(board_no, register_id, register_datetime, comment_content, parent_id)
+		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id})
+	</insert>
+	<select id="getPost" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
+		SELECT 
+			board_no, 
+			board_title, 
+			board_content, 
+			register_datetime, 
+			register_id, 
+			board_like_count,
+			hashtag_content,
+			board_views
+		FROM Board_Detail 
+		WHERE board_no=#{board_no} 
+		ORDER BY register_datetime DESC;
+	</select>
+	<update id="updateBoard" parameterType="com.josam.clink.communityPost.CommunityPostVO" >
+		UPDATE Board_Detail SET 
+			board_title = #{board_title},
+			board_content = #{board_content},
+		    update_datetime = now(),
+		    hashtag_content= #{hashtag_content}
+		WHERE board_no = #{board_no};
+	</update>
+	<delete id="deleteBoard" parameterType="INTEGER">
+		DELETE FROM Board_Detail 
+		WHERE board_no = #{board_no};
+	</delete>
+	
+	<select id="getComment" parameterType="STRING" resultType="com.josam.clink.communityManager.CommentVO">
+		SELECT * 
+		FROM Comment_Detail 
+		WHERE board_no=#{board_no} 
+		ORDER BY register_datetime ASC;
 	</select>
 	
-	<select id="getComment" parameterType="INTEGER" resultType="com.josam.clink.communityManager.CommentVO">
-		SELECT * FROM Comment_Detail WHERE board_no=#{board_no} ORDER BY register_datetime ASC;
-	</select>
+	<delete id="deleteComment" parameterType="INTEGER">
+		DELETE FROM Comment_Detail 
+		WHERE comment_id = #{comment_id};
+	</delete>
+	
+	
+	
+
 </mapper>

@@ -16,4 +16,22 @@
 	<select id="testss">
 		select user_id from User_Master where user_no="0";
 	</select>
+	<select id="getPostsbyRecent" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
+		SELECT *
+		FROM Board_Detail
+		WHERE category_no=#{category_no}
+		ORDER BY register_datetime DESC;
+	</select>
+	<select id="getPostsbyLike" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
+		SELECT *
+		FROM Board_Detail
+		WHERE category_no=#{category_no}
+		ORDER BY board_like_count DESC, register_datetime DESC;
+	</select>
+	<select id="getBestPosts" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
+		SELECT *
+		FROM Board_Detail
+		WHERE board_like_count >= 10
+		ORDER BY register_datetime DESC;
+	</select>
 </mapper>

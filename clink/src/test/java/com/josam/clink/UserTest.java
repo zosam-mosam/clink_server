@@ -1,19 +1,10 @@
 package com.josam.clink;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.josam.clink.challenge.ChallengeMapper;
-import com.josam.clink.challenge.ChallengeVO;
-import com.josam.clink.challenge.ChartVO;
-import com.josam.clink.challenge.DayChallengeVO;
-import com.josam.clink.challenge.ExpenseVO;
-import com.josam.clink.user.UserController;
 import com.josam.clink.user.UserMapper;
 import com.josam.clink.user.User_MasterVO;
 

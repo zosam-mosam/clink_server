@@ -89,8 +89,8 @@ public class CommunityManagerController {
 	
 	@GetMapping("/like")
 	@ResponseBody
-	public void getLike(String user_id) {
-		communityManagerService.getLike(user_id);
+	public List<Integer> getLike(String user_id) {
+		return communityManagerService.getLike(user_id);
 	}
 	
 	@PostMapping("/post/like/insert")

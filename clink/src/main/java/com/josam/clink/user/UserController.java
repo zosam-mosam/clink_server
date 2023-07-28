@@ -22,40 +22,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	// 프로필 이미지 등록
-	@PostMapping("/photo-url.do")
-	@ResponseBody
-	public String profileImage(User_MasterVO user_MasterVO,
-		MultipartFile file) {
-		System.out.println("user_MasterVO"+user_MasterVO);
-		System.out.println("file"+file);
-		if (!file.isEmpty()) {
-			String org = file.getOriginalFilename();
-//			String ext = org.substring(org.lastIndexOf("."));
-			System.out.println("업로드된 파일 이름:" + org);
-//			String real = System.currentTimeMillis()+ext;
-			user_MasterVO.setPhoto_url(org);
-			String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static";
-			File saveFile = new File(uploadFolder + "\\" + org);
-			System.out.println("saveFile:"+saveFile);
-			System.out.println("org:"+org);
-			try {
-				file.transferTo(saveFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			int r = userService.profileImage(user_MasterVO);
-			if (r == 1) {
-				return org;
-			} else {
-				return null;
-			}
-		}else {
-			return null;
-		}
-	}
-
 	// 회원가입
 	@PostMapping("/join.do")
 	@ResponseBody
@@ -111,19 +77,6 @@ public class UserController {
 		}
 	}
 
-	// 이메일 인증
-//	@PostMapping("/emailAuth.do")
-//	@ResponseBody
-//	public String emailAuth(@RequestBody User_MasterVO user_MasterVO) {
-//		int emailAuth = userService.emailAuth(user_MasterVO);
-//		System.out.println(emailAuth);
-//		if (emailAuth == 0) {
-//			return "success";
-//		} else {
-//			return "fail";
-//		}
-//	}
-
 	// 계좌 등록
 	// 유형별로 1개 등록하면 더 이상 등록은 못하고 수정만 가능하다~~
 	@PostMapping("/registAccount.do")
@@ -163,4 +116,47 @@ public class UserController {
 		return checkAccount;
 		// 없으면 null 반환
 	}
+	
+	// 프로필 이미지 등록
+		@PostMapping("/photo-url.do")
+		@ResponseBody
+		public String profileImage(User_MasterVO user_MasterVO,
+			MultipartFile file) {
+			System.out.println("user_MasterVO"+user_MasterVO);
+			System.out.println("file"+file);
+			if (!file.isEmpty()) {
+				String org = file.getOriginalFilename();
+//				String ext = org.substring(org.lastIndexOf("."));
+				System.out.println("업로드된 파일 이름:" + org);
+//				String real = System.currentTimeMillis()+ext;
+				user_MasterVO.setPhoto_url(org);
+				String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static\\img";
+				File saveFile = new File(uploadFolder + "\\" + org);
+				System.out.println("saveFile:"+saveFile);
+				System.out.println("org:"+org);
+				try {
+					file.transferTo(saveFile);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				int r = userService.profileImage(user_MasterVO);
+				if (r == 1) return org;
+				else return null;
+			}else {
+				return null;
+			}
+		}
+		
+		// 이메일 인증
+//		@PostMapping("/emailAuth.do")
+//		@ResponseBody
+//		public String emailAuth(@RequestBody User_MasterVO user_MasterVO) {
+//			int emailAuth = userService.emailAuth(user_MasterVO);
+//			System.out.println(emailAuth);
+//			if (emailAuth == 0) {
+//				return "success";
+//			} else {
+//				return "fail";
+//			}
+//		}
 }

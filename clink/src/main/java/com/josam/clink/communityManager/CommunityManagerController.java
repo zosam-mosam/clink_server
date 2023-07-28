@@ -26,7 +26,7 @@ public class CommunityManagerController {
 	 */
 	@GetMapping(value = {"/post", "/post/update"})
 	@ResponseBody	
-	public CommunityPostVO getPost(@RequestParam String board_no) {
+	public CommunityPostVO getPost(@RequestParam int board_no) {
 		return communityManagerService.getPost(board_no);
 	}
 
@@ -56,7 +56,7 @@ public class CommunityManagerController {
 	 */
 	@GetMapping("/post/comment")
 	@ResponseBody
-	public List<CommentVO> getComment(@RequestParam String board_no){
+	public List<CommentVO> getComment(@RequestParam int board_no){
 		return communityManagerService.getComment(board_no);
 	}
 	
@@ -85,5 +85,23 @@ public class CommunityManagerController {
 	@ResponseBody
 	public void deleteComment(int comment_id) {
 		communityManagerService.deleteComment(comment_id);
+	}
+	
+	@GetMapping("/like")
+	@ResponseBody
+	public void getLike(String user_id) {
+		communityManagerService.getLike(user_id);
+	}
+	
+	@PostMapping("/post/like/insert")
+	@ResponseBody
+	public void like(LikeVO lvo, int board_no) {
+		communityManagerService.like(lvo, board_no);
+	}
+	
+	@PostMapping("/post/like/delete")
+	@ResponseBody
+	public void unlike(LikeVO lvo, int board_no) {
+		communityManagerService.unlike(lvo, board_no);
 	}
 }

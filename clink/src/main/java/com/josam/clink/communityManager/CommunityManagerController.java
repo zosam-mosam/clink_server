@@ -33,8 +33,7 @@ public class CommunityManagerController {
 	@PostMapping("/post/insert")
 	@ResponseBody
 	public void insertPost(@RequestBody CommunityPostVO pvo) {
-		communityManagerService.insertPost(pvo);		
-		System.out.println("여기는 인설트 컨드롤러");
+		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
 		for(int i=0;i<hashtag_list.length;i++) {
@@ -45,8 +44,19 @@ public class CommunityManagerController {
 	
 	@PostMapping("/post/update")
 	@ResponseBody
-	void updatePost(CommunityPostVO cpvo) {
+	void updatePost(@RequestBody CommunityPostVO cpvo) {
 		communityManagerService.updateBoard(cpvo);
+		System.out.println(cpvo.getHashtag_content());
+		System.out.println(cpvo.getBoard_title());
+		System.out.println(cpvo.getBoard_content());
+		System.out.println(cpvo.getCategory_no());
+		System.out.println(cpvo.getRegister_id());
+		System.out.println(cpvo.getBoard_no());
+//		String[] hashtag_list=cpvo.getHashtag_content().split(",");
+//		for(int i=0;i<hashtag_list.length;i++) {
+//			System.out.println(hashtag_list[i]);
+//			communityManagerService.insertHashtag(cpvo.getCategory_no(),hashtag_list[i]);
+//		}
 	}
 	
 	/**

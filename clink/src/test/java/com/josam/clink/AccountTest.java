@@ -14,6 +14,7 @@ import com.josam.clink.challenge.ChartVO;
 import com.josam.clink.challenge.HistoryVO;
 import com.josam.clink.challenge.SuccessVO;
 import com.josam.clink.user.UserVO;
+import com.josam.clink.user.User_MasterVO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,7 +35,7 @@ public class AccountTest {
 	 * */
 	@Test
 	public void insertAllSuccess() {
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 
 		List<SuccessVO> list = mapper.getAllHistoryForInsertSuccess(uvo);
@@ -56,7 +57,7 @@ public class AccountTest {
 	@Test
 	public void weekData() {
 		
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		
 		List<ChartVO> list = mapper.weekHistory(uvo);
@@ -68,7 +69,7 @@ public class AccountTest {
 	
 	@Test
 	public void yesterdayHistory() {
-		UserVO uvo = new UserVO();
+		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
 		List<HistoryVO> list = mapper.yesterdayHistory(uvo);
 		for(HistoryVO vo: list) {

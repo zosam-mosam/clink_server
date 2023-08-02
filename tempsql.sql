@@ -1,4 +1,4 @@
-SELECT * FROM Comment_Detail;
+SELECT * FROM Comment_DetailC;
 SELECT * FROM User_Master;
 SELECT * FROM Board_Detail;
 SELECT * FROM Common_Code;
@@ -7,6 +7,12 @@ SELECT * FROM Account_Detail;
 SELECT * FROM Challenge_Detail;
 SELECT * FROM Account_History;
 SELECT * FROM Like_Detail;
+SELECT * FROM Callenge_Success_Detail;
+SELECT * FROM Hashtag_Detail;
+SELECT * FROM Quote_Base;
+SELECT * FROM User_Badge_Description;
+
+
 
 SELECT MAX(comment_id)
 FROM Comment_Detail;
@@ -69,15 +75,15 @@ ALTER TABLE Comment_Detail ADD comment_delete_yn char(1) DEFAULT "n" NOT NULL;
 # 좋아요 추가 삭제 230728 생성
 INSERT INTO Like_Detail
 	(register_datetime, user_id, board_no)
-VALUES (now(), "test", 4);
+VALUES (now(), "gpt", 3);
     
 UPDATE Board_Detail
 SET
 	board_like_count = board_like_count +1
-WHERE board_no = 4;
+WHERE board_no = 3;
 
 DELETE FROM Like_Detail
-WHERE user_id = "test"
+WHERE user_id = "gpt"
 AND board_no = 4;
 
 UPDATE Board_Detail
@@ -88,3 +94,18 @@ WHERE board_no = 4;
 SELECT board_no
 FROM Like_Detail
 WHERE user_id = "test";
+
+
+
+SELECT exists(
+SELECT board_no
+FROM Like_Detail
+WHERE user_id = "test"
+AND board_no = 10) as "1";
+
+
+
+# 댓글 개수 확인 230802
+SELECT COUNT(*)
+FROM Comment_Detail
+WHERE board_no = 2;

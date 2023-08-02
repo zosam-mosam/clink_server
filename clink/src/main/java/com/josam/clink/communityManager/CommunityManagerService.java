@@ -59,8 +59,11 @@ public class CommunityManagerService {
 		communityManagerMapper.minusLike(board_no);
 	}
 	
-	public List<Integer> getLike(String user_id){
-		return communityManagerMapper.getLike(user_id);
+	public int getLike(String user_id, int board_no){
+		return communityManagerMapper.getLike(user_id, board_no);
+	}
+	public int getCommentCount(int board_no) {
+		return communityManagerMapper.getCommentCount(board_no);
 	}
 
 }

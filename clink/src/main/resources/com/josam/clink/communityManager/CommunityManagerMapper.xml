@@ -10,11 +10,6 @@
 		SELECT MAX(comment_id)
 		FROM Comment_Detail
 	</select>
-	<insert id="insertReply" parameterType="com.josam.clink.communityPost.CommunityPostVO" useGeneratedKeys="true" keyProperty="comment_id">
-		INSERT INTO Comment_Detail 
-				(board_no, register_id, register_datetime, comment_content, parent_id)
-		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id})
-	</insert>
 	<select id="getPost" parameterType="INTEGER" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT 
 			board_no, 
@@ -51,7 +46,7 @@
 		FROM Comment_Detail 
 		WHERE board_no=#{board_no} 
 		AND comment_delete_yn ='n'
-		ORDER BY register_datetime ASC;
+		ORDER BY parent_id ASC, register_datetime ASC;
 	</select>
 	
 	<update id="deleteComment" parameterType="INTEGER">
@@ -91,10 +86,19 @@
 			board_like_count = board_like_count - 1
 		WHERE board_no = #{board_no};
 	</update>
-	<select id="getLike" parameterType="STRING" resultType="List">
-		SELECT board_no
-		FROM Like_Detail
-		WHERE user_id = #{user_id};
+	<select id="getLike" parameterType="map" resultType="integer">
+		SELECT exists(
+				SELECT board_no
+				FROM Like_Detail
+				WHERE user_id = #{user_id}
+				AND board_no = #{board_no}
+				) AS is_like;
+	</select>
+	<select id="getCommentCount" parameterType="integer" resultType="integer">
+		SELECT COUNT(*)
+		FROM Comment_Detail
+		WHERE board_no = #{board_no}
+		AND comment_delete_yn = "n";
 	</select>
 
 </mapper>

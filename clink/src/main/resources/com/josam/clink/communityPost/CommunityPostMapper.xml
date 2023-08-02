@@ -19,23 +19,15 @@
 	<select id="getPostsbyRecent" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
-<<<<<<< HEAD
-		WHERE category_no=#{category_no}
-		AND board_delete_yn ='n'
-=======
 		WHERE category_no=#{category_no} and hashtag_content like CONCAT('%', #{hashtag}, '%')
->>>>>>> 61d84679158b36d959521d32d2df3f8f1701725b
+		AND board_delete_yn ='n'
 		ORDER BY register_datetime DESC;
 	</select>
 	<select id="getPostsbyLike" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
-<<<<<<< HEAD
-		WHERE category_no=#{category_no}
-		AND board_delete_yn ='n'
-=======
 		WHERE category_no=#{category_no} and hashtag_content like CONCAT('%', #{hashtag}, '%')
->>>>>>> 61d84679158b36d959521d32d2df3f8f1701725b
+		AND board_delete_yn ='n'
 		ORDER BY board_like_count DESC, register_datetime DESC;
 	</select>
 	<select id="getBestPosts" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">

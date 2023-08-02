@@ -9,7 +9,7 @@ target/
 clink/src/main/resources/application.properties
 src/main/resources/application.properties
 **/*.properties
-./src/bin
+./src/bingi
 **/src/bin
 src/bin
 

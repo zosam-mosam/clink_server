@@ -4,11 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +20,10 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	RegisterMail registerMail;
+
+
 	// 회원가입
 	@PostMapping("/join.do")
 	@ResponseBody
@@ -38,15 +40,13 @@ public class UserController {
 	// 로그인
 	@PostMapping("/login.do")
 	@ResponseBody
-	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req, HttpSession sess)
+	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req)
 			throws Exception {
 		User_MasterVO login = userService.login(user_MasterVO);
 		System.out.println("login:" + login);
 		if (login == null) {
 			return null;
 		} else {
-//			sess.setAttribute("loginSess", user_MasterVO);
-//			System.out.println("loginSess:" + sess.getAttribute("loginSess"));
 			return login;
 		}
 	}
@@ -116,47 +116,45 @@ public class UserController {
 		return checkAccount;
 		// 없으면 null 반환
 	}
-	
+
 	// 프로필 이미지 등록
-		@PostMapping("/photo-url.do")
-		@ResponseBody
-		public String profileImage(User_MasterVO user_MasterVO,
-			MultipartFile file) {
-			System.out.println("user_MasterVO"+user_MasterVO);
-			System.out.println("file"+file);
-			if (!file.isEmpty()) {
-				String org = file.getOriginalFilename();
+	@PostMapping("/photo-url.do")
+	@ResponseBody
+	public String profileImage(User_MasterVO user_MasterVO, MultipartFile file) {
+		System.out.println("user_MasterVO" + user_MasterVO);
+		System.out.println("file" + file);
+		if (!file.isEmpty()) {
+			String org = file.getOriginalFilename();
 //				String ext = org.substring(org.lastIndexOf("."));
-				System.out.println("업로드된 파일 이름:" + org);
+			System.out.println("업로드된 파일 이름:" + org);
 //				String real = System.currentTimeMillis()+ext;
-				user_MasterVO.setPhoto_url(org);
-				String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static\\img";
-				File saveFile = new File(uploadFolder + "\\" + org);
-				System.out.println("saveFile:"+saveFile);
-				System.out.println("org:"+org);
-				try {
-					file.transferTo(saveFile);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				int r = userService.profileImage(user_MasterVO);
-				if (r == 1) return org;
-				else return null;
-			}else {
-				return null;
+			user_MasterVO.setPhoto_url(org);
+			String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static\\img";
+			File saveFile = new File(uploadFolder + "\\" + org);
+			System.out.println("saveFile:" + saveFile);
+			System.out.println("org:" + org);
+			try {
+				file.transferTo(saveFile);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			int r = userService.profileImage(user_MasterVO);
+			if (r == 1)
+				return org;
+			else
+				return null;
+		} else {
+			return null;
 		}
-		
-		// 이메일 인증
-//		@PostMapping("/emailAuth.do")
-//		@ResponseBody
-//		public String emailAuth(@RequestBody User_MasterVO user_MasterVO) {
-//			int emailAuth = userService.emailAuth(user_MasterVO);
-//			System.out.println(emailAuth);
-//			if (emailAuth == 0) {
-//				return "success";
-//			} else {
-//				return "fail";
-//			}
-//		}
+	}
+
+	 // 이메일 인증
+		@PostMapping("/emailAuth.do")
+		@ResponseBody
+		public String emailAuth(@RequestParam(value="email", required=false) String email) throws Exception{
+			System.out.println("email:"+email);
+			 String code = registerMail.sendSimpleMessage(email);
+			   System.out.println("인증코드 : " + code);
+			   return code;
+		}
 }

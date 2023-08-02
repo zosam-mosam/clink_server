@@ -13,7 +13,7 @@
 		`register_datetime`, `register_id`,`update_datetime`,
 		`updater_id`
 		)
-		VALUES ('9',
+		VALUES ('11112',
 		#{user_id}, #{user_name}, #{nick_name},
 		#{password},
 		#{email}, #{phone_number},

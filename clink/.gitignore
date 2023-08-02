@@ -6,7 +6,7 @@ target/
 
 ### Security ###
 
-src/main/resources/application.properties
+clink/src/main/resources/application.properties
 ./src/bin
 **/src/bin
 src/bin

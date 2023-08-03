@@ -8,10 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.josam.clink.challenge.ChallengeService;
 import com.josam.clink.challenge.ChallengeVO;
 import com.josam.clink.challenge.SuccessVO;
-import com.josam.clink.main.BadgeVO;
 import com.josam.clink.main.MainMapper;
 import com.josam.clink.main.MainService;
-import com.josam.clink.main.QuoteVO;
 import com.josam.clink.main.ReportVO;
 import com.josam.clink.main.StreakVO;
 import com.josam.clink.main.StreakdataVO;
@@ -36,22 +34,6 @@ public class MainTest {
 	
 	
 	@Test
-	public void badgeTest(){ 
-		User_MasterVO uvo = new User_MasterVO();
-		uvo.setUser_no("00000");
-		BadgeVO bvo = ms.getBadge(uvo);
-		
-		System.out.println(bvo);
-	}
-	
-	@Test
-	public void quoteTest(){ 
-		
-		QuoteVO qvo = ms.getQuote();
-		System.out.println(qvo);
-	}
-	
-	@Test
 	public void streakTest() {
 		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no("00000");
@@ -70,7 +52,8 @@ public class MainTest {
 		uvo.setUser_no("00000");
 		ChallengeVO cvo = cs.myChallenge(uvo);
 		SuccessVO svo = mapper.getYesterdaySaving(cvo);
-		System.out.println(svo.getChallenge_detail_success_date()+" "+svo.getChallenge_detail_success_amount()+" "+svo.getResult_success_amount());
+		if(svo == null) System.out.println("Null");
+		else System.out.println(svo.getChallenge_detail_success_date()+" "+svo.getChallenge_detail_success_amount()+" "+svo.getResult_success_amount());
 	}
 	
 	@Test

@@ -6,11 +6,18 @@ target/
 
 ### Security ###
 
-clink/src/main/resources/application.properties
-src/main/resources/application.properties
+./src/main/resources/application.properties
+**/application.*
 **/*.properties
-./src/bingi
+
+./src/bin
 **/src/bin
+
+src/main/resources/application.properties
+application.*
+*.properties
+
+
 src/bin
 
 

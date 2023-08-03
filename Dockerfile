@@ -5,7 +5,7 @@ FROM adoptopenjdk/openjdk11
 WORKDIR /app
 
 # Copy the packaged JAR file into the container
-COPY clink-0.0.1-SNAPSHOT.jar app.jar
+COPY clink/target/clink-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port that the application will listen on
 EXPOSE 8080

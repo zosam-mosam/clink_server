@@ -11,6 +11,11 @@ SELECT * FROM Callenge_Success_Detail;
 SELECT * FROM Hashtag_Detail;
 SELECT * FROM Quote_Base;
 SELECT * FROM User_Badge_Description;
+SELECT *
+		FROM Board_Detail
+		WHERE board_like_count >= 10
+		AND board_delete_yn ='n'
+		ORDER BY register_datetime DESC;
 
 
 
@@ -109,3 +114,28 @@ AND board_no = 10) as "1";
 SELECT COUNT(*)
 FROM Comment_Detail
 WHERE board_no = 2;
+
+
+# 페이지네이션 230803
+SELECT *
+FROM Board_Detail
+WHERE Board_no >=10
+AND board_delete_yn = "n"
+ORDER BY board_no
+LIMIT 5;
+# AND hashtag_content like CONCAT('%', #{hashtag}, '%')
+
+SELECT MAX(board_no) 
+FROM Board_Detail;
+
+SELECT MAX(board_no)+1
+FROM Comment_Detail;
+
+SELECT *
+FROM Board_Detail
+WHERE category_no=1
+AND board_delete_yn ='n'
+AND board_no <= 314
+AND hashtag_content like CONCAT('%', "테스트", '%')
+ORDER BY board_no DESC
+LIMIT 5;

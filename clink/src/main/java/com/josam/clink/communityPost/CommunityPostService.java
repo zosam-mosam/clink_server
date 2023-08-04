@@ -1,6 +1,7 @@
 package com.josam.clink.communityPost;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,10 @@ public class CommunityPostService {
 		String test=mapper.testss();
 		return test;
 	}
-	public List<CommunityPostVO> getPostsbyRecent(String category_no,String hashtag) {
-		return mapper.getPostsbyRecent(category_no,hashtag);
+	public List<CommunityPostVO> getPostsbyRecent(Map<String, Object> parameters) {
+		int last_board_no = mapper.getLastboardId();
+
+		return mapper.getPostsbyRecent(parameters);
 	}
 	public List<CommunityPostVO> getPostsbyLike(String category_no,String hashtag){
 		return mapper.getPostsbyLike(category_no,hashtag);

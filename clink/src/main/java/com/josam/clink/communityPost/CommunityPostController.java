@@ -2,7 +2,9 @@ package com.josam.clink.communityPost;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,11 @@ public class CommunityPostController {
 	
 	@GetMapping("/community/posts")
 	@ResponseBody
-	public List<CommunityPostVO> getPosts(@RequestParam String category_no, @RequestParam String filter, @RequestParam String hashtag ){
+	public List<CommunityPostVO> getPosts(@RequestParam Map<String, Object> parameters){
+		String category_no = (String) parameters.get("category_no");
+	    String hashtag = (String) parameters.get("hashtag");
+	    String filter = (String) parameters.get("filter");
+	    
 		List<CommunityPostVO> data = new ArrayList<>();
 		// 1. category_no = 0 => 베스트 게시판
 		if("0".equals(category_no)) {
@@ -28,7 +34,7 @@ public class CommunityPostController {
 		}
 		// 2. category_no != 0 && filter = 1 (최신순)
 		if("1".equals(filter)){
-			data = commPService.getPostsbyRecent(category_no,hashtag);
+			data = commPService.getPostsbyRecent(parameters);
 		}
 		// 3. category_no != 0 && filter = 2 (인기순)
 		if("2".equals(filter)){

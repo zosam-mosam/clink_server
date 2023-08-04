@@ -10,6 +10,7 @@
 		SELECT MAX(comment_id)
 		FROM Comment_Detail
 	</select>
+	
 	<select id="getPost" parameterType="INTEGER" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT 
 			board_no, 
@@ -55,7 +56,27 @@
 		WHERE comment_id = #{comment_id};
 	</update>
 	<insert id="insertPost" parameterType="com.josam.clink.communityPost.CommunityPostVO">
-		insert into Board_Detail(user_no,category_no,board_views,board_title,board_content,board_like_count,hashtag_content,register_datetime,register_id) values("0",#{category_no},0,#{board_title},#{board_content},0,#{hashtag_content},now(),"test1")
+		INSERT INTO Board_Detail(
+			user_no ,
+			category_no ,
+			board_views,
+			board_title,
+			board_content,
+			board_like_count,
+			hashtag_content,
+			register_datetime,
+			register_id) 
+		VALUES(
+			"0",
+			#{category_no},
+			0,
+			#{board_title},
+			#{board_content},
+			0,
+			#{hashtag_content},
+			now(),
+			"test1"
+			)
 	</insert>
 	<insert id="insertHashtag" parameterType="String">
 		insert into Hashtag_Detail(category_no,hashtag_content,register_datetime,register_id) values(#{category_no},#{hashtag},now(),"test")

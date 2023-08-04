@@ -1,4 +1,4 @@
-package com.josam.clink.jsouptest;
+package com.josam.clink.financeInfo;
 
 import lombok.Data;
 

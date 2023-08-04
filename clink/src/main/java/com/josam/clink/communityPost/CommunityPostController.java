@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.josam.clink.jsouptest.JsoupTest;
-import com.josam.clink.jsouptest.NewsVO;
+import com.josam.clink.financeInfo.NewsVO;
+import com.josam.clink.financeInfo.Controller.FinanceInfo;
 
 
 @Controller
@@ -45,20 +45,11 @@ public class CommunityPostController {
 	
 	@GetMapping("/community/hot-posts")
 	@ResponseBody
-	public List<Object> getHotPost() throws IOException{//최근 인기 게시물 가져오기
-		HotPostList hpl = new HotPostList();
-		JsoupTest jtest =new JsoupTest();
-		List<NewsVO> nvo=jtest.getNewsdata();
-		NewsVO nv=nvo.get(0);
-		hpl.setHotPost(commPService.HotPost());
-		hpl.setHotFreePost(commPService.HotFreePost());
-		hpl.setHotInfoPost(commPService.HotInfoPost());
-		hpl.setHotAnnPost(commPService.HotAnnPost());
-		List<Object> lo= new ArrayList<>();
-		lo.add(hpl);
-		lo.add(nvo);
-		System.out.println(lo);
-		return lo;
+	public List<Object> getHotPost() throws IOException{
+		List<Object> communityInfo =new ArrayList<>();
+		communityInfo.add(commPService.getHotPostList()); //최근 인기 게시물 리스
+		communityInfo.add(commPService.getFinNewsData());
+		return communityInfo;
 	}
 	
 	@GetMapping("/community/hot-hashtag")

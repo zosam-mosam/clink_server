@@ -14,4 +14,4 @@ EXPOSE 8080
 # ENV ENV_VARIABLE_NAME value
 
 # Run the JAR file
-CMD ["java", "-jar", "app.jar", "--spring.config.location=file:/home/ubuntu/property/application.properties"]
+#CMD ["java", "-jar", "app.jar", "--spring.config.location=file:/home/ubuntu/property/application.properties"]

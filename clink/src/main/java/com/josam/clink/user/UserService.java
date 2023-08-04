@@ -23,8 +23,8 @@ public class UserService {
 	public User_MasterVO login(User_MasterVO vo) {
 		return userMapper.login(vo);
 	}
-	// 
-	public User_MasterVO getUserById(int user_id) {
+
+	public User_MasterVO getUserById(String user_id) {
 		return userMapper.selectUserById(user_id);
 	}
 	// 아이디 중복확인

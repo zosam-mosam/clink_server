@@ -29,7 +29,7 @@
 		resultType="com.josam.clink.user.User_MasterVO">
 		SELECT * FROM User_Master WHERE user_id = #{user_id} AND
 		password=#{password};
-		
+
 	</select>
 
 	<select id="checkDuplicateId" resultType="INTEGER">
@@ -37,22 +37,18 @@
 		User_Master where user_id =#{user_id}
 	</select>
 
-	<select id="selectUserById" parameterType="INTEGER"
-		resultType="com.josam.clink.user.User_MasterVO">
-		SELECT * FROM User_Master WHERE user_id = #{user_id}
-	</select>
-
 	<!-- 프로필 사진 업로드 -->
 	<update id="profileImage"
 		parameterType="com.josam.clink.user.User_MasterVO">
-	UPDATE User_Master
-	SET photo_url = #{photo_url}
-	WHERE user_no = #{user_no}
-	</update >
+		UPDATE User_Master
+		SET photo_url = #{photo_url}
+		WHERE
+		user_no = #{user_no}
+	</update>
 
 	<update id="update"
 		parameterType="com.josam.clink.user.User_MasterVO">
-		UPDATE User_Master 
+		UPDATE User_Master
 		<set>
 			<if test="user_name != null and user_name != ''">
 				user_name = #{user_name},
@@ -92,11 +88,23 @@
 		WHERE user_no =#{user_no}
 		AND account_code=#{account_code}
 	</update>
-	
+
 	<select id="checkAccount"
 		parameterType="com.josam.clink.user.Account_DetailVO"
 		resultType="com.josam.clink.user.Account_DetailVO">
 		SELECT * FROM Account_Detail WHERE user_no = #{user_no};
+	</select>
+	
+	<select id="selectUserById" parameterType="INTEGER"
+		resultType="com.josam.clink.user.User_MasterVO">
+		SELECT * FROM User_Master WHERE user_id = #{user_id}
+	</select>
+
+	<!-- 토큰용 -->
+	
+	<select id="findById" parameterType="String"
+		resultType="com.josam.clink.user.User_MasterVO">
+		SELECT * FROM User_Master WHERE user_id = #{user_id}
 	</select>
 
 	<!-- 로컬 테스트용 <insert id="insert" parameterType="com.josam.clink.user.UserVO"> 

@@ -20,14 +20,14 @@ public class UserTest {
 	@Autowired
 	UserMapper mapper;
 	
-	@Test
-	public void login() {
-		User_MasterVO param = new User_MasterVO();
-		param.setUser_id("gpd");
-		param.setPassword("1234");
-		User_MasterVO vo = mapper.login(param);
-		System.out.println(vo);
-	}
+//	@Test
+//	public void login() {
+//		User_MasterVO param = new User_MasterVO();
+//		param.setUser_id("gpd");
+//		param.setPassword("1234");
+//		User_MasterVO vo = mapper.login(param);
+//		System.out.println(vo);
+//	}
 	
 
 //	@Test

@@ -42,6 +42,7 @@ public class UserController {
 	@ResponseBody
 	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req)
 			throws Exception {
+		System.out.println("도ㅊㄱ했니..?");
 		User_MasterVO login = userService.login(user_MasterVO);
 		System.out.println("login:" + login);
 		if (login == null) {

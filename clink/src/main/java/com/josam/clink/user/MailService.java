@@ -16,15 +16,8 @@ public class MailService {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
-	@Autowired
-    private RedisUtil redisUtil;
-	
-	
 	public static final String ePw = createKey();
-	
-	@Value("${spring.mail.username}")
-    private String id;
-	
+
 	
 	public SimpleMailMessage createMail(String toUser) {
 		System.out.println("보내는 대상 : "+ toUser);
@@ -47,7 +40,6 @@ public class MailService {
 	public String sendMail(String toUser) throws Exception {
 		SimpleMailMessage message = createMail(toUser);
 		try{
-			redisUtil.setDataExpire(ePw, toUser, 60 * 1L); // 유효시간 1분
             javaMailSender.send(message); // 메일 발송
         }catch(MailException es){
             es.printStackTrace();
@@ -79,10 +71,5 @@ public class MailService {
 	            }
 	        }
 	        return key.toString();
-	    }
-	 public String verifyEmail(String key){
-	        String memberEmail = redisUtil.getData(key);
-	        redisUtil.deleteData(key);
-	        return ePw;
 	    }
 }

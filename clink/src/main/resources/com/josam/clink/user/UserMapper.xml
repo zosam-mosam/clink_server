@@ -41,6 +41,11 @@
 		select count(*) from
 		User_Master where user_id =#{user_id}
 	</select>
+	
+	<select id="checkDuplicateEmail" resultType="boolean">
+		select count(*) from
+		User_Master where email =#{email}
+	</select>
 
 	<select id="selectUserById" parameterType="INTEGER"
 		resultType="com.josam.clink.user.User_MasterVO">

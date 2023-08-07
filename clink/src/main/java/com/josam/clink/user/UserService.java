@@ -44,5 +44,9 @@ public class UserService {
 		return userMapper.checkAccount(vo);
 	}
 	
+	public boolean checkDuplicateEmail(String email) {
+		// 1 -> 중복, 가입 불가 0 -> 가입 가능
+		return userMapper.checkDuplicateEmail(email);
+	}
 	   
 }

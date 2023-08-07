@@ -26,4 +26,7 @@ public interface UserMapper {
 
 	// 계좌확인
 	List<Account_DetailVO> checkAccount(Account_DetailVO vo);
+	
+	// 이메일 중복 체크
+	boolean checkDuplicateEmail(String email);
 }

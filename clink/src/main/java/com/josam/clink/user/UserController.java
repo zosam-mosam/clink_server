@@ -26,10 +26,15 @@ public class UserController {
 	@Autowired
 	MailService mailService;
 	
-	@PostMapping("/mailtest")
+	@PostMapping("/emailAuth.do")
 	@ResponseBody
-	public String mail(@RequestParam String email) throws Exception {
-		String code = mailService.sendMail(email);
+	public String mail(@RequestBody User_MasterVO user_MasterVO) throws Exception {
+		System.out.println(userService.checkDuplicateEmail(user_MasterVO.getEmail()));
+		if(userService.checkDuplicateEmail(user_MasterVO.getEmail())) {
+			// 이미 가입된 이메일인 경우
+			return "fail";
+		}
+		String code = mailService.sendMail(user_MasterVO.getEmail());
         return code;
 	}
 

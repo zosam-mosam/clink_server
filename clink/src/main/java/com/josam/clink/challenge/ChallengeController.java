@@ -95,7 +95,13 @@ public class ChallengeController {
 	@PostMapping("/register")
 	@ResponseBody
 	public void registerChallenge (@RequestBody ChallengeVO cvo) {
+<<<<<<< HEAD
 		challengeService.registerChallenge(cvo);
+=======
+		System.out.println(cvo);
+		//		challengeService.registerChallenge(cvo);
+
+>>>>>>> e7dbb8331f17a22d8d9ddedf9011b5d6ffe46c6b
 	}
 	
 	

@@ -36,7 +36,4 @@ public interface UserMapper {
 	
 	// 토큰확인
 	User_MasterVO findById(String username);
-
-
-	
 }

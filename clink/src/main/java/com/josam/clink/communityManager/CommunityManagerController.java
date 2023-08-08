@@ -1,6 +1,9 @@
 package com.josam.clink.communityManager;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +21,9 @@ import com.josam.clink.communityPost.CommunityPostVO;
 public class CommunityManagerController {
 	
 	@Autowired
-	CommunityManagerService communityManagerService;
+	private CommunityManagerService communityManagerService;
+	
+	
 	/**
 	 * 
 	 * @param board_no 게시물 번호
@@ -26,8 +31,15 @@ public class CommunityManagerController {
 	 */
 	@GetMapping(value = {"/post", "/post/update"})
 	@ResponseBody	
-	public CommunityPostVO getPost(@RequestParam String board_no) {
-		return communityManagerService.getPost(board_no);
+	public Map<String, Object> getPost(@RequestParam int board_no) {
+		Map<String, Object> response = new HashMap<> ();
+		CommunityPostVO communityPostVO = communityManagerService.getPost(board_no);
+		int commentCount = communityManagerService.getCommentCount(board_no);
+		
+		response.put("communityPostVO", communityPostVO);
+		response.put("commentCount", commentCount);
+		
+		return response;
 	}
 
 	@PostMapping("/post/insert")
@@ -44,7 +56,7 @@ public class CommunityManagerController {
 	
 	@PostMapping("/post/update")
 	@ResponseBody
-	void updatePost(@RequestBody CommunityPostVO cpvo) {
+	public void updatePost(@RequestBody CommunityPostVO cpvo) {
 		communityManagerService.updateBoard(cpvo);
 		System.out.println(cpvo.getHashtag_content());
 		System.out.println(cpvo.getBoard_title());
@@ -66,7 +78,7 @@ public class CommunityManagerController {
 	 */
 	@GetMapping("/post/comment")
 	@ResponseBody
-	public List<CommentVO> getComment(@RequestParam String board_no){
+	public List<CommentVO> getComment(@RequestParam int board_no){
 		return communityManagerService.getComment(board_no);
 	}
 	
@@ -79,7 +91,9 @@ public class CommunityManagerController {
 	@PostMapping("/post/comment/insert")
 	@ResponseBody
 	public void insertComment(@RequestBody CommentVO cvo) {	
-		cvo.setParent_id(communityManagerService.getCommentId()+1); // 현재 달릴 댓글의 id 받아오기 -> 대댓글이 아니면 parent_id와 comment_id 통일시키기
+		if(0 == cvo.getParent_id()) {
+			cvo.setParent_id(communityManagerService.getCommentId()+1); // 현재 달릴 댓글의 id 받아오기 -> 대댓글이 아니면 parent_id와 comment_id 통일시키기
+		}
 		communityManagerService.insertComment(cvo);
 	}
 	
@@ -96,4 +110,23 @@ public class CommunityManagerController {
 	public void deleteComment(int comment_id) {
 		communityManagerService.deleteComment(comment_id);
 	}
+	
+	@GetMapping("/post/like")
+	@ResponseBody
+	public int getLike(@RequestParam String user_id, @RequestParam int board_no) {
+		return communityManagerService.getLike(user_id, board_no);
+	}
+	
+	@PostMapping("/post/like/insert")
+	@ResponseBody
+	public void like(LikeVO lvo, int board_no) {
+		communityManagerService.like(lvo, board_no);
+	}
+	
+	@PostMapping("/post/like/delete")
+	@ResponseBody
+	public void unlike(LikeVO lvo, int board_no) {
+		communityManagerService.unlike(lvo, board_no);
+	}
+	
 }

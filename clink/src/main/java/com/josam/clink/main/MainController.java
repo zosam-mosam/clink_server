@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.josam.clink.challenge.ChallengeService;
-import com.josam.clink.challenge.ChallengeVO;
 import com.josam.clink.user.User_MasterVO;
 
 @Controller
@@ -25,24 +24,13 @@ public class MainController {
 	@ResponseBody
 	public MainPageVO getMainInfo(@RequestParam String userNo) {
 
-		MainPageVO mpvo = new MainPageVO();
-		mpvo.setUser_no(userNo);
 		User_MasterVO uvo = new User_MasterVO();
 		uvo.setUser_no(userNo);
-		
-		//Badge
-		mpvo.setBadge(mainService.getBadge(uvo));
-		
-		//Quote
-		mpvo.setQuote(mainService.getQuote());
-
-		//StreakData
-		ChallengeVO cvo = cService.myChallenge(uvo);
-		StreakVO svo =  mainService.getStreakData(cvo);
-		mpvo.setStreakData(svo);
+		MainPageVO mpvo = mainService.getInfo(uvo);
+		mpvo.setUser_no(userNo);
 		
 		//ReportData
-		mpvo.setReport(mainService.getReportData(cvo));
+		//mpvo.setReport(mainService.getReportData(cvo));
 
 		return mpvo;
 	}

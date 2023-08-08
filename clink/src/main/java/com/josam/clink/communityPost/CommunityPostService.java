@@ -3,6 +3,7 @@ package com.josam.clink.communityPost;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class CommunityPostService {
 		String test=mapper.testss();
 		return test;
 	}
-	public List<CommunityPostVO> getPostsbyRecent(String category_no,String hashtag) {
-		return mapper.getPostsbyRecent(category_no,hashtag);
+	public List<CommunityPostVO> getPostsbyRecent(Map<String, Object> parameters) {
+		return mapper.getPostsbyRecent(parameters);
 	}
 	public List<CommunityPostVO> getPostsbyLike(String category_no,String hashtag){
 		return mapper.getPostsbyLike(category_no,hashtag);
@@ -79,6 +80,9 @@ public class CommunityPostService {
 	public List<String> getHashtag(int category_no){
 		List<String> list = mapper.getHashtag(category_no);
 		return list;
+	}
+	public int getLastboardId() {
+		return mapper.getLastboardId();
 	}
 	
 }

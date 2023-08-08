@@ -16,7 +16,7 @@ public class CommunityManagerService {
 	@Autowired
 	CommunityManagerMapper communityManagerMapper;
 	
-	public CommunityPostVO getPost(String board_no) {
+	public CommunityPostVO getPost(int board_no) {
 		return communityManagerMapper.getPost(board_no);
 	}
 	
@@ -25,7 +25,7 @@ public class CommunityManagerService {
 		communityManagerMapper.updateBoard(cpvo);
 	}
 	
-	public List<CommentVO> getComment(String board_no) {
+	public List<CommentVO> getComment(int board_no) {
 		return communityManagerMapper.getComment(board_no);
 	}
 	
@@ -50,4 +50,20 @@ public class CommunityManagerService {
 	public void insertHashtag(String category_no,String hashtag) {
 		communityManagerMapper.insertHashtag(category_no,hashtag);
 	}
+	public void like(LikeVO lvo, int board_no) {
+		communityManagerMapper.insertLike(lvo);
+		communityManagerMapper.plusLike(board_no);
+	}
+	public void unlike(LikeVO lvo, int board_no) {
+		communityManagerMapper.deleteLike(lvo);
+		communityManagerMapper.minusLike(board_no);
+	}
+	
+	public int getLike(String user_id, int board_no){
+		return communityManagerMapper.getLike(user_id, board_no);
+	}
+	public int getCommentCount(int board_no) {
+		return communityManagerMapper.getCommentCount(board_no);
+	}
+
 }

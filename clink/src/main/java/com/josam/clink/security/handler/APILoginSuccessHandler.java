@@ -38,7 +38,7 @@ public class APILoginSuccessHandler implements AuthenticationSuccessHandler {
 		// Access Token 유효기간 1일
 		String accessToken = jwtUtil.generationToken(claim, 1);
 		// Refresh Token 유효기간 30일
-		String refreshToken = jwtUtil.generationToken(claim, 1);
+		String refreshToken = jwtUtil.generationToken(claim, 5);
 		
 		Map<String, String> keyMap = Map.of("accessToken", accessToken, "refreshToken", refreshToken);
 		ObjectMapper om = new ObjectMapper();

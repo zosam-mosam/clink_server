@@ -67,7 +67,7 @@ public class CustomSecurityConfig {
 		http.authenticationManager(authenticationManager);
 		
 		// 필터
-		APILoginFilter apiLoginFilter = new APILoginFilter("/api");
+		APILoginFilter apiLoginFilter = new APILoginFilter("/generateToken");
 		apiLoginFilter.setAuthenticationManager(authenticationManager);
 		// 핸들러
 		APILoginSuccessHandler successHandler = new APILoginSuccessHandler(jwtUtil);
@@ -98,7 +98,7 @@ public class CustomSecurityConfig {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000"));
+		config.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000","*"));
 		config.setAllowedMethods(Arrays.asList("GET","POST"));
 		config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control","Content-Type"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

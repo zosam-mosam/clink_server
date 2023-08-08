@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class APILoginFilter extends AbstractAuthenticationProcessingFilter {
 	
-	//
+	// 아이디 비밀번호 검증해서 토큰만드는 애
 
 	public APILoginFilter(String defaultFilterProcessesUrl) {
 		super(defaultFilterProcessesUrl);
@@ -33,7 +33,7 @@ public class APILoginFilter extends AbstractAuthenticationProcessingFilter {
 		
 		// 인증처리
 		UsernamePasswordAuthenticationToken authenticationToken 
-			= new UsernamePasswordAuthenticationToken(json.get("user_id"), json.get("password"));
+			= new UsernamePasswordAuthenticationToken(json.get("mid"), json.get("mpw"));
 		
 		return getAuthenticationManager().authenticate(authenticationToken);
 	}

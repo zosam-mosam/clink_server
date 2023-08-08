@@ -28,6 +28,7 @@ public class UserController {
 	@PostMapping("/join.do")
 	@ResponseBody
 	public User_MasterVO join(@RequestBody User_MasterVO user_MasterVO) {
+		System.out.println("도착했니~~??");
 		int r = userService.insert(user_MasterVO);
 		if (r == 1) {
 			System.out.println("user_no:" + user_MasterVO.getUser_no() + " user_id:" + user_MasterVO.getUser_id());
@@ -42,7 +43,7 @@ public class UserController {
 	@ResponseBody
 	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req)
 			throws Exception {
-		System.out.println("도ㅊㄱ했니..?");
+		System.out.println("컨트롤러 도착했니?? user_MasterVO:"+user_MasterVO);
 		User_MasterVO login = userService.login(user_MasterVO);
 		System.out.println("login:" + login);
 		if (login == null) {

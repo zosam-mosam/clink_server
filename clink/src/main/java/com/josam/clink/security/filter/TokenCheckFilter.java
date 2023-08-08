@@ -2,6 +2,7 @@ package com.josam.clink.security.filter;
 
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
@@ -32,7 +33,10 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String path = request.getRequestURI();
+		System.out.println("path:"+path);
 		if (!path.startsWith("/api/")) { // api 주소가 아니면(일반접속이면) 통과
+//			System.out.println("통과되는 경로");
+//			if (!path.startsWith("/clink/login")||!path.startsWith("/clink/join")||!path.startsWith("/clink/community")||!path.startsWith("/clink/challenge")||!path.startsWith("/clink/Main")) { // api 주소가 아니면(일반접속이면) 통과
 			filterChain.doFilter(request, response);
 			return;
 		}
@@ -41,8 +45,9 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 		
 		// AccessToken 검증
 		try {
+			System.out.println("검증시작하는 곳");
 			validateAccessToken(request);
-			filterChain.doFilter(request, response);			
+			filterChain.doFilter(request, response);	
 		} catch (AccessTokenException e) {
 			e.sendResponseError(response);
 		}
@@ -50,13 +55,23 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 	}
 	
 	private Map<String, Object> validateAccessToken(HttpServletRequest request) throws AccessTokenException {
+		Enumeration<String> headers = request.getHeaderNames();
+		while (headers.hasMoreElements()) {
+		    String name = (String) headers.nextElement();
+		    String value = request.getHeader(name);
+		    System.out.println(name + "=" + value);
+		}
 		String headerStr = request.getHeader("Authorization");
+		System.out.println("headerStr:"+headerStr);
 		if (headerStr == null || headerStr.length() < 8) {
 			throw new AccessTokenException(AccessTokenException.TOKEN_ERROR.UNACCEPT);
 		}
 		// Bearer 생략
 		String tokenType = headerStr.substring(0,6);
+		System.out.println("tokenType:"+tokenType);
+		
 		String tokenStr = headerStr.substring(7);
+		System.out.println("tokenStr:"+tokenStr);
 		
 		if (tokenType.equalsIgnoreCase("Bearer") == false) {
 			throw new AccessTokenException(AccessTokenException.TOKEN_ERROR.BADTYPE);
@@ -64,6 +79,7 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 		
 		try {
 			Map<String, Object> values = jwtUtil.validateToken(tokenStr);
+			System.out.println("values:"+values);
 			return values;
 		} catch (MalformedJwtException e) {
 			log.info("MalformedJwtException................");

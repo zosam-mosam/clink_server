@@ -14,9 +14,4 @@ public class Account_DetailVO {
 	String update_datetime;
 	String update_id;
 
-// react에서 보면서 맞추려고 남겨둠,,,.,,.,.,.,.,.,
-//	String accountNumber;
-//	int accountBalance;
-//	int accountType;
-//	int bankType;
 }

@@ -1,7 +1,6 @@
 package com.josam.clink.security;
 
-//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
+import java.security.Key;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,9 +9,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.java.Log;
 
 @Component
@@ -36,8 +37,8 @@ public class JWTUtil {
 		payloads.putAll(valueMap);
 		
 		// 유효기간
-//		int time = 1 * 60 * days; // 1일
-		int time = 1 * days; // 1분
+		int time = 1 * 60 * days; // 1일
+//		int time = 1 * days; // 1분
 		
 		String jwtStr = Jwts.builder()
 				.setHeader(headers)
@@ -50,16 +51,21 @@ public class JWTUtil {
 		return jwtStr;
 	}
 	
-	// 토큰 검증
-	public Map<String, Object> validateToken(String token) throws JwtException {
-		Map<String, Object> claim = null;
-		
-		claim = Jwts.parser()
-				.setSigningKey(key.getBytes())
-				.parseClaimsJws(token)
-				.getBody();
-		
-		return claim;
-	}
+	  // 토큰 검증
+    public Map<String, Object> validateToken(String token) throws JwtException {
+        Map<String, Object> claim = null;
+
+        Key signingKey = Keys.hmacShaKeyFor(key.getBytes());
+
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        claim = claims;
+
+        return claim;
+    }
 
 }

@@ -13,7 +13,7 @@
 		`register_datetime`, `register_id`,`update_datetime`,
 		`updater_id`
 		)
-		VALUES ('11112',
+		VALUES ('00003',
 		#{user_id}, #{user_name}, #{nick_name},
 		#{password},
 		#{email}, #{phone_number},
@@ -27,9 +27,7 @@
 	<select id="login"
 		parameterType="com.josam.clink.user.User_MasterVO"
 		resultType="com.josam.clink.user.User_MasterVO">
-		SELECT * FROM User_Master WHERE user_id = #{user_id} AND
-		password=#{password};
-
+		SELECT * FROM User_Master WHERE user_id = #{user_id}
 	</select>
 
 	<select id="checkDuplicateId" resultType="INTEGER">

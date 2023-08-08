@@ -1,15 +1,24 @@
 package com.josam.clink;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.josam.clink.user.UserMapper;
+import com.josam.clink.user.UserService;
 import com.josam.clink.user.User_MasterVO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@Transactional
 public class UserTest {
 	
 	@Test
@@ -20,6 +29,16 @@ public class UserTest {
 	@Autowired
 	UserMapper mapper;
 	
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Test
+    public void encrypt() {
+    	String dbpwd = passwordEncoder.encode("1111");
+    	String loginpwd = "1111";
+    	System.out.println(dbpwd);
+    	System.out.println(loginpwd);
+    	System.out.println(passwordEncoder.matches(loginpwd, dbpwd));
+    }
 //	@Test
 //	public void login() {
 //		User_MasterVO param = new User_MasterVO();
@@ -95,8 +114,6 @@ public class UserTest {
 //			}
 //		}
 //	}
-//	@Autowired
-//	UserMapper mapper;
 //	
 //	@Test
 //	public void testInsert() {
@@ -109,9 +126,32 @@ public class UserTest {
 //		
 //		mapper.insert(user);
 //	}
+	@Autowired
+	UserService userService;
 	
-//	@Autowired
-//	UserMapper usermapper;
+	
+//	@Test
+//	public void encodeTest() {
+//		User_MasterVO vo = new User_MasterVO();
+//		vo.setUser_no("10123");
+//		vo.setUser_id("encode");
+//		vo.setPassword("encode");
+//		vo.setEmail("encode");
+//		vo.setUser_name("테스트");
+//		vo.setNick_name("테스트닉네임");
+//		
+//        // 비밀번호 암호화 및 저장
+//        userService.insert(vo);
+//
+//        // 데이터베이스에서 사용자 정보 조회
+//        User_MasterVO savedUser = userService.getUserById(vo.getUser_no());
+//
+//        // 비밀번호가 암호화되어 저장되었는지 확인
+//        boolean isPasswordMatch = passwordEncoder.matches("encode", savedUser.getPassword());
+//        assertEquals(true, isPasswordMatch);
+//	}
+	
+	
 //	
 //	@Test
 //	public void UserLoginTest() {
@@ -126,6 +166,4 @@ public class UserTest {
 //		}
 //		
 //	}
-	
-	
 }

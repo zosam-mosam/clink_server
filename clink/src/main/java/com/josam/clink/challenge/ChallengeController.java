@@ -89,4 +89,20 @@ public class ChallengeController {
 	}
 	
 	
+	
+	/*
+	 *새로운 챌린지 등록 */
+	@PostMapping("/register")
+	@ResponseBody
+	public void registerChallenge (@RequestBody ChallengeVO cvo) {
+		System.out.println(cvo);
+		//		challengeService.registerChallenge(cvo);
+
+	}
+	
+	
+	
+	
+	
+	
 }

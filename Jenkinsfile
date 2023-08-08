@@ -62,13 +62,12 @@ pipeline {
                             configName: "spring",
                             verbose: true,
                             transfers: [
-                            sshTransfer(execCommand: "docker pull $DOCKER_REPO"),
-                            sshTransfer(execCommand: "docker ps -aq --filter 'name=hello_world_server' | xargs -r docker stop"),
-                            sshTransfer(execCommand: "docker ps -aq --filter 'name=hello_world_server' | xargs -r docker rm"),
-                            sshTransfer(execCommand: "docker run -d --name hello_world_server -v /home/ubuntu/property:/var/property -p 8000:8000 $DOCKER_REPO")
-                            
-                            // sshTransfer(sourceFiles: "helm/**",)
-                            
+                                sshTransfer(execCommand: "docker pull $DOCKER_REPO"),
+                                sshTransfer(execCommand: "docker ps -aq --filter 'name=hello_world_server' | xargs -r docker stop"),
+                                sshTransfer(execCommand: "docker ps -aq --filter 'name=hello_world_server' | xargs -r docker rm"),
+                                sshTransfer(execCommand: "docker run -d --name hello_world_server -v /home/ubuntu/property:/var/property -p 8000:8000 $DOCKER_REPO")
+                                
+                                // sshTransfer(sourceFiles: "helm/**",)           
                             ]
                         )
                     ]

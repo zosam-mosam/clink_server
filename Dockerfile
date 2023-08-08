@@ -14,4 +14,5 @@ EXPOSE 8000
 # ENV ENV_VARIABLE_NAME value
 
 # Run the JAR file
+# log파일 추가해야함!
 CMD ["java", "-jar", "app.jar", "--spring.config.location=file:/var/property/application.properties"]

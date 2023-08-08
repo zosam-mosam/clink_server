@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class ChallengeVO {
-	
 	private String challenge_no;
 	private String user_no;
 	private String challenge_title;
@@ -20,5 +19,4 @@ public class ChallengeVO {
 	
 	private String from;
 	private String to;
-
 }

@@ -1,10 +1,13 @@
 package com.josam.clink.communityPost;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
+import org.jsoup.nodes.Document;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.josam.clink.financeInfo.NewsVO;
+
 
 
 @Controller
@@ -47,13 +53,11 @@ public class CommunityPostController {
 	
 	@GetMapping("/community/hot-posts")
 	@ResponseBody
-	public HotPostList getHotPost(){//최근 인기 게시물 가져오기
-		HotPostList hpl = new HotPostList();
-		hpl.setHotPost(commPService.HotPost());
-		hpl.setHotFreePost(commPService.HotFreePost());
-		hpl.setHotInfoPost(commPService.HotInfoPost());
-		hpl.setHotAnnPost(commPService.HotAnnPost());
-		return hpl;
+	public List<Object> getHotPost() throws IOException{
+		List<Object> communityInfo =new ArrayList<>();
+		communityInfo.add(commPService.getHotPostList()); //최근 인기 게시물 리스
+		communityInfo.add(commPService.getFinNewsData());
+		return communityInfo;
 	}
 	
 	@GetMapping("/community/hot-hashtag")

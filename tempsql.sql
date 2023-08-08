@@ -139,3 +139,5 @@ AND board_no <= 314
 AND hashtag_content like CONCAT('%', "테스트", '%')
 ORDER BY board_no DESC
 LIMIT 5;
+
+SELECT * FROM Board_Detail WHERE category_no=1 AND board_delete_yn ='n' AND board_no <= 614 ORDER BY board_no DESC LIMIT 5;

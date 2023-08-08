@@ -17,7 +17,7 @@ public class MailTest {
     private MailService mailService;
 
     @Test
-    void testSendMail() {
+    void testSendMail() throws Exception {
         // 메서드 호출
         sendMail("soieu9898@gmail.com");
 
@@ -25,7 +25,7 @@ public class MailTest {
         verify(mailService, times(1)).sendMail("soieu9898@gmail.com");
     }
 
-    private void sendMail(String email) {
+    private void sendMail(String email) throws Exception {
         // 메일 전송 로직 구현
         mailService.sendMail(email);
     }

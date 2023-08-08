@@ -18,8 +18,6 @@ public class CommunityPostService {
 		return test;
 	}
 	public List<CommunityPostVO> getPostsbyRecent(Map<String, Object> parameters) {
-		int last_board_no = mapper.getLastboardId();
-
 		return mapper.getPostsbyRecent(parameters);
 	}
 	public List<CommunityPostVO> getPostsbyLike(String category_no,String hashtag){
@@ -59,6 +57,9 @@ public class CommunityPostService {
 	public List<String> getHashtag(int category_no){
 		List<String> list = mapper.getHashtag(category_no);
 		return list;
+	}
+	public int getLastboardId() {
+		return mapper.getLastboardId();
 	}
 	
 }

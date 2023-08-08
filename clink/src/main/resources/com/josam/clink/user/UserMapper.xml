@@ -13,7 +13,7 @@
 		`register_datetime`, `register_id`,`update_datetime`,
 		`updater_id`
 		)
-		VALUES ('8',
+		VALUES ('00003',
 		#{user_id}, #{user_name}, #{nick_name},
 		#{password},
 		#{email}, #{phone_number},
@@ -27,14 +27,7 @@
 	<select id="login"
 		parameterType="com.josam.clink.user.User_MasterVO"
 		resultType="com.josam.clink.user.User_MasterVO">
-		SELECT * FROM User_Master WHERE user_id = #{user_id} AND
-		password=#{password};
-		
-<!-- 		SELECT um.*, ad.account_no
-		FROM User_Master as um JOIN Account_Detail as ad
-		ON um.user_no = ad.user_no
-		WHERE user_no = ${user_no}; -->
-		
+		SELECT * FROM User_Master WHERE user_id = #{user_id}
 	</select>
 
 	<select id="checkDuplicateId" resultType="INTEGER">
@@ -47,16 +40,18 @@
 		User_Master where email =#{email}
 	</select>
 
-	<select id="selectUserById" parameterType="INTEGER"
-		resultType="com.josam.clink.user.User_MasterVO">
-		SELECT * FROM User_Master WHERE user_id = #{user_id}
-	</select>
+	<!-- 프로필 사진 업로드 -->
+	<update id="profileImage"
+		parameterType="com.josam.clink.user.User_MasterVO">
+		UPDATE User_Master
+		SET photo_url = #{photo_url}
+		WHERE
+		user_no = #{user_no}
+	</update>
 
 	<update id="update"
 		parameterType="com.josam.clink.user.User_MasterVO">
-		<!-- UPDATE User_Master SET user_name= #{user_name},nick_name= #{nick_name}, 
-			password=#{password} -->
-		UPDATE User_Master 
+		UPDATE User_Master
 		<set>
 			<if test="user_name != null and user_name != ''">
 				user_name = #{user_name},
@@ -82,10 +77,37 @@
 		)
 	</insert>
 
+	<update id="updateAccount"
+		parameterType="com.josam.clink.user.Account_DetailVO">
+		UPDATE Account_Detail
+		<set>
+			<if test="account_no != null and account_no != ''">
+				account_no = #{account_no},
+			</if>
+			<if test="bank_code != null and bank_code != ''">
+				bank_code = #{bank_code},
+			</if>
+		</set>
+		WHERE user_no =#{user_no}
+		AND account_code=#{account_code}
+	</update>
+
 	<select id="checkAccount"
 		parameterType="com.josam.clink.user.Account_DetailVO"
 		resultType="com.josam.clink.user.Account_DetailVO">
 		SELECT * FROM Account_Detail WHERE user_no = #{user_no};
+	</select>
+	
+	<select id="selectUserById" parameterType="INTEGER"
+		resultType="com.josam.clink.user.User_MasterVO">
+		SELECT * FROM User_Master WHERE user_id = #{user_id}
+	</select>
+
+	<!-- 토큰용 -->
+	
+	<select id="findById" parameterType="String"
+		resultType="com.josam.clink.user.User_MasterVO">
+		SELECT * FROM User_Master WHERE user_id = #{user_id}
 	</select>
 
 	<!-- 로컬 테스트용 <insert id="insert" parameterType="com.josam.clink.user.UserVO"> 

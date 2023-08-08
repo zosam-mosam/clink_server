@@ -1,33 +1,37 @@
 package com.josam.clink;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import com.josam.clink.user.MailService;
+import com.josam.clink.challenge.ChallengeVO;
+import com.josam.clink.challenge.SuccessVO;
+import com.josam.clink.main.BadgeVO;
+import com.josam.clink.main.MainMapper;
+import com.josam.clink.main.MainService;
+import com.josam.clink.main.QuoteVO;
+import com.josam.clink.main.ReportVO;
+import com.josam.clink.main.StreakVO;
+import com.josam.clink.main.StreakdataVO;
+import com.josam.clink.user.RegisterMail;
+import com.josam.clink.user.User_MasterVO;
 
-import static org.mockito.Mockito.*;
-
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class MailTest {
+	@Autowired
+	RegisterMail registerMail;
 
-    @Mock
-    private MailService mailService;
+	@Test
+	public void test() {
+		String email = "jin02019@naver.com";
+		try {
+			String code = registerMail.sendSimpleMessage(email);
+			System.out.println("인증코드 : " + code);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
-    @Test
-    void testSendMail() throws Exception {
-        // 메서드 호출
-        sendMail("soieu9898@gmail.com");
-
-        // 메서드 호출 검증
-        verify(mailService, times(1)).sendMail("soieu9898@gmail.com");
-    }
-
-    private void sendMail(String email) throws Exception {
-        // 메일 전송 로직 구현
-        mailService.sendMail(email);
-    }
 }
-

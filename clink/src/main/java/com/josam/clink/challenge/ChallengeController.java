@@ -97,6 +97,7 @@ public class ChallengeController {
 	public void registerChallenge (@RequestBody ChallengeVO cvo) {
 		System.out.println(cvo);
 		//		challengeService.registerChallenge(cvo);
+
 	}
 	
 	

@@ -19,7 +19,8 @@ application.*
 
 
 src/bin
-
+#####TEST#####
+src/test
 
 ### STS ###
 .apt_generated

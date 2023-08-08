@@ -34,14 +34,14 @@ public class GptTest {
 	public String gptTest(List<String> newsTitleList) throws IOException{//
 		
 		String ep="https://api.openai.com/v1/chat/completions";
-		String apiKey = "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";
+		String apiKey = "apikey";
 		
 		JSONObject payload = new JSONObject();
 		JSONObject message = new JSONObject();
 		JSONArray messages =new JSONArray();
 			
 		message.put("role", "user");
-		message.put("content",newsTitleList+ "위의 기사제목 중에 겹치지않는 내용으로 10개의 제목을 제외한 인덱스 번호만 뽑아줘 ");
+		message.put("content",newsTitleList+ "위의 기사제목들 중에 전혀 다른 제목으로 10개를 제목을 제외한 인덱스 번호만 뽑아줘 ");
 			
 		messages.put(message);
 			

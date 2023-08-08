@@ -53,4 +53,8 @@ public class ChallengeService {
 		return mapper.updateHistory(vo);
 	};
 	
+	//새로운 챌린지 등록
+	public void registerChallenge(ChallengeVO cvo) {
+		mapper.registerChallenge(cvo);
+	}
 }

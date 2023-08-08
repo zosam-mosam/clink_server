@@ -30,13 +30,13 @@ public class FinanceInfoService {
 		return list;
 	}
 	
-	@Scheduled(cron = "5 10 0/1 * * *")
+	@Scheduled(cron = "10 26 0/1 * * *")
 	public void run() {
 		nmp.deleteNewsData();
 
 	}
 	
-	@Scheduled(cron = "0 10 0/1 * * *")
+	@Scheduled(cron = "55 24 0/1 * * *")
 	public void insertNewsData() {
 		List<NewsVO> list = new ArrayList<>();
 		List<String> newstitleList = new ArrayList<>();	
@@ -50,16 +50,16 @@ public class FinanceInfoService {
 				newstitleList.add(i+"."+imgtag.get(i).attr("alt"));
 				list.add(nvo);
 			}
-			GptTest gpt =new GptTest();
+			GptTest gpt = new GptTest();
 			String newsIndex=gpt.gptTest(newstitleList);
 			String[] al=newsIndex.split(",");
-			
+			System.out.println(newstitleList);
+			System.out.println(al);
 			
 			for(int i=0;i<=al.length;i++) {
 				int titleIdx = Integer.parseInt(al[i].trim());
 				NewsVO nvo =list.get(titleIdx);
 				nmp.insertNewsData(nvo);
-				
 			}
 
 		} catch (Exception e) {

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.josam.clink.financeInfo.NewsVO;
-import com.josam.clink.financeInfo.Controller.FinanceInfo;
+
 
 
 @Controller

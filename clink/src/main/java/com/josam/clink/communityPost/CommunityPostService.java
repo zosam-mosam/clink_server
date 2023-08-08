@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.josam.clink.financeInfo.NewsVO;
-import com.josam.clink.financeInfo.Controller.FinanceInfo;
+
 import com.josam.clink.financeInfo.Service.FinanceInfoService;
 
 @Service

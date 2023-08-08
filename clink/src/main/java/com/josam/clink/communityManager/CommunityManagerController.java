@@ -44,7 +44,7 @@ public class CommunityManagerController {
 	
 	@PostMapping("/post/update")
 	@ResponseBody
-	void updatePost(@RequestBody CommunityPostVO cpvo) {
+	public void updatePost(@RequestBody CommunityPostVO cpvo) {
 		communityManagerService.updateBoard(cpvo);
 		System.out.println(cpvo.getHashtag_content());
 		System.out.println(cpvo.getBoard_title());

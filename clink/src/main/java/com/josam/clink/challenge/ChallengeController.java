@@ -95,7 +95,9 @@ public class ChallengeController {
 	@PostMapping("/register")
 	@ResponseBody
 	public void registerChallenge (@RequestBody ChallengeVO cvo) {
-		challengeService.registerChallenge(cvo);
+		System.out.println(cvo);
+		//		challengeService.registerChallenge(cvo);
+
 	}
 	
 	

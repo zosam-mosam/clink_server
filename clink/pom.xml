@@ -70,7 +70,6 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- 메일인증 -->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>

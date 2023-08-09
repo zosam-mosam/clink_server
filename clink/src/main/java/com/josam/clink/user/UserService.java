@@ -35,10 +35,8 @@ public class UserService {
 	public User_MasterVO login(User_MasterVO vo) {
 		User_MasterVO newVO = new User_MasterVO();
 		newVO = userMapper.login(vo);
-		String loginpwd = vo.getPassword();
-		String dbpwd = newVO.getPassword();
-		boolean result = passwordEncoder.matches(loginpwd, dbpwd);
-//		System.out.println("result:"+result);
+		boolean result = passwordEncoder.matches(vo.getPassword(), newVO.getPassword());
+		System.out.println("result:"+result);
 		if(result) {
 			return newVO;
 		}else {
@@ -67,13 +65,12 @@ public class UserService {
 
 	// 개인정보 수정
 	public int update(User_MasterVO vo) {
-		if(!vo.getNick_name().equals(null)) {
-			String encodedPassword = passwordEncoder.encode(vo.getPassword());			
-			vo.setPassword(encodedPassword);
-		}
-		if(!vo.getPassword().equals(null)) {
-			String encodedNickname = passwordEncoder.encode(vo.getNick_name());
-			vo.setEmail(encodedNickname);
+		if(vo.getNick_name().equals(null)) {
+			User_MasterVO newVO = new User_MasterVO();
+			vo.setNick_name(newVO.getNick_name());
+		}else if(vo.getPassword().equals(null)) {
+			User_MasterVO newVO = new User_MasterVO();
+			vo.setNick_name(newVO.getNick_name());
 		}		
 		return userMapper.update(vo);
 	}

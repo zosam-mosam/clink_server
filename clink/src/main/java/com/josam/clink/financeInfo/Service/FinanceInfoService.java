@@ -36,7 +36,7 @@ public class FinanceInfoService {
 
 	}
 	
-	@Scheduled(cron = "55 24 0/1 * * *")
+	@Scheduled(cron = "0 24 0/1 * * *")
 	public void insertNewsData() {
 		List<NewsVO> list = new ArrayList<>();
 		List<String> newstitleList = new ArrayList<>();	
@@ -53,9 +53,6 @@ public class FinanceInfoService {
 			GptTest gpt = new GptTest();
 			String newsIndex=gpt.gptTest(newstitleList);
 			String[] al=newsIndex.split(",");
-			System.out.println(newstitleList);
-			System.out.println(al);
-			
 			for(int i=0;i<=al.length;i++) {
 				int titleIdx = Integer.parseInt(al[i].trim());
 				NewsVO nvo =list.get(titleIdx);

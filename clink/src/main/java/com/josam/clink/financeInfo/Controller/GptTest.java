@@ -34,14 +34,14 @@ public class GptTest {
 	public String gptTest(List<String> newsTitleList) throws IOException{//
 		
 		String ep="https://api.openai.com/v1/chat/completions";
-		String apiKey = "apikey";
+		String apiKey = "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";
 		
 		JSONObject payload = new JSONObject();
 		JSONObject message = new JSONObject();
 		JSONArray messages =new JSONArray();
 			
 		message.put("role", "user");
-		message.put("content",newsTitleList+ "위의 기사제목들 중에 전혀 다른 제목으로 10개를 제목을 제외한 인덱스 번호만 뽑아줘 ");
+		message.put("content",newsTitleList+ "위의 제목 중에서 서로 다른 제목 10개를 제목을 제외한 인덱스 번호만 뽑아줘 ");
 			
 		messages.put(message);
 			
@@ -66,7 +66,6 @@ public class GptTest {
 	    JSONObject resJson = new JSONObject(resJsonString).getJSONArray("choices").getJSONObject(0);
 	        
 	    String newsIndex = resJson.getJSONObject("message").getString("content");
-	    System.out.println(newsIndex);
 		return newsIndex;
 	}
 }

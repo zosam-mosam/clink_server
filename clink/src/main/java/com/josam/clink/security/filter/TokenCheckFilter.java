@@ -35,7 +35,7 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 		String path = request.getRequestURI();
 		System.out.println("path:"+path);
 		if (!path.startsWith("/api/")) { // api 주소가 아니면(일반접속이면) 통과
-//			System.out.println("통과되는 경로");
+			System.out.println("통과~~");
 //			if (!path.startsWith("/clink/login")||!path.startsWith("/clink/join")||!path.startsWith("/clink/community")||!path.startsWith("/clink/challenge")||!path.startsWith("/clink/Main")) { // api 주소가 아니면(일반접속이면) 통과
 			filterChain.doFilter(request, response);
 			return;

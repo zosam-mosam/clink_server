@@ -2,6 +2,7 @@ package com.josam.clink.user;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,7 +42,7 @@ public class UserController {
 	// 로그인
 	@PostMapping("/login.do")
 	@ResponseBody
-	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req)
+	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO)
 			throws Exception {
 		// 여기서 jwt 검증하고 id, pw 받아서 vo 리턴시키기
 		System.out.println("컨트롤러 도착했니?? user_MasterVO:"+user_MasterVO);
@@ -80,11 +81,25 @@ public class UserController {
 		}
 	}
 
+	// 등록된 계좌 있는지 확인
+	@PostMapping("/checkAccount.do")
+	@ResponseBody
+	public List<Account_DetailVO> checkAccount(@RequestBody Account_DetailVO account_DetailVO)
+			throws Exception {
+		System.out.println("계좌 있는지 확인하자~~");
+		System.out.println(account_DetailVO);
+
+		List<Account_DetailVO> checkAccount = userService.checkAccount(account_DetailVO);
+		return checkAccount;
+		// 없으면 null 반환
+	}
+	
 	// 계좌 등록
 	// 유형별로 1개 등록하면 더 이상 등록은 못하고 수정만 가능하다~~
 	@PostMapping("/registAccount.do")
 	@ResponseBody
-	public int registAccount(@RequestBody Account_DetailVO account_DetailVO, HttpServletRequest req) throws Exception {
+	public int registAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
+		System.out.println("registAccount도착했니..? vo도?"+account_DetailVO);
 		int registAccount = userService.registAccount(account_DetailVO);
 		System.out.println("registAccount:" + registAccount);
 		if (registAccount == 0) {
@@ -97,7 +112,7 @@ public class UserController {
 	// 계좌 수정
 	@PostMapping("/updateAccount.do")
 	@ResponseBody
-	public int updateAccount(@RequestBody Account_DetailVO account_DetailVO, HttpServletRequest req) throws Exception {
+	public int updateAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
 		int updateAccount = userService.updateAccount(account_DetailVO);
 		System.out.println("updateAccount:" + updateAccount);
 		if (updateAccount == 0) {
@@ -106,17 +121,17 @@ public class UserController {
 			return 1;
 		}
 	}
-
-	// 등록된 계좌 있는지 확인
-	@PostMapping("/checkAccount.do")
+	
+	// 마이페이지 사용자 정보 가져오기
+	@PostMapping("/get-userInfo.do")
 	@ResponseBody
-	public List<Account_DetailVO> checkAccount(@RequestBody Account_DetailVO account_DetailVO, HttpServletRequest req)
+	public User_MasterVO getUserInfo(@RequestBody User_MasterVO user_MasterVO)
 			throws Exception {
-		System.out.println("계좌 있는지 확인하자~~");
-		System.out.println(account_DetailVO);
+		System.out.println("user_MasterVO:"+user_MasterVO);
 
-		List<Account_DetailVO> checkAccount = userService.checkAccount(account_DetailVO);
-		return checkAccount;
+		User_MasterVO getUserInfo = userService.getUserInfo(user_MasterVO);
+		System.out.println("getUserInfo:"+getUserInfo);
+		return getUserInfo;
 		// 없으면 null 반환
 	}
 

@@ -1,6 +1,7 @@
 package com.josam.clink.user;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,6 +16,9 @@ public interface UserMapper {
 
 	// 아이디 중복체크
 	int checkDuplicateId(String user_id);
+	
+	// 정보 확인
+	User_MasterVO getUserInfo(User_MasterVO vo);
 
 	User_MasterVO selectUserById(String user_id);
 	
@@ -36,7 +40,5 @@ public interface UserMapper {
 	
 	// 토큰확인
 	User_MasterVO findById(String username);
-
-
 	
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.josam.clink.user.UserMapper">
-	<!-- 원본!! -->
+	<!-- 원본 -->
 	<insert id="insert"
 		parameterType="com.josam.clink.user.User_MasterVO">
 		INSERT INTO User_Master (`user_no`,
@@ -13,12 +13,12 @@
 		`register_datetime`, `register_id`,`update_datetime`,
 		`updater_id`
 		)
-		VALUES ('00003',
+		VALUES ('00001',
 		#{user_id}, #{user_name}, #{nick_name},
 		#{password},
 		#{email}, #{phone_number},
-		#{photo_url}, #{user_status_yn},
-		#{register_datetime}, #{register_id},#{update_datetime},#{updater_id}
+		#{photo_url}, "Y",
+		now(), #{user_id},#{update_datetime},#{updater_id}
 		)
 		<!-- <selectKey keyProperty="user_no" order="AFTER" resultType="int"> SELECT 
 			LAST_INSERT_ID() </selectKey> -->
@@ -29,10 +29,16 @@
 		resultType="com.josam.clink.user.User_MasterVO">
 		SELECT * FROM User_Master WHERE user_id = #{user_id}
 	</select>
+	
+	<!-- 정보 확인 -->
+	<select id="getUserInfo" resultType="com.josam.clink.user.User_MasterVO">
+	  SELECT *
+	  FROM User_Master
+	  WHERE user_no = #{user_no}
+	</select>
 
 	<select id="checkDuplicateId" resultType="INTEGER">
-		select count(*) from
-		User_Master where user_id =#{user_id}
+		SELECT count(*) FROM User_Master WHERE user_id =#{user_id}
 	</select>
 
 	<!-- 프로필 사진 업로드 -->
@@ -44,6 +50,7 @@
 		user_no = #{user_no}
 	</update>
 
+    <!-- 개인정보 업데이트 -->
 	<update id="update"
 		parameterType="com.josam.clink.user.User_MasterVO">
 		UPDATE User_Master
@@ -57,6 +64,8 @@
 			<if test="password != null and password != ''">
 				password = #{password},
 			</if>
+			update_datetime = now(),
+			updater_id=#{user_id}
 		</set>
 		WHERE user_no =#{user_no}
 	</update>
@@ -65,10 +74,10 @@
 		parameterType="com.josam.clink.user.Account_DetailVO">
 		INSERT INTO Account_Detail (
 		`user_no`, `account_no`,
-		`account_balance`, `account_code`, `bank_code`
+		`account_balance`, `account_code`, `bank_code`, `register_id`, `register_datetime`
 		) VALUES (
 		#{user_no},
-		#{account_no}, #{account_balance}, #{account_code}, #{bank_code}
+		#{account_no}, #{account_balance}, #{account_code}, #{bank_code},#{user_no}, now() 
 		)
 	</insert>
 
@@ -82,6 +91,8 @@
 			<if test="bank_code != null and bank_code != ''">
 				bank_code = #{bank_code},
 			</if>
+			update_datetime = now(),
+			update_id=#{user_no}
 		</set>
 		WHERE user_no =#{user_no}
 		AND account_code=#{account_code}

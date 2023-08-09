@@ -33,8 +33,8 @@ public class UserTest {
     private PasswordEncoder passwordEncoder;
     @Test
     public void encrypt() {
-    	String dbpwd = passwordEncoder.encode("1111");
-    	String loginpwd = "1111";
+    	String dbpwd = passwordEncoder.encode("gpt1234");
+    	String loginpwd = "gpt1234";
     	System.out.println(dbpwd);
     	System.out.println(loginpwd);
     	System.out.println(passwordEncoder.matches(loginpwd, dbpwd));
@@ -47,7 +47,6 @@ public class UserTest {
 //		User_MasterVO vo = mapper.login(param);
 //		System.out.println(vo);
 //	}
-	
 
 //	@Test
 //	public void challenge() {
@@ -129,7 +128,6 @@ public class UserTest {
 	@Autowired
 	UserService userService;
 	
-	
 //	@Test
 //	public void encodeTest() {
 //		User_MasterVO vo = new User_MasterVO();
@@ -152,7 +150,6 @@ public class UserTest {
 //	}
 	
 	
-//	
 //	@Test
 //	public void UserLoginTest() {
 //		User_MasterVO uvo = new User_MasterVO();

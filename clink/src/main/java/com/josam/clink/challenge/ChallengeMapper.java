@@ -19,5 +19,5 @@ public interface ChallengeMapper {
 	List<HistoryVO> selectedHistory(HistoryVO vo);
 	int deleteHistory(HistoryVO vo);
 	int updateHistory(HistoryVO vo);
-	
+	void registerChallenge(ChallengeVO cvo);
 }

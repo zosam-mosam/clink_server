@@ -31,7 +31,6 @@ public interface UserMapper {
 	// 계좌등록
 	int registAccount(Account_DetailVO vo);
 	
-	
 	// 계좌 수정
 	int updateAccount(Account_DetailVO vo);
 
@@ -40,5 +39,5 @@ public interface UserMapper {
 	
 	// 토큰확인
 	User_MasterVO findById(String username);
-	
+
 }

@@ -36,7 +36,7 @@ public class UserService {
 		User_MasterVO newVO = new User_MasterVO();
 		newVO = userMapper.login(vo);
 		boolean result = passwordEncoder.matches(vo.getPassword(), newVO.getPassword());
-		System.out.println("result:"+result);
+//		System.out.println("result:"+result);
 		if(result) {
 			return newVO;
 		}else {
@@ -89,6 +89,5 @@ public class UserService {
 	public int updateAccount(Account_DetailVO vo) {
 		return userMapper.updateAccount(vo);
 	}
-
 
 }

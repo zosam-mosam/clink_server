@@ -1,6 +1,7 @@
 package com.josam.clink.user;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,26 +31,24 @@ public class UserService {
 		return r;
 	}
 
-	// 로그인
+	// 로그인	
 	public User_MasterVO login(User_MasterVO vo) {
-		System.out.println("서비스 도착했니?? user_MasterVO:"+vo);
-		
 		User_MasterVO newVO = new User_MasterVO();
 		newVO = userMapper.login(vo);
-		
-		String dbpwd = newVO.getPassword();
-		boolean result = passwordEncoder.matches(vo.getPassword(), dbpwd);
-		
+		boolean result = passwordEncoder.matches(vo.getPassword(), newVO.getPassword());
+//		System.out.println("result:"+result);
 		if(result) {
-			return userMapper.login(vo);
+			return newVO;
 		}else {
 			return null;
 		}
-		
-//		return userMapper.login(vo);
-		
 	}
 
+	// 정보 확인
+	public User_MasterVO getUserInfo(User_MasterVO vo) {
+		return userMapper.getUserInfo(vo);
+	}
+	
 	public User_MasterVO getUserById(String user_id) {
 		return userMapper.selectUserById(user_id);
 	}
@@ -66,18 +65,21 @@ public class UserService {
 
 	// 개인정보 수정
 	public int update(User_MasterVO vo) {
-		String encodedPassword = passwordEncoder.encode(vo.getPassword());
-		String encodedUsername = passwordEncoder.encode(vo.getUser_name());
-		String encodedNickname = passwordEncoder.encode(vo.getNick_name());
-	
-		vo.setPassword(encodedPassword);
-		vo.setUser_name(encodedUsername);
-		vo.setEmail(encodedNickname);
-		
+		if(vo.getNick_name().equals(null)) {
+			User_MasterVO newVO = new User_MasterVO();
+			vo.setNick_name(newVO.getNick_name());
+		}else if(vo.getPassword().equals(null)) {
+			User_MasterVO newVO = new User_MasterVO();
+			vo.setNick_name(newVO.getNick_name());
+		}		
 		return userMapper.update(vo);
 	}
 	
-
+	// 계좌 확인
+		public List<Account_DetailVO> checkAccount(Account_DetailVO vo) {
+			return userMapper.checkAccount(vo);
+		}
+	
 	// 계좌 등록
 	public int registAccount(Account_DetailVO vo) {
 		return userMapper.registAccount(vo);
@@ -88,8 +90,4 @@ public class UserService {
 		return userMapper.updateAccount(vo);
 	}
 
-	// 계좌 확인
-	public List<Account_DetailVO> checkAccount(Account_DetailVO vo) {
-		return userMapper.checkAccount(vo);
-	}
 }

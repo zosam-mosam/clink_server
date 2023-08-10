@@ -25,6 +25,23 @@
 		ORDER BY board_no DESC
 		LIMIT 50;
 	</select>
+	<select id="getLastBoardNo" parameterType="map" resultType="int">
+		SELECT MIN(Board_no)-1
+		FROM Board_Detail
+		WHERE category_no=#{category_no}
+		AND #{last_board_no} >= board_no
+		AND board_delete_yn = "n"
+		AND hashtag_content like CONCAT('%', #{hashtag}, '%')
+		ORDER BY board_no DESC
+		LIMIT 5;
+	</select>
+	<select id="getBoardCount" parameterType="map" resultType="int">
+		SELECT MAX(Board_no)
+		FROM Board_Detail
+		WHERE category_no=#{category_no}
+		AND board_delete_yn = "n"
+		
+	</select>
 	<select id="getPostsbyLike" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
@@ -47,9 +64,5 @@
 		where category_no=#{category_no}
 		group by hashtag_content
 		order by count(hashtag_content) desc Limit 3;
-	</select>
-	<select id="getLastboardId" resultType="int">
-		SELECT MAX(board_no)+1
-		FROM Board_Detail
 	</select>
 </mapper>

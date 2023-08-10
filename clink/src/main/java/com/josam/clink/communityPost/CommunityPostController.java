@@ -6,12 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-
 import org.jsoup.nodes.Document;
-
 import org.apache.ibatis.annotations.Param;
-
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +34,7 @@ public class CommunityPostController {
 	    String filter = (String) parameters.get("filter");
 	    
 		List<CommunityPostVO> data = new ArrayList<>();
+		
 		// 1. category_no = 0 => 베스트 게시판
 		if("0".equals(category_no)) {
 			data = commPService.getBestPosts();

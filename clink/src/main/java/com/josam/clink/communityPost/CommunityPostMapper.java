@@ -17,5 +17,7 @@ public interface CommunityPostMapper {
 	public List<CommunityPostVO> infoList(); 
 	public List<CommunityPostVO> annList();
 	public List<String> getHashtag(int category_no);
-	public int getLastboardId();
+	public int getLastBoardNo(Map<String, Object> parameters);
+	public int getBoardCount(Map<String, Object> parameters);
+	
 }

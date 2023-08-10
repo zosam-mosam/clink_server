@@ -30,13 +30,13 @@ public class FinanceInfoService {
 		return list;
 	}
 	
-	@Scheduled(cron = "10 26 0/1 * * *")
+//	@Scheduled(cron = "10 26 0/1 * * *")
 	public void run() {
 		nmp.deleteNewsData();
 
 	}
 	
-	@Scheduled(cron = "55 24 0/1 * * *")
+//	@Scheduled(cron = "55 24 0/1 * * *")
 	public void insertNewsData() {
 		List<NewsVO> list = new ArrayList<>();
 		List<String> newstitleList = new ArrayList<>();	

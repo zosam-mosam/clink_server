@@ -24,4 +24,5 @@ public interface CommunityManagerMapper {
 	public void minusLike(int board_no);
 	public int getLike(String user_id, int board_no);
 	public int getCommentCount(int board_no);
+	public void updateBoardViews(int board_no);
 }

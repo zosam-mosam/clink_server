@@ -65,7 +65,8 @@
 			board_like_count,
 			hashtag_content,
 			register_datetime,
-			register_id) 
+			register_id,
+			board_delete_yn) 
 		VALUES(
 			#{user_no},
 			#{category_no},
@@ -75,7 +76,8 @@
 			0,
 			#{hashtag_content},
 			now(),
-			#{register_id}
+			#{register_id},
+			"N"
 			)
 	</insert>
 	<insert id="insertHashtag" parameterType="String">

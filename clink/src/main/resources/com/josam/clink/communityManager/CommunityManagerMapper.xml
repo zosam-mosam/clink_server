@@ -78,8 +78,9 @@
 			"test1"
 			)
 	</insert>
-	<insert id="insertHashtag" parameterType="String">
-		insert into Hashtag_Detail(category_no,hashtag_content,register_datetime,register_id) values(#{category_no},#{hashtag},now(),"test")
+	<insert id="insertHashtag">
+		insert into Hashtag_Detail(board_no,category_no,hashtag_content,register_datetime,register_id) 
+		values(#{boardNo},#{category_no},#{hashtag},now(),"test")
 	</insert>
 	
 	
@@ -120,6 +121,11 @@
 		FROM Comment_Detail
 		WHERE board_no = #{board_no}
 		AND comment_delete_yn = "n";
+	</select>
+	<select id="getBoardNo" parameterType="integer">
+		SELECT board_no
+		FROM Board_Detail
+		ORDER BY board_no DESC LIMIT 1 
 	</select>
 
 </mapper>

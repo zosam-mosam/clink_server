@@ -1,5 +1,7 @@
 package com.josam.clink.financeInfo.Controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,17 +27,16 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 public class GptTest {
+	
 	
 	/**
 	 *chatGPT를 이용한 뉴스 리스트생성
 	 **/
-	public String gptTest(List<String> newsTitleList) throws IOException{//
+	public String gptTest(List<String> newsTitleList,String apikey) throws IOException{//
 		
 		String ep="https://api.openai.com/v1/chat/completions";
-		String apiKey = "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";
-		
+
 		JSONObject payload = new JSONObject();
 		JSONObject message = new JSONObject();
 		JSONArray messages =new JSONArray();
@@ -45,7 +46,7 @@ public class GptTest {
 			
 		messages.put(message);
 			
-			
+	
 		payload.put("model", "gpt-3.5-turbo");
 		payload.put("messages", messages);
 		payload.put("temperature", 0.7);
@@ -54,7 +55,7 @@ public class GptTest {
 			    
 		HttpPost post =new HttpPost(ep);
 		post.setEntity(inputEntity);
-		post.setHeader("Authorization","Bearer " + apiKey);
+		post.setHeader("Authorization","Bearer " + apikey);
 		post.setHeader("Content-Type", "application/json");
 			
 		HttpClient httpClient= HttpClients.createDefault();

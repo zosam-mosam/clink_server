@@ -47,10 +47,12 @@ public class CommunityManagerController {
 	public void insertPost(@RequestBody CommunityPostVO pvo) {
 		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
+		int boardNo=communityManagerService.getBoardNo();
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
+		System.out.println();
 		for(int i=0;i<hashtag_list.length;i++) {
 			System.out.println(hashtag_list[i]);
-			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i]);
+			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i],boardNo);
 		}
 	}
 	

@@ -30,6 +30,7 @@ public class ChallengeController {
 	@GetMapping("/main-info")
 	@ResponseBody
 	public ChallengePageVO challenge(@RequestParam String userNo) {
+
 		boolean check=checkChallenge(userNo);
 		System.out.println(check);
 		ChallengePageVO cpvo = new ChallengePageVO();
@@ -57,7 +58,7 @@ public class ChallengeController {
 		else {
 			return null;
 		}
-		
+
 	}
 	
 	@GetMapping("/pay-info")
@@ -102,15 +103,14 @@ public class ChallengeController {
 	@PostMapping("/register")
 	@ResponseBody
 	public void registerChallenge (@RequestBody ChallengeVO cvo) {
+
 		challengeService.registerChallenge(cvo);
 	}
 	
 	public boolean checkChallenge(String userNo) {
 		return challengeService.checkChallenge(userNo);
+
 	}
-	
-	
-	
 	
 	
 }

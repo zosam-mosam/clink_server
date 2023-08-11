@@ -57,7 +57,7 @@ public class ChallengeService {
 	public void registerChallenge(ChallengeVO cvo) {
 		mapper.registerChallenge(cvo);
 	}
-	
+
 	//챌린지가 있는지 체크
 	/*
 	 *진행하고 있는 챌린지가 있으면 true

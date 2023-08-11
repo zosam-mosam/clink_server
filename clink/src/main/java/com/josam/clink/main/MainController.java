@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.josam.clink.challenge.ChallengeService;
-import com.josam.clink.challenge.ChallengeVO;
 import com.josam.clink.user.User_MasterVO;
 
 @Controller
@@ -24,27 +23,22 @@ public class MainController {
 	@GetMapping("/info")
 	@ResponseBody
 	public MainPageVO getMainInfo(@RequestParam String userNo) {
-
-		MainPageVO mpvo = new MainPageVO();
-		mpvo.setUser_no(userNo);
-		User_MasterVO uvo = new User_MasterVO();
-		uvo.setUser_no(userNo);
-		
-		//Badge
-		mpvo.setBadge(mainService.getBadge(uvo));
-		
-		//Quote
-		mpvo.setQuote(mainService.getQuote());
-
-		//StreakData
-		ChallengeVO cvo = cService.myChallenge(uvo);
-		StreakVO svo =  mainService.getStreakData(cvo);
-		mpvo.setStreakData(svo);
-		
+		boolean check=cService.checkChallenge(userNo);
+		MainPageVO mpvo =new MainPageVO();
+		if(check) {
+			User_MasterVO uvo = new User_MasterVO();
+			uvo.setUser_no(userNo);
+			mpvo= mainService.getInfo(uvo);
+			mpvo.setUser_no(userNo);
+			return mpvo;
+		}
 		//ReportData
-		mpvo.setReport(mainService.getReportData(cvo));
+		//mpvo.setReport(mainService.getReportData(cvo));
+		else {
+			return null;
+		}
 
-		return mpvo;
+		
 	}
 	
 }

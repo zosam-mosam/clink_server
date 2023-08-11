@@ -25,7 +25,15 @@ public class UserTest {
 	
 	@Test
 	public void test() {
-		System.out.println("sss");
+		long time = System.currentTimeMillis();
+		System.out.println(time);
+//		String time1 = Long.toString(time);
+		
+		String time1 = Long.toString(System.currentTimeMillis()).substring(8);
+		
+		System.out.println(time1);
+//		1691737305034
+	//  1691737331468
 	}
 	
 	@Autowired

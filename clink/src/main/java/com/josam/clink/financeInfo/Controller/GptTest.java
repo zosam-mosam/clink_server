@@ -1,5 +1,8 @@
 package com.josam.clink.financeInfo.Controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,20 +34,18 @@ public class GptTest {
 	/**
 	 *chatGPT를 이용한 뉴스 리스트생성
 	 **/
-	public String gptTest(List<String> newsTitleList) throws IOException{//
+	public String gptTest(List<String> newsTitleList,String apikey) throws IOException{//
 		
 		String ep="https://api.openai.com/v1/chat/completions";
-		String apiKey = "apikey";
-		
+
 		JSONObject payload = new JSONObject();
 		JSONObject message = new JSONObject();
 		JSONArray messages =new JSONArray();
 			
 		message.put("role", "user");
 		message.put("content",newsTitleList+ "위의 기사제목들 중에 전혀 다른 제목으로 10개를 제목을 제외한 인덱스 번호만 뽑아줘 ");
-			
+
 		messages.put(message);
-			
 			
 		payload.put("model", "gpt-3.5-turbo");
 		payload.put("messages", messages);
@@ -54,7 +55,9 @@ public class GptTest {
 			    
 		HttpPost post =new HttpPost(ep);
 		post.setEntity(inputEntity);
-		post.setHeader("Authorization","Bearer " + apiKey);
+
+		post.setHeader("Authorization","Bearer " + apikey);
+
 		post.setHeader("Content-Type", "application/json");
 			
 		HttpClient httpClient= HttpClients.createDefault();
@@ -66,7 +69,7 @@ public class GptTest {
 	    JSONObject resJson = new JSONObject(resJsonString).getJSONArray("choices").getJSONObject(0);
 	        
 	    String newsIndex = resJson.getJSONObject("message").getString("content");
-	    System.out.println(newsIndex);
+
 		return newsIndex;
 	}
 }

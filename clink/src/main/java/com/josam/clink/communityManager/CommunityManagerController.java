@@ -47,23 +47,23 @@ public class CommunityManagerController {
 	public void insertPost(@RequestBody CommunityPostVO pvo) {
 		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
+		int boardNo=communityManagerService.getBoardNo();
+
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
+		System.out.println();
 		for(int i=0;i<hashtag_list.length;i++) {
 			System.out.println(hashtag_list[i]);
-			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i]);
+			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i],boardNo);
 		}
 	}
 	
 	@PostMapping("/post/update")
 	@ResponseBody
 	public void updatePost(@RequestBody CommunityPostVO cpvo) {
+
+		cpvo.setUpdate_id(cpvo.getUpdate_id());
+
 		communityManagerService.updateBoard(cpvo);
-		System.out.println(cpvo.getHashtag_content());
-		System.out.println(cpvo.getBoard_title());
-		System.out.println(cpvo.getBoard_content());
-		System.out.println(cpvo.getCategory_no());
-		System.out.println(cpvo.getRegister_id());
-		System.out.println(cpvo.getBoard_no());
 //		String[] hashtag_list=cpvo.getHashtag_content().split(",");
 //		for(int i=0;i<hashtag_list.length;i++) {
 //			System.out.println(hashtag_list[i]);
@@ -128,5 +128,6 @@ public class CommunityManagerController {
 	public void unlike(LikeVO lvo, int board_no) {
 		communityManagerService.unlike(lvo, board_no);
 	}
-	
+
 }
+	

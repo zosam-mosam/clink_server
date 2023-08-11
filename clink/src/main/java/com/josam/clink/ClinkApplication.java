@@ -1,13 +1,11 @@
 package com.josam.clink;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.josam.clink.financeInfo.Service.FinanceInfoService;
 
-import net.bytebuddy.utility.visitor.LineNumberPrependingMethodVisitor;
+
 
 @EnableScheduling
 @SpringBootApplication

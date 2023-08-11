@@ -3,9 +3,6 @@ package com.josam.clink.user;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.josam.clink.user.mail.RegisterMail;
 
 @RequestMapping("/user")
 
@@ -123,7 +122,6 @@ public class UserController {
 		System.out.println("file" + file);
 		if (!file.isEmpty()) {
 			String org = file.getOriginalFilename();
-//			System.out.println("업로드된 파일 이름:" + org);
 			user_MasterVO.setPhoto_url(org);
 			String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static\\img";
 			File saveFile = new File(uploadFolder + "\\" + org);

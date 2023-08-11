@@ -13,6 +13,7 @@
 		`register_datetime`, `register_id`,`update_datetime`,
 		`updater_id`
 		)
+
 		VALUES ('00006',
 		#{user_id}, #{user_name}, #{nick_name},
 		#{password},
@@ -54,6 +55,12 @@
 	  WHERE user_no = #{user_no}
 	</select>
 	
+	<!-- 정보 확인 -->
+	<select id="getUserInfo" resultType="com.josam.clink.user.User_MasterVO">
+	  SELECT *
+	  FROM User_Master
+	  WHERE user_no = #{user_no}
+	</select>
 
 	<select id="checkDuplicateId" resultType="INTEGER">
 		SELECT count(*) FROM User_Master WHERE user_id =#{user_id}

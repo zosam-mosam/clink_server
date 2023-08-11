@@ -13,7 +13,6 @@ import com.josam.clink.challenge.ChallengeService;
 import com.josam.clink.challenge.ChartVO;
 import com.josam.clink.challenge.HistoryVO;
 import com.josam.clink.challenge.SuccessVO;
-
 import com.josam.clink.user.User_MasterVO;
 
 @SpringBootTest
@@ -49,7 +48,6 @@ public class AccountTest {
 				}catch(Exception e) {
 					System.out.println(e);
 				}
-
 			}
 		}
 	}
@@ -156,3 +154,4 @@ public class AccountTest {
 //		}
 //	}
 //}
+

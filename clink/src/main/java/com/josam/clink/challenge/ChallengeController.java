@@ -58,7 +58,7 @@ public class ChallengeController {
 		else {
 			return null;
 		}
-	
+
 	}
 	
 	@GetMapping("/pay-info")
@@ -103,18 +103,14 @@ public class ChallengeController {
 	@PostMapping("/register")
 	@ResponseBody
 	public void registerChallenge (@RequestBody ChallengeVO cvo) {
-		System.out.println(cvo);
-		//		challengeService.registerChallenge(cvo);
-
 
 		challengeService.registerChallenge(cvo);
 	}
 	
 	public boolean checkChallenge(String userNo) {
 		return challengeService.checkChallenge(userNo);
+
 	}
-	
-	
 	
 	
 }

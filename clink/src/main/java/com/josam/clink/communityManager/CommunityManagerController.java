@@ -55,6 +55,7 @@ public class CommunityManagerController {
 		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
 		int boardNo=communityManagerService.getBoardNo();
+
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
 		System.out.println();
 		for(int i=0;i<hashtag_list.length;i++) {

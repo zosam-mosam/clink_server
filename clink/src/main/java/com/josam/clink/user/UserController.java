@@ -90,6 +90,15 @@ public class UserController {
 		// 없으면 null 반환
 	}
 
+	// 등록된 계좌 있는지 확인
+	@PostMapping("/checkAccount.do")
+	@ResponseBody
+	public List<Account_DetailVO> checkAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
+		List<Account_DetailVO> checkAccount = userService.checkAccount(account_DetailVO);
+		return checkAccount;
+		// 없으면 null 반환
+	}
+
 	// 계좌 등록
 	@PostMapping("/regist-account.do")
 	@ResponseBody
@@ -114,6 +123,14 @@ public class UserController {
 		}
 	}
 
+	// 마이페이지 사용자 정보 가져오기
+	@PostMapping("/get-userInfo.do")
+	@ResponseBody
+	public User_MasterVO getUserInfo(@RequestBody User_MasterVO user_MasterVO) throws Exception {
+		User_MasterVO getUserInfo = userService.getUserInfo(user_MasterVO);
+		return getUserInfo;
+		// 없으면 null 반환
+	}
 
 	// 프로필 이미지 등록
 	@PostMapping("/photo-url.do")
@@ -123,11 +140,10 @@ public class UserController {
 		System.out.println("file" + file);
 		if (!file.isEmpty()) {
 			String org = file.getOriginalFilename();
-			System.out.println("업로드된 파일 이름:" + org);
+//			System.out.println("업로드된 파일 이름:" + org);
 			user_MasterVO.setPhoto_url(org);
 			String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static\\img";
 			File saveFile = new File(uploadFolder + "\\" + org);
-			System.out.println("saveFile:"+saveFile);
 			try {
 				file.transferTo(saveFile);
 			} catch (Exception e) {

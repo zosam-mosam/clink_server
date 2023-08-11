@@ -67,7 +67,10 @@ public class CommunityManagerService {
 	public int getBoardNo() {
 		return communityManagerMapper.getBoardNo();
 	}
+	
 	public void updateBoardViews(int board_no) {
-		communityManagerMapper.updateBoardViews(board_no);
+		int getBoardViews=communityManagerMapper.getBoardViews(board_no)+1;
+		System.out.println(getBoardViews);
+		communityManagerMapper.updateBoardViews(getBoardViews,board_no);
 	}
 }

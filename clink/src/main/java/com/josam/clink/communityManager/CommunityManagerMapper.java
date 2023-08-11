@@ -27,6 +27,8 @@ public interface CommunityManagerMapper {
 
 	public int getBoardNo();
 
-	public void updateBoardViews(int board_no);
+	public int getBoardViews(int board_no);
+	public void updateBoardViews(int getBoardViews,int board_no);
+	
 
 }

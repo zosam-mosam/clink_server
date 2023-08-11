@@ -1,7 +1,9 @@
 package com.josam.clink.financeInfo.Controller;
 
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +29,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+
 public class GptTest {
 	
 	
@@ -42,8 +45,7 @@ public class GptTest {
 		JSONArray messages =new JSONArray();
 			
 		message.put("role", "user");
-		message.put("content",newsTitleList+ "위의 제목 중에서 서로 다른 제목 10개를 제목을 제외한 인덱스 번호만 뽑아줘 ");
-			
+		message.put("content",newsTitleList+ "위의 기사제목들 중에 전혀 다른 제목으로 10개를 제목을 제외한 인덱스 번호만 뽑아줘 ");
 		messages.put(message);
 			
 		payload.put("model", "gpt-3.5-turbo");

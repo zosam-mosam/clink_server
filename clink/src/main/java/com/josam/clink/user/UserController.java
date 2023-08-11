@@ -25,30 +25,38 @@ public class UserController {
 	@Autowired
 	RegisterMail registerMail;
 
-	// 회원가입
 	@PostMapping("/join.do")
 	@ResponseBody
 	public User_MasterVO join(@RequestBody User_MasterVO user_MasterVO) {
-		int r = userService.insert(user_MasterVO);
-		if (r == 1) {
-			return user_MasterVO;
+		User_MasterVO uv = userService.insert(user_MasterVO);
+		if (uv!=null) {
+			return uv;
 		} else {
 			return null;
 		}
+	}
+	
+	// 마이페이지 사용자 정보 가져오기
+	@PostMapping("/mypage.do")
+	@ResponseBody
+	public User_MasterVO getUserInfo(@RequestBody User_MasterVO user_MasterVO) throws Exception {
+		User_MasterVO getUserInfo = userService.getUserInfo(user_MasterVO);
+		return getUserInfo;
+		// 없으면 null 반환
 	}
 
 	// 로그인
 	@PostMapping("/login.do")
 	@ResponseBody
-	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO) throws Exception {
-		User_MasterVO login = userService.login(user_MasterVO);
+	public Map<String, Object> login(@RequestBody User_MasterVO user_MasterVO) throws Exception {
+		Map<String, Object> login = userService.login(user_MasterVO);
 		if (login == null) {
 			return null;
 		} else {
 			return login;
 		}
 	}
-
+	
 	// 아이디 중복체크
 	@PostMapping("/check-duplicate-id.do")
 	@ResponseBody
@@ -72,6 +80,15 @@ public class UserController {
 			return "success";
 		}
 	}
+	
+	// 등록된 계좌 있는지 확인
+	@PostMapping("/check-account.do")
+	@ResponseBody
+	public List<Account_DetailVO> checkAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
+		List<Account_DetailVO> checkAccount = userService.checkAccount(account_DetailVO);
+		return checkAccount;
+		// 없으면 null 반환
+	}
 
 	// 등록된 계좌 있는지 확인
 	@PostMapping("/checkAccount.do")
@@ -83,7 +100,7 @@ public class UserController {
 	}
 
 	// 계좌 등록
-	@PostMapping("/registAccount.do")
+	@PostMapping("/regist-account.do")
 	@ResponseBody
 	public int registAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
 		int registAccount = userService.registAccount(account_DetailVO);
@@ -95,7 +112,7 @@ public class UserController {
 	}
 
 	// 계좌 수정
-	@PostMapping("/updateAccount.do")
+	@PostMapping("/update-account.do")
 	@ResponseBody
 	public int updateAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
 		int updateAccount = userService.updateAccount(account_DetailVO);

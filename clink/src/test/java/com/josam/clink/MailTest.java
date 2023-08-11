@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.josam.clink.challenge.ChallengeService;
 import com.josam.clink.challenge.ChallengeVO;
 import com.josam.clink.challenge.SuccessVO;
 import com.josam.clink.main.BadgeVO;

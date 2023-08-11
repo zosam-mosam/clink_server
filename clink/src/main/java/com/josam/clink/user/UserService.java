@@ -92,5 +92,4 @@ public class UserService {
 	public List<Account_DetailVO> checkAccount(Account_DetailVO vo) {
 		return userMapper.checkAccount(vo);
 	}
-
 }

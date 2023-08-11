@@ -107,10 +107,7 @@ public class ChallengeController {
 	
 	public boolean checkChallenge(String userNo) {
 		return challengeService.checkChallenge(userNo);
+
 	}
-	
-	
-	
-	
-	
+
 }

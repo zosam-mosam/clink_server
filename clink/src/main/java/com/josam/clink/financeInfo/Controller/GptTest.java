@@ -46,7 +46,6 @@ public class GptTest {
 			
 		messages.put(message);
 			
-	
 		payload.put("model", "gpt-3.5-turbo");
 		payload.put("messages", messages);
 		payload.put("temperature", 0.7);
@@ -56,6 +55,7 @@ public class GptTest {
 		HttpPost post =new HttpPost(ep);
 		post.setEntity(inputEntity);
 		post.setHeader("Authorization","Bearer " + apikey);
+
 		post.setHeader("Content-Type", "application/json");
 			
 		HttpClient httpClient= HttpClients.createDefault();
@@ -67,6 +67,7 @@ public class GptTest {
 	    JSONObject resJson = new JSONObject(resJsonString).getJSONArray("choices").getJSONObject(0);
 	        
 	    String newsIndex = resJson.getJSONObject("message").getString("content");
+
 		return newsIndex;
 	}
 }

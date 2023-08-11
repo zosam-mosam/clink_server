@@ -34,15 +34,14 @@ public class FinanceInfoService {
 		return list;
 	}
 	
-	@Scheduled(cron = "10 26 0/1 * * *")
+
+	//@Scheduled(cron = "10 26 0/1 * * *")
 	public void run() {
 		nmp.deleteNewsData();
 
 	}
 	
-
-	
-	@Scheduled(cron = "10 24 0/1 * * *")
+	//@Scheduled(cron = "10 24 0/1 * * *")
 	public void insertNewsData() {
 		List<NewsVO> list = new ArrayList<>();
 		List<String> newstitleList = new ArrayList<>();	
@@ -57,6 +56,7 @@ public class FinanceInfoService {
 				list.add(nvo);
 			}
 			GptTest gpt = new GptTest();
+
 			String newsIndex=gpt.gptTest(newstitleList,apiKey);
 			String[] al=newsIndex.split(",");
 			for(int i=0;i<=al.length;i++) {

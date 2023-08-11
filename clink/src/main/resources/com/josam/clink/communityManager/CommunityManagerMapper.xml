@@ -93,6 +93,7 @@
 			(register_datetime, user_id, board_no)
     	VALUES (now(), #{user_id}, #{board_no});
 	</insert>
+
 	<update id="plusLike" parameterType="INTEGER">
 		UPDATE Board_Detail
 		SET

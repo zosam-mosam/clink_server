@@ -89,6 +89,7 @@ public class UserController {
 		// 없으면 null 반환
 	}
 
+
 	// 계좌 등록
 	@PostMapping("/regist-account.do")
 	@ResponseBody
@@ -112,7 +113,6 @@ public class UserController {
 			return 1;
 		}
 	}
-
 
 	// 프로필 이미지 등록
 	@PostMapping("/photo-url.do")

@@ -1,12 +1,18 @@
 package com.josam.clink.communityManager;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +36,7 @@ public class CommunityManagerController {
 	 * @return 특정 게시물 번호의 내용 반환
 	 */
 	@GetMapping(value = {"/post", "/post/update"})
-	@ResponseBody	
+	@ResponseBody
 	public Map<String, Object> getPost(@RequestParam int board_no) {
 		Map<String, Object> response = new HashMap<> ();
 		CommunityPostVO communityPostVO = communityManagerService.getPost(board_no);
@@ -38,6 +44,7 @@ public class CommunityManagerController {
 		
 		response.put("communityPostVO", communityPostVO);
 		response.put("commentCount", commentCount);
+		
 		
 		return response;
 	}
@@ -48,6 +55,7 @@ public class CommunityManagerController {
 		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
 		int boardNo=communityManagerService.getBoardNo();
+
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
 		System.out.println();
 		for(int i=0;i<hashtag_list.length;i++) {
@@ -59,13 +67,8 @@ public class CommunityManagerController {
 	@PostMapping("/post/update")
 	@ResponseBody
 	public void updatePost(@RequestBody CommunityPostVO cpvo) {
+		cpvo.setUpdate_id(cpvo.getUpdate_id());
 		communityManagerService.updateBoard(cpvo);
-		System.out.println(cpvo.getHashtag_content());
-		System.out.println(cpvo.getBoard_title());
-		System.out.println(cpvo.getBoard_content());
-		System.out.println(cpvo.getCategory_no());
-		System.out.println(cpvo.getRegister_id());
-		System.out.println(cpvo.getBoard_no());
 //		String[] hashtag_list=cpvo.getHashtag_content().split(",");
 //		for(int i=0;i<hashtag_list.length;i++) {
 //			System.out.println(hashtag_list[i]);
@@ -130,5 +133,5 @@ public class CommunityManagerController {
 	public void unlike(LikeVO lvo, int board_no) {
 		communityManagerService.unlike(lvo, board_no);
 	}
-	
 }
+	

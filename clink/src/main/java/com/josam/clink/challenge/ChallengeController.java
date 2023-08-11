@@ -55,7 +55,6 @@ public class ChallengeController {
 			return cpvo; 
 		}
 		else {
-//			System.out.println(cpvo);
 			return null;
 		}
 		

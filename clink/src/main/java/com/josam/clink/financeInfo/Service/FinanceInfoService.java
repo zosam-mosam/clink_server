@@ -40,6 +40,7 @@ public class FinanceInfoService {
 
 	}
 	
+
 	
 	@Scheduled(cron = "10 24 0/1 * * *")
 	public void insertNewsData() {

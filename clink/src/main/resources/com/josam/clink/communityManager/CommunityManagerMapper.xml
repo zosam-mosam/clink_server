@@ -6,7 +6,7 @@
 				(board_no, register_id, register_datetime, comment_content, parent_id)
 		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id})
 	</insert>
-	<select id="getCommentId">
+	<select id="getCommentId" resultType="INTEGER">
 		SELECT MAX(comment_id)
 		FROM Comment_Detail
 	</select>
@@ -24,7 +24,7 @@
 			category_no
 		FROM Board_Detail 
 		WHERE board_no=#{board_no}
-		AND board_delete_yn ='n'
+		AND board_delete_yn ='N'
 		ORDER BY register_datetime DESC;
 	</select>
 	<update id="updateBoard" parameterType="com.josam.clink.communityPost.CommunityPostVO" >
@@ -38,7 +38,7 @@
 	</update>
 	<update id="deleteBoard" parameterType="INTEGER">
 		UPDATE Board_Detail SET
-			board_delete_yn = 'y'
+			board_delete_yn = 'Y'
 		WHERE board_no = #{board_no};
 	</update>
 	
@@ -46,13 +46,13 @@
 		SELECT * 
 		FROM Comment_Detail 
 		WHERE board_no=#{board_no} 
-		AND comment_delete_yn ='n'
+		AND comment_delete_yn ='N'
 		ORDER BY parent_id ASC, register_datetime ASC;
 	</select>
 	
 	<update id="deleteComment" parameterType="INTEGER">
 		UPDATE Comment_Detail SET
-			comment_delete_yn = 'y'
+			comment_delete_yn = 'Y'
 		WHERE comment_id = #{comment_id};
 	</update>
 	<insert id="insertPost" parameterType="com.josam.clink.communityPost.CommunityPostVO">
@@ -65,9 +65,10 @@
 			board_like_count,
 			hashtag_content,
 			register_datetime,
-			register_id) 
+			register_id,
+			board_delete_yn) 
 		VALUES(
-			"0",
+			#{user_no},
 			#{category_no},
 			0,
 			#{board_title},
@@ -75,7 +76,8 @@
 			0,
 			#{hashtag_content},
 			now(),
-			"test1"
+			#{register_id},
+			"N"
 			)
 	</insert>
 	<insert id="insertHashtag">
@@ -120,12 +122,18 @@
 		SELECT COUNT(*)
 		FROM Comment_Detail
 		WHERE board_no = #{board_no}
-		AND comment_delete_yn = "n";
+		AND comment_delete_yn = "N";
 	</select>
 	<select id="getBoardNo" parameterType="integer">
 		SELECT board_no
 		FROM Board_Detail
 		ORDER BY board_no DESC LIMIT 1 
 	</select>
+
+	<update id="updateBoardViews" parameterType="integer">
+		UPDATE Board_Detail 
+		SET board_views = board_views + 1 
+		WHERE board_no=#{board_no}
+	</update>
 
 </mapper>

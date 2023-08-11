@@ -17,11 +17,26 @@
 		select user_id from User_Master where user_no="0";
 	</select>
 	<select id="getPostsbyRecent" parameterType="map" resultType="com.josam.clink.communityPost.CommunityPostVO">
-		SELECT *
-		FROM Board_Detail
+		SELECT 
+			b.board_no, 
+		    b.user_no, 
+		    b.category_no, 
+		    b.board_views, 
+		    b.board_title,
+		    b.board_content, 
+		    b.board_like_count, 
+		    b.hashtag_content,
+		    b.register_datetime,
+		    b.register_id,
+		    b.board_delete_yn,
+		    SUM(IF(c.comment_delete_yn="N",1,0)) comment_count
+		FROM Board_Detail b
+		JOIN Comment_Detail c
+		ON b.board_no = c.board_no
 		WHERE category_no=#{category_no} 
-		AND board_delete_yn ='n'
+		AND board_delete_yn ='N'
 		AND hashtag_content like CONCAT('%', #{hashtag}, '%')
+		GROUP BY b.board_no
 		ORDER BY board_no DESC
 		LIMIT 50;
 	</select>
@@ -30,7 +45,7 @@
 		FROM Board_Detail
 		WHERE category_no=#{category_no}
 		AND #{last_board_no} >= board_no
-		AND board_delete_yn = "n"
+		AND board_delete_yn = "N"
 		AND hashtag_content like CONCAT('%', #{hashtag}, '%')
 		ORDER BY board_no DESC
 		LIMIT 5;
@@ -39,22 +54,53 @@
 		SELECT MAX(Board_no)
 		FROM Board_Detail
 		WHERE category_no=#{category_no}
-		AND board_delete_yn = "n"
+		AND board_delete_yn = "N"
 		
 	</select>
 	<select id="getPostsbyLike" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
-		SELECT *
-		FROM Board_Detail
-		WHERE category_no=#{category_no} and hashtag_content like CONCAT('%', #{hashtag}, '%')
-		AND board_delete_yn ='n'
+		SELECT 
+			b.board_no, 
+		    b.user_no, 
+		    b.category_no, 
+		    b.board_views, 
+		    b.board_title,
+		    b.board_content, 
+		    b.board_like_count, 
+		    b.hashtag_content,
+		    b.register_datetime,
+		    b.register_id,
+		    b.board_delete_yn,
+		    SUM(IF(c.comment_delete_yn="N",1,0)) comment_count
+		FROM Board_Detail b
+		JOIN Comment_Detail c
+		ON b.board_no = c.board_no
+		WHERE category_no=#{category_no} 
+		AND hashtag_content like CONCAT('%', #{hashtag}, '%')
+		AND board_delete_yn ='N'
+		GROUP BY b.board_no
 		ORDER BY board_like_count DESC, board_no DESC
 		LIMIT 50;
 	</select>
 	<select id="getBestPosts" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
-		SELECT *
-		FROM Board_Detail
+		SELECT 
+			b.board_no, 
+		    b.user_no, 
+		    b.category_no, 
+		    b.board_views, 
+		    b.board_title,
+		    b.board_content, 
+		    b.board_like_count, 
+		    b.hashtag_content,
+		    b.register_datetime,
+		    b.register_id,
+		    b.board_delete_yn,
+		    SUM(IF(c.comment_delete_yn="N",1,0)) comment_count
+		FROM Board_Detail b
+		JOIN Comment_Detail c
+		ON b.board_no = c.board_no
 		WHERE board_like_count >= 10
-		AND board_delete_yn ='n'
+		AND board_delete_yn ='N'
+		GROUP BY b.board_no
 		ORDER BY board_no DESC
 		LIMIT 50;
 	</select>

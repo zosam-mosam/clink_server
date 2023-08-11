@@ -3,8 +3,8 @@
 <mapper namespace="com.josam.clink.communityManager.CommunityManagerMapper">
 	<insert id="insertComment" parameterType="com.josam.clink.communityPost.CommunityPostVO" useGeneratedKeys="true" keyProperty="comment_id">
 		INSERT INTO Comment_Detail 
-				(board_no, register_id, register_datetime, comment_content, parent_id)
-		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id})
+				(board_no, register_id, register_datetime, comment_content, parent_id, comment_delete_yn)
+		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id}, "N")
 	</insert>
 	<select id="getCommentId" resultType="INTEGER">
 		SELECT MAX(comment_id)

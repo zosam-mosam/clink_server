@@ -111,6 +111,5 @@ public class ChallengeController {
 		return challengeService.checkChallenge(userNo);
 
 	}
-	
-	
+
 }

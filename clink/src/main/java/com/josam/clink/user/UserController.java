@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @RequestMapping("/clink/user")
 @Controller
 public class UserController {
@@ -43,6 +44,7 @@ public class UserController {
 	@ResponseBody
 	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO, HttpServletRequest req)
 			throws Exception {
+		// 여기서 jwt 검증하고 id, pw 받아서 vo 리턴시키기
 		System.out.println("컨트롤러 도착했니?? user_MasterVO:"+user_MasterVO);
 		User_MasterVO login = userService.login(user_MasterVO);
 		System.out.println("login:" + login);

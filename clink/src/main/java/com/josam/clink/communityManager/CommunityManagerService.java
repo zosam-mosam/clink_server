@@ -3,6 +3,7 @@ package com.josam.clink.communityManager;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,6 @@ public class CommunityManagerService {
 		return communityManagerMapper.getPost(board_no);
 	}
 	
-	@Transactional
 	void updateBoard(CommunityPostVO cpvo) {
 		communityManagerMapper.updateBoard(cpvo);
 	}
@@ -29,7 +29,6 @@ public class CommunityManagerService {
 		return communityManagerMapper.getComment(board_no);
 	}
 	
-	@Transactional
 	public void insertComment(CommentVO cvo) {
 		communityManagerMapper.insertComment(cvo);
 	}
@@ -47,8 +46,8 @@ public class CommunityManagerService {
 	public void insertPost(CommunityPostVO pvo) {
 		communityManagerMapper.insertPost(pvo);
 	}
-	public void insertHashtag(String category_no,String hashtag) {
-		communityManagerMapper.insertHashtag(category_no,hashtag);
+	public void insertHashtag(String category_no,String hashtag,int boardNo) {
+		communityManagerMapper.insertHashtag(category_no,hashtag,boardNo);
 	}
 	public void like(LikeVO lvo, int board_no) {
 		communityManagerMapper.insertLike(lvo);
@@ -65,5 +64,10 @@ public class CommunityManagerService {
 	public int getCommentCount(int board_no) {
 		return communityManagerMapper.getCommentCount(board_no);
 	}
-
+	public int getBoardNo() {
+		return communityManagerMapper.getBoardNo();
+	}
+	public void updateBoardViews(int board_no) {
+		communityManagerMapper.updateBoardViews(board_no);
+	}
 }

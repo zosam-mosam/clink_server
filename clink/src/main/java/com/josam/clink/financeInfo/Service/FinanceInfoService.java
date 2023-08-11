@@ -7,6 +7,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ import scala.collection.Seq;
 @Service
 public class FinanceInfoService {
 	
+	@Value("${chatGPT.secret.key}")
+	private String apiKey;
+	
 	@Autowired
 	NewsMapper nmp;
 	
@@ -36,7 +40,9 @@ public class FinanceInfoService {
 
 	}
 	
-	@Scheduled(cron = "55 24 0/1 * * *")
+
+	
+	@Scheduled(cron = "10 24 0/1 * * *")
 	public void insertNewsData() {
 		List<NewsVO> list = new ArrayList<>();
 		List<String> newstitleList = new ArrayList<>();	
@@ -51,11 +57,8 @@ public class FinanceInfoService {
 				list.add(nvo);
 			}
 			GptTest gpt = new GptTest();
-			String newsIndex=gpt.gptTest(newstitleList);
+			String newsIndex=gpt.gptTest(newstitleList,apiKey);
 			String[] al=newsIndex.split(",");
-			System.out.println(newstitleList);
-			System.out.println(al);
-			
 			for(int i=0;i<=al.length;i++) {
 				int titleIdx = Integer.parseInt(al[i].trim());
 				NewsVO nvo =list.get(titleIdx);

@@ -17,11 +17,16 @@ public interface CommunityManagerMapper {
 	public void deleteComment(int comment_id);
 	public List<CommentVO> getComment(int board_no);
 	public void insertPost(CommunityPostVO pvo);
-	public void insertHashtag(String category_no,String hashtag);
+	public void insertHashtag(String category_no,String hashtag,int boardNo);
 	public void insertLike(LikeVO lvo);
 	public void plusLike(int board_no);
 	public void deleteLike(LikeVO lvo);
 	public void minusLike(int board_no);
 	public int getLike(String user_id, int board_no);
 	public int getCommentCount(int board_no);
+
+	public int getBoardNo();
+
+	public void updateBoardViews(int board_no);
+
 }

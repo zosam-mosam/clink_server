@@ -7,20 +7,19 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.josam.clink.financeInfo.NewsMapper;
 import com.josam.clink.financeInfo.NewsVO;
 import com.josam.clink.financeInfo.Controller.GptTest;
-import com.twitter.penguin.korean.TwitterKoreanProcessorJava;
-import com.twitter.penguin.korean.tokenizer.KoreanTokenizer;
-import com.twitter.penguin.korean.tokenizer.KoreanTokenizer.KoreanToken;
 
-import scala.collection.Seq;
 
 @Service
 public class FinanceInfoService {
+
+	@Value("${chatGPT.secret.key}")
+	private String apiKey;
 	
 	@Autowired
 	NewsMapper nmp;
@@ -29,14 +28,16 @@ public class FinanceInfoService {
 		List<NewsVO> list = nmp.getNewsData();
 		return list;
 	}
-	
+
+
 	//@Scheduled(cron = "10 26 0/1 * * *")
 	public void run() {
 		nmp.deleteNewsData();
 
 	}
+
 	
-	//@Scheduled(cron = "55 24 0/1 * * *")
+	//@Scheduled(cron = "10 24 0/1 * * *")
 	public void insertNewsData() {
 		List<NewsVO> list = new ArrayList<>();
 		List<String> newstitleList = new ArrayList<>();	
@@ -51,11 +52,9 @@ public class FinanceInfoService {
 				list.add(nvo);
 			}
 			GptTest gpt = new GptTest();
-			String newsIndex=gpt.gptTest(newstitleList);
+
+			String newsIndex=gpt.gptTest(newstitleList,apiKey);
 			String[] al=newsIndex.split(",");
-			System.out.println(newstitleList);
-			System.out.println(al);
-			
 			for(int i=0;i<=al.length;i++) {
 				int titleIdx = Integer.parseInt(al[i].trim());
 				NewsVO nvo =list.get(titleIdx);
@@ -66,4 +65,3 @@ public class FinanceInfoService {
 		}
 	}
 }
-

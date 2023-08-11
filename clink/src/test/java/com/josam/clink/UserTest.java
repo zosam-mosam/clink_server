@@ -2,6 +2,8 @@ package com.josam.clink;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +33,31 @@ public class UserTest {
 	
     @Autowired
     private PasswordEncoder passwordEncoder;
+//    @Test
+//    public void encrypt() {
+//    	String dbpwd = passwordEncoder.encode("t1");
+//    	System.out.println(dbpwd);
+//    	User_MasterVO vo = new User_MasterVO();
+//    	vo.setUser_id("t1");
+//    	vo.setPassword("t1");
+//    	User_MasterVO newVO = mapper.login(vo);
+//    	System.out.println(vo.getPassword());
+//    	System.out.println(newVO.getPassword());
+//    	System.out.println(passwordEncoder.matches(vo.getPassword(), newVO.getPassword()));
+//    	//System.out.println(passwordEncoder.matches("t6", "$2a$10$lO471nPoOLK3yQ7MmtK8Uu1UmZZNa8G3B6pu3T3LvEoVR.MTplMEe"));
+//    }
     @Test
     public void encrypt() {
-    	String dbpwd = passwordEncoder.encode("1111");
-    	String loginpwd = "1111";
+    	String dbpwd = passwordEncoder.encode("t1");
     	System.out.println(dbpwd);
-    	System.out.println(loginpwd);
-    	System.out.println(passwordEncoder.matches(loginpwd, dbpwd));
+    	User_MasterVO vo = new User_MasterVO();
+    	vo.setUser_id("t1");
+    	vo.setPassword("t1");
+    	Map<String, Object> newVO = mapper.login(vo);
+    	System.out.println(vo.getPassword());
+    	System.out.println(((User_MasterVO) newVO).getPassword());
+    	System.out.println(passwordEncoder.matches(vo.getPassword(), ((User_MasterVO) newVO).getPassword()));
+    	//System.out.println(passwordEncoder.matches("t6", "$2a$10$lO471nPoOLK3yQ7MmtK8Uu1UmZZNa8G3B6pu3T3LvEoVR.MTplMEe"));
     }
 //	@Test
 //	public void login() {
@@ -47,7 +67,6 @@ public class UserTest {
 //		User_MasterVO vo = mapper.login(param);
 //		System.out.println(vo);
 //	}
-	
 
 //	@Test
 //	public void challenge() {
@@ -129,7 +148,6 @@ public class UserTest {
 	@Autowired
 	UserService userService;
 	
-	
 //	@Test
 //	public void encodeTest() {
 //		User_MasterVO vo = new User_MasterVO();
@@ -152,7 +170,6 @@ public class UserTest {
 //	}
 	
 	
-//	
 //	@Test
 //	public void UserLoginTest() {
 //		User_MasterVO uvo = new User_MasterVO();

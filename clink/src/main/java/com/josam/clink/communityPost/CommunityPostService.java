@@ -1,6 +1,5 @@
 package com.josam.clink.communityPost;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -81,8 +80,13 @@ public class CommunityPostService {
 		List<String> list = mapper.getHashtag(category_no);
 		return list;
 	}
-	public int getLastboardId() {
-		return mapper.getLastboardId();
+
+	public int getLastBoardNo(Map<String, Object> parameters) {
+		return mapper.getLastBoardNo(parameters);
+	}
+	public int getBoardCount(Map<String, Object> parameters) {
+		return mapper.getBoardCount(parameters);
+
 	}
 	
 }

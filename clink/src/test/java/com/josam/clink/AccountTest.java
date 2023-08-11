@@ -1,4 +1,3 @@
-
 package com.josam.clink;
 
 import java.math.BigDecimal;
@@ -49,7 +48,6 @@ public class AccountTest {
 				}catch(Exception e) {
 					System.out.println(e);
 				}
-				
 			}
 		}
 	}

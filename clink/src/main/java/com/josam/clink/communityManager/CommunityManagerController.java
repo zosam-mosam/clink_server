@@ -1,6 +1,5 @@
 package com.josam.clink.communityManager;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,7 @@ public class CommunityManagerController {
 	 * @return 특정 게시물 번호의 내용 반환
 	 */
 	@GetMapping(value = {"/post", "/post/update"})
-	@ResponseBody	
+	@ResponseBody
 	public Map<String, Object> getPost(@RequestParam int board_no) {
 		Map<String, Object> response = new HashMap<> ();
 		CommunityPostVO communityPostVO = communityManagerService.getPost(board_no);
@@ -47,23 +46,22 @@ public class CommunityManagerController {
 	public void insertPost(@RequestBody CommunityPostVO pvo) {
 		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
+		int boardNo=communityManagerService.getBoardNo();
+
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
+		System.out.println();
 		for(int i=0;i<hashtag_list.length;i++) {
 			System.out.println(hashtag_list[i]);
-			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i]);
+			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i],boardNo);
 		}
 	}
 	
 	@PostMapping("/post/update")
 	@ResponseBody
 	public void updatePost(@RequestBody CommunityPostVO cpvo) {
+
+		cpvo.setUpdate_id(cpvo.getUpdate_id());
 		communityManagerService.updateBoard(cpvo);
-		System.out.println(cpvo.getHashtag_content());
-		System.out.println(cpvo.getBoard_title());
-		System.out.println(cpvo.getBoard_content());
-		System.out.println(cpvo.getCategory_no());
-		System.out.println(cpvo.getRegister_id());
-		System.out.println(cpvo.getBoard_no());
 //		String[] hashtag_list=cpvo.getHashtag_content().split(",");
 //		for(int i=0;i<hashtag_list.length;i++) {
 //			System.out.println(hashtag_list[i]);
@@ -128,5 +126,5 @@ public class CommunityManagerController {
 	public void unlike(LikeVO lvo, int board_no) {
 		communityManagerService.unlike(lvo, board_no);
 	}
-	
 }
+	

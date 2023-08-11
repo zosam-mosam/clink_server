@@ -24,15 +24,23 @@ public class MainController {
 	@ResponseBody
 	public MainPageVO getMainInfo(@RequestParam String userNo) {
 
-		User_MasterVO uvo = new User_MasterVO();
-		uvo.setUser_no(userNo);
-		MainPageVO mpvo = mainService.getInfo(uvo);
-		mpvo.setUser_no(userNo);
-		
+		boolean check=cService.checkChallenge(userNo);
+		MainPageVO mpvo =new MainPageVO();
+		if(check) {
+			User_MasterVO uvo = new User_MasterVO();
+			uvo.setUser_no(userNo);
+			mpvo= mainService.getInfo(uvo);
+			mpvo.setUser_no(userNo);
+			return mpvo;
+		}
 		//ReportData
 		//mpvo.setReport(mainService.getReportData(cvo));
+		else {
+			return null;
+		}
 
-		return mpvo;
+
+		
 	}
 	
 }

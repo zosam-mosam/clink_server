@@ -30,27 +30,36 @@ public class ChallengeController {
 	@GetMapping("/main-info")
 	@ResponseBody
 	public ChallengePageVO challenge(@RequestParam String userNo) {
-		User_MasterVO uvo = new User_MasterVO();
-		uvo.setUser_no(userNo);
-		ChallengeVO cvo = challengeService.myChallenge(uvo);
-		List<HistoryVO> today = challengeService.todayHistory(uvo);
-		BigDecimal value= new BigDecimal("0");
-		for(HistoryVO hvo: today) {
-			value = value.add(hvo.getTransaction_amount());
-		}
-		
-		ChallengePageVO cpvo = new ChallengePageVO();
-		cpvo.setChallengeId(cvo.getChallenge_no());
-		cpvo.setTitle(cvo.getChallenge_title());
-		cpvo.setDescription(cvo.getChallenge_description());
-		cpvo.setGoal(cvo.getChallenge_amount());
-		cpvo.setUserNo(userNo);
-		cpvo.setValue(value);
-		cpvo.setToday(today);
-		cpvo.setChart(challengeService.weekHistory(uvo));
-		cpvo.setChart1(challengeService.weekHistory(uvo));
 
-		return cpvo; 
+		boolean check=checkChallenge(userNo);
+		System.out.println(check);
+		ChallengePageVO cpvo = new ChallengePageVO();
+		if(check) {
+			User_MasterVO uvo = new User_MasterVO();
+			uvo.setUser_no(userNo);
+			ChallengeVO cvo = challengeService.myChallenge(uvo);
+			List<HistoryVO> today = challengeService.todayHistory(uvo);
+			BigDecimal value= new BigDecimal("0");
+			for(HistoryVO hvo: today) {
+				value = value.add(hvo.getTransaction_amount());
+			}
+			cpvo.setChallengeId(cvo.getChallenge_no());
+			cpvo.setTitle(cvo.getChallenge_title());
+			cpvo.setDescription(cvo.getChallenge_description());
+			cpvo.setGoal(cvo.getChallenge_amount());
+			cpvo.setUserNo(userNo);
+			cpvo.setValue(value);
+			cpvo.setToday(today);
+			cpvo.setChart(challengeService.weekHistory(uvo));
+			cpvo.setChart1(challengeService.weekHistory(uvo));
+			System.out.println(cpvo);
+			return cpvo; 
+		}
+		else {
+			return null;
+		}
+
+
 	}
 	
 	@GetMapping("/pay-info")
@@ -95,14 +104,16 @@ public class ChallengeController {
 	@PostMapping("/register")
 	@ResponseBody
 	public void registerChallenge (@RequestBody ChallengeVO cvo) {
+
 		System.out.println(cvo);
 		//		challengeService.registerChallenge(cvo);
 
+		challengeService.registerChallenge(cvo);
 	}
 	
-	
-	
-	
-	
-	
+	public boolean checkChallenge(String userNo) {
+		return challengeService.checkChallenge(userNo);
+
+	}
+
 }

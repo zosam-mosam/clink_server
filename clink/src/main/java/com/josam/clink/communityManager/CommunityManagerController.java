@@ -1,9 +1,18 @@
 package com.josam.clink.communityManager;
 
+import java.time.Duration;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,16 +27,26 @@ import com.josam.clink.communityPost.CommunityPostVO;
 public class CommunityManagerController {
 	
 	@Autowired
-	CommunityManagerService communityManagerService;
+	private CommunityManagerService communityManagerService;
+	
+	
 	/**
 	 * 
 	 * @param board_no 게시물 번호
 	 * @return 특정 게시물 번호의 내용 반환
 	 */
 	@GetMapping(value = {"/post", "/post/update"})
-	@ResponseBody	
-	public CommunityPostVO getPost(@RequestParam String board_no) {
-		return communityManagerService.getPost(board_no);
+	@ResponseBody
+	public Map<String, Object> getPost(@RequestParam int board_no) {
+		Map<String, Object> response = new HashMap<> ();
+		CommunityPostVO communityPostVO = communityManagerService.getPost(board_no);
+		int commentCount = communityManagerService.getCommentCount(board_no);
+		
+		response.put("communityPostVO", communityPostVO);
+		response.put("commentCount", commentCount);
+		
+		
+		return response;
 	}
 
 	@PostMapping("/post/insert")
@@ -35,23 +54,21 @@ public class CommunityManagerController {
 	public void insertPost(@RequestBody CommunityPostVO pvo) {
 		communityManagerService.insertPost(pvo);
 		System.out.println(pvo);
+		int boardNo=communityManagerService.getBoardNo();
+
 		String[] hashtag_list=pvo.getHashtag_content().split(",");
+		System.out.println();
 		for(int i=0;i<hashtag_list.length;i++) {
 			System.out.println(hashtag_list[i]);
-			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i]);
+			communityManagerService.insertHashtag(pvo.getCategory_no(),hashtag_list[i],boardNo);
 		}
 	}
 	
 	@PostMapping("/post/update")
 	@ResponseBody
-	void updatePost(@RequestBody CommunityPostVO cpvo) {
+	public void updatePost(@RequestBody CommunityPostVO cpvo) {
+		cpvo.setUpdate_id(cpvo.getUpdate_id());
 		communityManagerService.updateBoard(cpvo);
-		System.out.println(cpvo.getHashtag_content());
-		System.out.println(cpvo.getBoard_title());
-		System.out.println(cpvo.getBoard_content());
-		System.out.println(cpvo.getCategory_no());
-		System.out.println(cpvo.getRegister_id());
-		System.out.println(cpvo.getBoard_no());
 //		String[] hashtag_list=cpvo.getHashtag_content().split(",");
 //		for(int i=0;i<hashtag_list.length;i++) {
 //			System.out.println(hashtag_list[i]);
@@ -66,7 +83,7 @@ public class CommunityManagerController {
 	 */
 	@GetMapping("/post/comment")
 	@ResponseBody
-	public List<CommentVO> getComment(@RequestParam String board_no){
+	public List<CommentVO> getComment(@RequestParam int board_no){
 		return communityManagerService.getComment(board_no);
 	}
 	
@@ -79,7 +96,9 @@ public class CommunityManagerController {
 	@PostMapping("/post/comment/insert")
 	@ResponseBody
 	public void insertComment(@RequestBody CommentVO cvo) {	
-		cvo.setParent_id(communityManagerService.getCommentId()+1); // 현재 달릴 댓글의 id 받아오기 -> 대댓글이 아니면 parent_id와 comment_id 통일시키기
+		if(0 == cvo.getParent_id()) {
+			cvo.setParent_id(communityManagerService.getCommentId()+1); // 현재 달릴 댓글의 id 받아오기 -> 대댓글이 아니면 parent_id와 comment_id 통일시키기
+		}
 		communityManagerService.insertComment(cvo);
 	}
 	
@@ -96,4 +115,23 @@ public class CommunityManagerController {
 	public void deleteComment(int comment_id) {
 		communityManagerService.deleteComment(comment_id);
 	}
+	
+	@GetMapping("/post/like")
+	@ResponseBody
+	public int getLike(@RequestParam String user_id, @RequestParam int board_no) {
+		return communityManagerService.getLike(user_id, board_no);
+	}
+	
+	@PostMapping("/post/like/insert")
+	@ResponseBody
+	public void like(LikeVO lvo, int board_no) {
+		communityManagerService.like(lvo, board_no);
+	}
+	
+	@PostMapping("/post/like/delete")
+	@ResponseBody
+	public void unlike(LikeVO lvo, int board_no) {
+		communityManagerService.unlike(lvo, board_no);
+	}
 }
+	

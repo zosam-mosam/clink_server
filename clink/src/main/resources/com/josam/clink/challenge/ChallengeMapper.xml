@@ -84,4 +84,15 @@
 									VALUES (#{challenge_detail_success_date}, #{challenge_no}, #{user_no}, #{challenge_detail_success_amount}, now(), #{register_id})
 	</insert>
 
+
+	<!-- 챌린지 설정 -->
+	<insert id="registerChallenge" parameterType="com.josam.clink.challenge.ChallengeVO">
+		INSERT INTO Challenge_Detail (challenge_no,user_no,challenge_title,challenge_description,challenge_amount,register_datetime,register_id)
+								VALUES(#{challenge_no},#{user_no},#{challenge_title},#{challenge_description},#{challenge_amount},now(),#{user_no})
+	</insert>
+	
+	<!-- 챌린지 조회 -->
+	<select id="checkChallenge">
+		select count(user_no) from Challenge_Detail where user_no=#{userNo}
+	</select>
 </mapper>

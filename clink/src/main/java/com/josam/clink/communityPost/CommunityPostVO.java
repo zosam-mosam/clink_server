@@ -18,4 +18,5 @@ public class CommunityPostVO {
 	private String register_id;
 	private Timestamp update_datetime;
 	private String update_id;
+	private int comment_count;
 }

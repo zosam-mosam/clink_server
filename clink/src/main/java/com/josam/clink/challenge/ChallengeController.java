@@ -52,7 +52,6 @@ public class ChallengeController {
 			cpvo.setToday(today);
 			cpvo.setChart(challengeService.weekHistory(uvo));
 			cpvo.setChart1(challengeService.weekHistory(uvo));
-			System.out.println(cpvo);
 			return cpvo; 
 		}
 		else {

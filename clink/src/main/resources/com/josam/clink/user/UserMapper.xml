@@ -14,16 +14,17 @@
 		`register_datetime`, `register_id`,`update_datetime`,
 		`updater_id`
 		)
-		VALUES ('00008',
+		VALUES (#{user_no},
 		#{user_id}, #{user_name}, #{nick_name},
 		#{password},
 		#{email}, #{phone_number},
 		#{photo_url}, "Y",
 		now(),
-		#{user_id},#{update_datetime},#{updater_id}
+		#{register_id},#{update_datetime},#{updater_id}
 		)
-		<!-- <selectKey keyProperty="user_no" order="AFTER" resultType="string"> 
-			SELECT LAST_INSERT_ID() </selectKey> -->
+	<!-- <selectKey keyProperty="user_no" order="AFTER" resultType="string"> 
+			SELECT LAST_INSERT_ID() </selectKey> --> 
+
 	</insert>
 
 	<!-- 정보 확인 -->
@@ -44,14 +45,14 @@
 		resultType="map">
 		SELECT * FROM Challenge_Detail WHERE user_no = #{user_no}
 	</select>
-
+	
 	<!-- 정보 확인 -->
-	<select id="getUserInfo"
-		resultType="com.josam.clink.user.User_MasterVO">
-		SELECT *
-		FROM User_Master
-		WHERE user_no = #{user_no}
+	<select id="getUserInfo" resultType="com.josam.clink.user.User_MasterVO">
+	  SELECT *
+	  FROM User_Master
+	  WHERE user_no = #{user_no}
 	</select>
+	
 
 	<!-- 아이디 중복확인 -->
 	<select id="checkDuplicateId" resultType="INTEGER">

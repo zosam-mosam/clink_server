@@ -2,10 +2,6 @@ package com.josam.clink.user;
 
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +21,8 @@ public class UserService {
 		vo.setPassword(passwordEncoder.encode(vo.getPassword()));
 		vo.setUser_name(passwordEncoder.encode(vo.getUser_name()));
 		vo.setEmail(passwordEncoder.encode(vo.getEmail()));
+		vo.setUser_no(Long.toString(System.currentTimeMillis()).substring(8));
+		vo.setRegister_id(Long.toString(System.currentTimeMillis()).substring(8));
 
 		int r = userMapper.insert(vo);
 		if (r == 1) {
@@ -45,7 +43,6 @@ public class UserService {
 			if (result) {
 				List<Map<String, Object>> challengeDetails = userMapper.getChallengeDetailsByUserId(vo.getUser_no());
 				newVO.put("challengeDetails", challengeDetails);
-				System.out.println("=========================================newVO:" + newVO);
 				return newVO;
 			}
 		}

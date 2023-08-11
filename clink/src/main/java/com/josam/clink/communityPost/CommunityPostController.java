@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.josam.clink.communityManager.CommunityManagerService;
+import com.josam.clink.financeInfo.NewsVO;
+
 
 
 
@@ -22,6 +25,9 @@ public class CommunityPostController {
 	
 	@Autowired
 	private CommunityPostService commPService;
+	
+	@Autowired
+	private CommunityManagerService communityManagerService;
 	
 	@GetMapping("/community/posts")
 	@ResponseBody

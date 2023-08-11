@@ -1,4 +1,4 @@
-package com.josam.clink.user;
+package com.josam.clink.user.mail;
 
 import java.util.Properties;
 

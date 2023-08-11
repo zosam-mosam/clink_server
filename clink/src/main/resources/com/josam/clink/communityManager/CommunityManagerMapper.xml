@@ -3,8 +3,8 @@
 <mapper namespace="com.josam.clink.communityManager.CommunityManagerMapper">
 	<insert id="insertComment" parameterType="com.josam.clink.communityPost.CommunityPostVO" useGeneratedKeys="true" keyProperty="comment_id">
 		INSERT INTO Comment_Detail 
-				(board_no, register_id, register_datetime, comment_content, parent_id)
-		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id})
+				(board_no, register_id, register_datetime, comment_content, parent_id, comment_delete_yn)
+		values(#{board_no}, #{register_id}, now(), #{comment_content}, #{parent_id}, "N")
 	</insert>
 	<select id="getCommentId" resultType="INTEGER">
 		SELECT MAX(comment_id)
@@ -130,10 +130,13 @@
 		FROM Board_Detail
 		ORDER BY board_no DESC LIMIT 1 
 	</select>
-
+	
+	<select id="getBoardViews">
+		SELECT board_views FROM Board_Detail WHERE board_no=#{board_no}
+	</select>
 	<update id="updateBoardViews" parameterType="integer">
 		UPDATE Board_Detail 
-		SET board_views = board_views + 1 
+		SET board_views = #{getBoardViews}
 		WHERE board_no=#{board_no}
 	</update>
 

@@ -90,14 +90,6 @@ public class UserController {
 		// 없으면 null 반환
 	}
 
-	// 등록된 계좌 있는지 확인
-	@PostMapping("/checkAccount.do")
-	@ResponseBody
-	public List<Account_DetailVO> checkAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
-		List<Account_DetailVO> checkAccount = userService.checkAccount(account_DetailVO);
-		return checkAccount;
-		// 없으면 null 반환
-	}
 
 	// 계좌 등록
 	@PostMapping("/regist-account.do")
@@ -121,15 +113,6 @@ public class UserController {
 		} else {
 			return 1;
 		}
-	}
-
-	// 마이페이지 사용자 정보 가져오기
-	@PostMapping("/get-userInfo.do")
-	@ResponseBody
-	public User_MasterVO getUserInfo(@RequestBody User_MasterVO user_MasterVO) throws Exception {
-		User_MasterVO getUserInfo = userService.getUserInfo(user_MasterVO);
-		return getUserInfo;
-		// 없으면 null 반환
 	}
 
 	// 프로필 이미지 등록

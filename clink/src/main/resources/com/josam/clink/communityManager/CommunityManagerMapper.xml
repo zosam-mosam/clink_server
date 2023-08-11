@@ -131,10 +131,13 @@
 		FROM Board_Detail
 		ORDER BY board_no DESC LIMIT 1 
 	</select>
-
+	
+	<select id="getBoardViews">
+		SELECT board_views FROM Board_Detail WHERE board_no=#{board_no}
+	</select>
 	<update id="updateBoardViews" parameterType="integer">
 		UPDATE Board_Detail 
-		SET board_views = board_views + 1 
+		SET board_views = #{getBoardViews}
 		WHERE board_no=#{board_no}
 	</update>
 

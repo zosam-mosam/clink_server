@@ -20,6 +20,7 @@ public interface ChallengeMapper {
 	int deleteHistory(HistoryVO vo);
 	int updateHistory(HistoryVO vo);
 
+	
 	//챌린지를 등록
 	void registerChallenge(ChallengeVO cvo);
 	int checkChallenge(String userNo);

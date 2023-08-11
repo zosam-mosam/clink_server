@@ -23,7 +23,6 @@ import scala.collection.Seq;
 @Service
 public class FinanceInfoService {
 	
-
 	@Value("${chatGPT.secret.key}")
 	private String apiKey;
 	
@@ -35,6 +34,7 @@ public class FinanceInfoService {
 		return list;
 	}
 	
+
 	//@Scheduled(cron = "10 26 0/1 * * *")
 	public void run() {
 		nmp.deleteNewsData();
@@ -59,7 +59,6 @@ public class FinanceInfoService {
 
 			String newsIndex=gpt.gptTest(newstitleList,apiKey);
 			String[] al=newsIndex.split(",");
-
 			for(int i=0;i<=al.length;i++) {
 				int titleIdx = Integer.parseInt(al[i].trim());
 				NewsVO nvo =list.get(titleIdx);

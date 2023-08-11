@@ -1,4 +1,5 @@
 package com.josam.clink.financeInfo.Controller;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 public class GptTest {
 	
 	
@@ -42,7 +42,6 @@ public class GptTest {
 		JSONArray messages =new JSONArray();
 			
 		message.put("role", "user");
-
 		message.put("content",newsTitleList+ "위의 제목 중에서 서로 다른 제목 10개를 제목을 제외한 인덱스 번호만 뽑아줘 ");
 			
 		messages.put(message);

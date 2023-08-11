@@ -58,7 +58,6 @@ public class ChallengeController {
 			return null;
 		}
 		
-
 	}
 	
 	@GetMapping("/pay-info")
@@ -110,4 +109,5 @@ public class ChallengeController {
 		return challengeService.checkChallenge(userNo);
 
 	}
+
 }

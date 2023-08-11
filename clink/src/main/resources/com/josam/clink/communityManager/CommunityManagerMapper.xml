@@ -124,7 +124,6 @@
 		WHERE board_no = #{board_no}
 		AND comment_delete_yn = "N";
 	</select>
-
 	<select id="getBoardNo" parameterType="integer">
 		SELECT board_no
 		FROM Board_Detail

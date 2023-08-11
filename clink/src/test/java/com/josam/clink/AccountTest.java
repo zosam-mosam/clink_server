@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> e7dbb8331f17a22d8d9ddedf9011b5d6ffe46c6b
->>>>>>> 956f791a502784daea346d358be53c044ea8be7e
-=======
->>>>>>> c07fd372c65261f1bc973b8ca358e11322ecacc9
 package com.josam.clink;
 
 import java.math.BigDecimal;
@@ -24,16 +13,6 @@ import com.josam.clink.challenge.ChallengeService;
 import com.josam.clink.challenge.ChartVO;
 import com.josam.clink.challenge.HistoryVO;
 import com.josam.clink.challenge.SuccessVO;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import com.josam.clink.user.UserVO;
-=======
->>>>>>> e7dbb8331f17a22d8d9ddedf9011b5d6ffe46c6b
->>>>>>> 956f791a502784daea346d358be53c044ea8be7e
-=======
->>>>>>> c07fd372c65261f1bc973b8ca358e11322ecacc9
 import com.josam.clink.user.User_MasterVO;
 
 @SpringBootTest
@@ -97,16 +76,7 @@ public class AccountTest {
 		}
 	}
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 956f791a502784daea346d358be53c044ea8be7e
-=======
-
->>>>>>> c07fd372c65261f1bc973b8ca358e11322ecacc9
 //package com.josam.clink;
 //
 //import java.math.BigDecimal;
@@ -185,14 +155,4 @@ public class AccountTest {
 //		}
 //	}
 //}
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
->>>>>>> 8fc01ae5e31eb0739217755e7c1f0ee1a231ecb8
-=======
->>>>>>> e7dbb8331f17a22d8d9ddedf9011b5d6ffe46c6b
->>>>>>> 956f791a502784daea346d358be53c044ea8be7e
-=======
-
->>>>>>> c07fd372c65261f1bc973b8ca358e11322ecacc9

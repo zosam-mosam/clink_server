@@ -23,7 +23,6 @@ public class MainController {
 	@GetMapping("/info")
 	@ResponseBody
 	public MainPageVO getMainInfo(@RequestParam String userNo) {
-
 		boolean check=cService.checkChallenge(userNo);
 		MainPageVO mpvo =new MainPageVO();
 		if(check) {

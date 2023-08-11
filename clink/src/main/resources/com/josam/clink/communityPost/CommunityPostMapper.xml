@@ -16,28 +16,52 @@
 	<select id="testss">
 		select user_id from User_Master where user_no="0";
 	</select>
-	<select id="getPostsbyRecent" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
+	<select id="getPostsbyRecent" parameterType="map" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
-		WHERE category_no=#{category_no} and hashtag_content like CONCAT('%', #{hashtag}, '%')
-		ORDER BY register_datetime DESC;
+		WHERE category_no=#{category_no} 
+		AND board_delete_yn ='n'
+		AND hashtag_content like CONCAT('%', #{hashtag}, '%')
+		ORDER BY board_no DESC
+		LIMIT 50;
+	</select>
+	<select id="getLastBoardNo" parameterType="map" resultType="int">
+		SELECT MIN(Board_no)-1
+		FROM Board_Detail
+		WHERE category_no=#{category_no}
+		AND #{last_board_no} >= board_no
+		AND board_delete_yn = "n"
+		AND hashtag_content like CONCAT('%', #{hashtag}, '%')
+		ORDER BY board_no DESC
+		LIMIT 5;
+	</select>
+	<select id="getBoardCount" parameterType="map" resultType="int">
+		SELECT MAX(Board_no)
+		FROM Board_Detail
+		WHERE category_no=#{category_no}
+		AND board_delete_yn = "n"
+		
 	</select>
 	<select id="getPostsbyLike" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
 		WHERE category_no=#{category_no} and hashtag_content like CONCAT('%', #{hashtag}, '%')
-		ORDER BY board_like_count DESC, register_datetime DESC;
+		AND board_delete_yn ='n'
+		ORDER BY board_like_count DESC, board_no DESC
+		LIMIT 50;
 	</select>
 	<select id="getBestPosts" parameterType="STRING" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT *
 		FROM Board_Detail
 		WHERE board_like_count >= 10
-		ORDER BY register_datetime DESC;
+		AND board_delete_yn ='n'
+		ORDER BY board_no DESC
+		LIMIT 50;
 	</select>
 	<select id="getHashtag">
 		SELECT hashtag_content
-		FROM clink1.Hashtag_Detail
-		where category_no=#{category_no}
+		FROM Hashtag_Detail as h , (select board_no from Board_Detail where board_delete_yn="N") as b
+		where  h.board_no = b.board_no and h.category_no = #{category_no}
 		group by hashtag_content
 		order by count(hashtag_content) desc Limit 3;
 	</select>

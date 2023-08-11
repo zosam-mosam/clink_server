@@ -30,41 +30,41 @@ public class ChallengeController {
 	@GetMapping("/main-info")
 	@ResponseBody
 	public ChallengePageVO challenge(@RequestParam String userNo) {
-		User_MasterVO uvo = new User_MasterVO();
-		uvo.setUser_no(userNo);
-		ChallengeVO cvo = challengeService.myChallenge(uvo);
-		List<HistoryVO> today = challengeService.todayHistory(uvo);
-		BigDecimal value= new BigDecimal("0");
-		for(HistoryVO hvo: today) {
-			System.out.println(hvo.getTransaction_datetime()+" "+hvo.getTransaction_info_content());
-			value = value.add(hvo.getTransaction_amount());
+		boolean check=checkChallenge(userNo);
+		System.out.println(check);
+		ChallengePageVO cpvo = new ChallengePageVO();
+		if(check) {
+			User_MasterVO uvo = new User_MasterVO();
+			uvo.setUser_no(userNo);
+			ChallengeVO cvo = challengeService.myChallenge(uvo);
+			List<HistoryVO> today = challengeService.todayHistory(uvo);
+			BigDecimal value= new BigDecimal("0");
+			for(HistoryVO hvo: today) {
+				value = value.add(hvo.getTransaction_amount());
+			}
+			cpvo.setChallengeId(cvo.getChallenge_no());
+			cpvo.setTitle(cvo.getChallenge_title());
+			cpvo.setDescription(cvo.getChallenge_description());
+			cpvo.setGoal(cvo.getChallenge_amount());
+			cpvo.setUserNo(userNo);
+			cpvo.setValue(value);
+			cpvo.setToday(today);
+			cpvo.setChart(challengeService.weekHistory(uvo));
+			cpvo.setChart1(challengeService.weekHistory(uvo));
+			System.out.println(cpvo);
+			return cpvo; 
+		}
+		else {
+			return null;
 		}
 		
-		ChallengePageVO cpvo = new ChallengePageVO();
-		cpvo.setChallengeId(cvo.getChallenge_no());
-		cpvo.setTitle(cvo.getChallenge_title());
-		cpvo.setDescription(cvo.getChallenge_description());
-		cpvo.setGoal(cvo.getChallenge_amount());
-		cpvo.setUserNo(userNo);
-		cpvo.setValue(value);
-		cpvo.setToday(today);
-		cpvo.setChart(challengeService.weekHistory(uvo));
-		cpvo.setChart1(challengeService.weekHistory(uvo));
-	
-		
-//		for(ChartVO vo: cpvo.getChart()) {
-//			System.out.println(vo.getDate()+" "+vo.getC1()+" "+vo.getC2()+" "+vo.getC3());
-//		}
-		
-		return cpvo; 
+
 	}
 	
 	@GetMapping("/pay-info")
 	@ResponseBody
 	public ChallengePageVO refresh(@RequestParam String userNo, String startDate, String endDate) {
-		//System.out.println(userNo);
-		//System.out.println(startDate);
-		//System.out.println(endDate);
+
 		HistoryVO hvo = new HistoryVO();
 		hvo.setUser_no(userNo);
 		hvo.setStartDate(startDate+" 00:00:00");
@@ -78,9 +78,7 @@ public class ChallengeController {
 	@GetMapping("/pay-delete")
 	@ResponseBody
 	public Boolean delete(@RequestParam String userNo, String datetime, String content) {
-		//System.out.println(userNo);
-		//System.out.println(datetime);
-		//System.out.println(content);
+
 		HistoryVO hvo = new HistoryVO();
 		hvo.setUser_no(userNo);
 		hvo.setTransaction_datetime(datetime);
@@ -92,11 +90,24 @@ public class ChallengeController {
 	@PostMapping("/pay-update")
 	@ResponseBody
 	public boolean update(@RequestBody HistoryVO hvo) {
-		//System.out.println(hvo);
+
 		
 		if(challengeService.updateHistory(hvo)>0)return true;
 		else return false;
 	}
 	
 	
+	
+	/*
+	 *새로운 챌린지 등록 */
+	@PostMapping("/register")
+	@ResponseBody
+	public void registerChallenge (@RequestBody ChallengeVO cvo) {
+		challengeService.registerChallenge(cvo);
+	}
+	
+	public boolean checkChallenge(String userNo) {
+		return challengeService.checkChallenge(userNo);
+
+	}
 }

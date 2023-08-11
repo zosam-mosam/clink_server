@@ -53,4 +53,18 @@ public class ChallengeService {
 		return mapper.updateHistory(vo);
 	};
 	
+	//새로운 챌린지 등록
+	public void registerChallenge(ChallengeVO cvo) {
+		mapper.registerChallenge(cvo);
+	}
+
+	//챌린지가 있는지 체크
+	/*
+	 *진행하고 있는 챌린지가 있으면 true
+	 *진행하고 있는 챌린지가 없으면 false
+	 *return */
+	public boolean checkChallenge(String userNo) {
+		if(mapper.checkChallenge(userNo)>0) return true;
+		else return false; 
+	}
 }

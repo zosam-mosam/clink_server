@@ -15,4 +15,4 @@ EXPOSE 8000
 
 # Run the JAR file
 # log파일 추가해야함!
-CMD ["java", "-jar", "app.jar", "--spring.config.location=file:/var/property/application.properties", ">> /var/property/log/log.txt"]
+CMD ["java", "-jar", "app.jar", "--spring.config.location=file:/var/property/application.properties", " 2>&1 > /var/property/log/spring.log &"]

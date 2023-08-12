@@ -33,6 +33,7 @@ public class CommunityManagerController {
 	@ResponseBody	
 	public Map<String, Object> getPost(@RequestParam int board_no) {
 		communityManagerService.updateBoardViews(board_no);
+
 		Map<String, Object> response = new HashMap<> ();
 		CommunityPostVO communityPostVO = communityManagerService.getPost(board_no);
 		int commentCount = communityManagerService.getCommentCount(board_no);

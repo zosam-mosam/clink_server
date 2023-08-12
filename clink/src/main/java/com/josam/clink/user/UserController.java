@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.josam.clink.user.mail.RegisterMail;
 
 
 @RequestMapping("/user")
-
 @Controller
 public class UserController {
 	@Autowired
@@ -39,9 +39,9 @@ public class UserController {
 	// 로그인
 	@PostMapping("/login.do")
 	@ResponseBody
+
 	public Map<String, Object> login(@RequestBody User_MasterVO user_MasterVO) throws Exception {
 		Map<String, Object> login = userService.login(user_MasterVO);
-
 		if (login == null) {
 			return null;
 		} else {

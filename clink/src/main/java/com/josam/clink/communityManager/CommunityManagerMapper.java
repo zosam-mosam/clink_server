@@ -31,5 +31,4 @@ public interface CommunityManagerMapper {
 	public int getBoardViews(int board_no);
 	public void updateBoardViews(int getBoardViews,int board_no);
 	
-
 }

@@ -57,8 +57,6 @@ public class ChallengeController {
 		else {
 			return null;
 		}
-
-
 	}
 	
 	@GetMapping("/pay-info")
@@ -104,7 +102,6 @@ public class ChallengeController {
 	@ResponseBody
 	public void registerChallenge (@RequestBody ChallengeVO cvo) {
 
-
 		System.out.println(cvo);
 		//		challengeService.registerChallenge(cvo);
 
@@ -116,4 +113,10 @@ public class ChallengeController {
 
 	}
 
+		System.out.println(cvo);
+		//		challengeService.registerChallenge(cvo);
+
+	}
+	
+	
 }

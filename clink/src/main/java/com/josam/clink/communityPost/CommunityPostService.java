@@ -1,5 +1,7 @@
 package com.josam.clink.communityPost;
 
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,6 +88,9 @@ public class CommunityPostService {
 	}
 	public int getBoardCount(Map<String, Object> parameters) {
 		return mapper.getBoardCount(parameters);
+
+	public int getLastboardId() {
+		return mapper.getLastboardId();
 
 	}
 	

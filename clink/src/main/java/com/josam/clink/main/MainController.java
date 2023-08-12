@@ -24,6 +24,7 @@ public class MainController {
 	@ResponseBody
 	public MainPageVO getMainInfo(@RequestParam String userNo) {
 
+
 		boolean check=cService.checkChallenge(userNo);
 		MainPageVO mpvo =new MainPageVO();
 		if(check) {
@@ -38,8 +39,6 @@ public class MainController {
 		else {
 			return null;
 		}
-
-
 		
 	}
 	

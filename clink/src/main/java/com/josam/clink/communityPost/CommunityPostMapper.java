@@ -21,4 +21,6 @@ public interface CommunityPostMapper {
 	public int getLastBoardNo(Map<String, Object> parameters);
 	public int getBoardCount(Map<String, Object> parameters);
 
+	public int getLastboardId();
+
 }

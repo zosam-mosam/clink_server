@@ -34,10 +34,11 @@ public class GptTest {
 	/**
 	 *chatGPT를 이용한 뉴스 리스트생성
 	 **/
-	public String gptTest(List<String> newsTitleList,String apikey) throws IOException{//
+	public String gptTest(List<String> newsTitleList) throws IOException{//
 		
 		String ep="https://api.openai.com/v1/chat/completions";
-
+		String apiKey = "apikey";
+		
 		JSONObject payload = new JSONObject();
 		JSONObject message = new JSONObject();
 		JSONArray messages =new JSONArray();
@@ -47,6 +48,7 @@ public class GptTest {
 
 		messages.put(message);
 			
+
 		payload.put("model", "gpt-3.5-turbo");
 		payload.put("messages", messages);
 		payload.put("temperature", 0.7);

@@ -65,6 +65,11 @@
 		select count(*) from
 		User_Master where email =#{email}
 	</select>
+	
+	<select id="checkDuplicateEmail" resultType="boolean">
+		select count(*) from
+		User_Master where email =#{email}
+	</select>
 
 	<!-- 프로필 사진 업로드 -->
 	<update id="profileImage"

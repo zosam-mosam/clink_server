@@ -94,5 +94,4 @@ public class UserService {
 	public int updateAccount(Account_DetailVO vo) {
 		return userMapper.updateAccount(vo);
 	}
-
 }

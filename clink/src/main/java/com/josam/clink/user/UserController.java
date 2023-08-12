@@ -123,8 +123,8 @@ public class UserController {
 		if (!file.isEmpty()) {
 			String org = file.getOriginalFilename();
 			user_MasterVO.setPhoto_url(org);
-			String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static\\img";
-			File saveFile = new File(uploadFolder + "\\" + org);
+			String uploadFolder = "/var/property/img";
+			File saveFile = new File(uploadFolder + "/" + org);
 			try {
 				file.transferTo(saveFile);
 			} catch (Exception e) {

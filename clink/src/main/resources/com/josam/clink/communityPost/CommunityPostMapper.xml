@@ -106,7 +106,7 @@
 	</select>
 	<select id="getHashtag">
 		SELECT hashtag_content
-		FROM Hashtag_Detail as h , (select board_no from Board_Detail where board_delete_yn="N") as b
+		FROM (select * from Hashtag_Detail where hashtag_content != "") as h , (select board_no from Board_Detail where board_delete_yn="N") as b
 		where  h.board_no = b.board_no and h.category_no = #{category_no}
 		group by hashtag_content
 		order by count(hashtag_content) desc Limit 3;

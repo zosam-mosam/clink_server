@@ -20,9 +20,9 @@
 	</select>
 	
 	<select id="getYesterdaySaving" parameterType="com.josam.clink.challenge.ChallengeVO" resultType="com.josam.clink.challenge.SuccessVO">
-		SELECT	DATE_FORMAT(transaction_datetime, '%Y-%m-%d') as challenge_detail_success_date, SUM(transaction_amount) as challenge_detail_success_amount, (50000 - SUM(transaction_amount)) as result_success_amount
+		SELECT	DATE_FORMAT(transaction_datetime, '%Y-%m-%d') as challenge_detail_success_date, SUM(transaction_amount) as challenge_detail_success_amount, (#{challenge_amount} - SUM(transaction_amount)) as result_success_amount
 		FROM	clink1.Account_History 
-		WHERE	user_no="00000"
+		WHERE	user_no=#{user_no}
 			AND DATE_FORMAT(transaction_datetime, '%Y-%m-%d') = DATE_FORMAT(now() - INTERVAL 1 DAY, '%Y-%m-%d')
 	</select>
 	

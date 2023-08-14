@@ -96,7 +96,7 @@
 		    b.board_delete_yn,
 		    SUM(IF(c.comment_delete_yn="N",1,0)) comment_count
 		FROM Board_Detail b
-		JOIN Comment_Detail c
+		LEFT OUTER JOIN Comment_Detail c
 		ON b.board_no = c.board_no
 		WHERE board_like_count >= 10
 		AND board_delete_yn ='N'

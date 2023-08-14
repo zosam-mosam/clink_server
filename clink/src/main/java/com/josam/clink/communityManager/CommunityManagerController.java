@@ -111,8 +111,14 @@ public class CommunityManagerController {
 	
 	@PostMapping("/post/comment/delete")
 	@ResponseBody
-	public void deleteComment(int comment_id) {
-		communityManagerService.deleteComment(comment_id);
+	public int deleteComment(int comment_id, int parent_id) {
+		// hasReply 값이 1이면 -> 삭제 불가, 0이면 삭제 가능
+		if(comment_id == parent_id && communityManagerService.hasReply(parent_id) == 1) {
+			return 1; 
+		} else {
+			communityManagerService.deleteComment(comment_id);
+			return 0;
+		}
 	}
 	
 	@GetMapping("/post/like")

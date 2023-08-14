@@ -37,11 +37,11 @@ public class UserService {
 	// 로그인
 	public Map<String, Object> login(User_MasterVO vo) {
 		Map<String, Object> newVO = userMapper.login(vo);
-
+		String no= newVO.get("user_no").toString();
 		if (newVO != null) {
 			boolean result = passwordEncoder.matches(vo.getPassword(), (String) newVO.get("password"));
 			if (result) {
-				List<Map<String, Object>> challengeDetails = userMapper.getChallengeDetailsByUserId(vo.getUser_no());
+				int challengeDetails = userMapper.getChallengeDetailsByUserId(no);
 				newVO.put("challengeDetails", challengeDetails);
 				return newVO;
 			}

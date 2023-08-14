@@ -18,7 +18,7 @@ public interface UserMapper {
 	String getUserNo(String user_id);
 	
 	// 챌린지 등록 정보 가져오기
-	List<Map<String, Object>> getChallengeDetailsByUserId(String user_no);
+	int getChallengeDetailsByUserId(String user_no);
 
 	// 아이디 중복체크
 	int checkDuplicateId(String user_id);

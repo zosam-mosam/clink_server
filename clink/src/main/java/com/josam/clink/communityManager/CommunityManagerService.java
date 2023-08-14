@@ -48,6 +48,7 @@ public class CommunityManagerService {
 	}
 	public void insertHashtag(String category_no,String hashtag,int boardNo) {
 		communityManagerMapper.insertHashtag(category_no,hashtag,boardNo);
+
 	}
 	public void like(LikeVO lvo, int board_no) {
 		communityManagerMapper.insertLike(lvo);
@@ -67,7 +68,10 @@ public class CommunityManagerService {
 	public int getBoardNo() {
 		return communityManagerMapper.getBoardNo();
 	}
+
 	public void updateBoardViews(int board_no) {
-		communityManagerMapper.updateBoardViews(board_no);
+		int getBoardViews=communityManagerMapper.getBoardViews(board_no)+1;
+		communityManagerMapper.updateBoardViews(getBoardViews,board_no);
+
 	}
 }

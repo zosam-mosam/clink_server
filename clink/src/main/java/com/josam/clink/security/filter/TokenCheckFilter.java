@@ -33,10 +33,8 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String path = request.getRequestURI();
-		System.out.println("path:"+path);
 //		if (path.startsWith("/user/login.do")||path.startsWith("/user/join.do")||path.startsWith("/user/check-duplicate-id.do")||path.startsWith("/user/emailAuth.do")) { // api 주소가 아니면(일반접속이면) 통과
 		if (!path.startsWith("/api/")) { // api 주소가 아니면(일반접속이면) 통과
-//			if (!path.startsWith("/clink/login")||!path.startsWith("/clink/join")||!path.startsWith("/clink/community")||!path.startsWith("/clink/challenge")||!path.startsWith("/clink/Main")) { // api 주소가 아니면(일반접속이면) 통과
 			filterChain.doFilter(request, response);
 			return;
 		}
@@ -45,7 +43,6 @@ public class TokenCheckFilter extends OncePerRequestFilter {
 		
 		// AccessToken 검증
 		try {
-			System.out.println("검증시작하는 곳");
 			validateAccessToken(request);
 			filterChain.doFilter(request, response);	
 		} catch (AccessTokenException e) {

@@ -22,7 +22,7 @@ import scala.collection.Seq;
 
 @Service
 public class FinanceInfoService {
-	
+
 	@Value("${chatGPT.secret.key}")
 	private String apiKey;
 	
@@ -33,13 +33,14 @@ public class FinanceInfoService {
 		List<NewsVO> list = nmp.getNewsData();
 		return list;
 	}
-	
+
 
 	//@Scheduled(cron = "10 26 0/1 * * *")
 	public void run() {
 		nmp.deleteNewsData();
 
 	}
+
 	
 	//@Scheduled(cron = "10 24 0/1 * * *")
 	public void insertNewsData() {

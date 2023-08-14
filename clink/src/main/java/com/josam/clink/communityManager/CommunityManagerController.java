@@ -38,14 +38,13 @@ public class CommunityManagerController {
 	@GetMapping(value = {"/post", "/post/update"})
 	@ResponseBody
 	public Map<String, Object> getPost(@RequestParam int board_no) {
+		communityManagerService.updateBoardViews(board_no);
 		Map<String, Object> response = new HashMap<> ();
 		CommunityPostVO communityPostVO = communityManagerService.getPost(board_no);
 		int commentCount = communityManagerService.getCommentCount(board_no);
 		
 		response.put("communityPostVO", communityPostVO);
 		response.put("commentCount", commentCount);
-		
-		
 		return response;
 	}
 
@@ -132,6 +131,13 @@ public class CommunityManagerController {
 	@ResponseBody
 	public void unlike(LikeVO lvo, int board_no) {
 		communityManagerService.unlike(lvo, board_no);
+	}
+	
+	@GetMapping("/post/updateBoardViews")
+	@ResponseBody
+	public void updateBoardViews(int board_no) {
+		System.out.println("업데이트 뷰"+board_no);
+		communityManagerService.updateBoardViews(board_no);
 	}
 }
 	

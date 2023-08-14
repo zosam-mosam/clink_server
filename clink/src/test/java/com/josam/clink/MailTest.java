@@ -14,14 +14,13 @@ import com.josam.clink.main.QuoteVO;
 import com.josam.clink.main.ReportVO;
 import com.josam.clink.main.StreakVO;
 import com.josam.clink.main.StreakdataVO;
-import com.josam.clink.user.RegisterMail;
 import com.josam.clink.user.User_MasterVO;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MailTest {
 	@Autowired
-	RegisterMail registerMail;
+	com.josam.clink.user.mail.RegisterMail registerMail;
 
 	@Test
 	public void test() {

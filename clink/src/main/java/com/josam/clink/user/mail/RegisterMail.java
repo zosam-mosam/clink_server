@@ -1,4 +1,4 @@
-package com.josam.clink.user;
+package com.josam.clink.user.mail;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
@@ -33,19 +33,12 @@ public class RegisterMail implements MailServiceInter {
 		message.setSubject("땡그랑 회원가입 이메일 인증");// 제목
 
 		String msgg = "";
-		msgg += "<div style='margin:100px;'>";
-		msgg += "<h1> 안녕하세요</h1>";
-		msgg += "<h1> 땡그랑 입니다</h1>";
-		msgg += "<br>";
-		msgg += "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
-		msgg += "<br>";
-		msgg += "<p> 감사합니다!<p>";
-		msgg += "<br>";
-		msgg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
-		msgg += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
-		msgg += "<div style='font-size:130%'>";
-		msgg += "CODE : <strong>";
-		msgg += ePw + "</strong><div><br/> "; // 메일에 인증번호 넣기
+		msgg += "<div>";
+		msgg += "<h2 style='font-size: 24px; margin-bottom: 40px; margin-top: 30px; color: #333;'>안녕하세요, 땡그랑입니다.</h2>";
+		msgg += "<p style='margin-bottom: 20px; font-size: 16px; color: #333;'>아래 인증 코드를 회원가입 창으로 돌아가 입력해주세요.</p>";
+		msgg += "<p style='font-size: 18px; color: #333;margin-bottom: 20px'>CODE: <strong style='color: #337ab7;'>"
+				+ ePw + "</strong></p>";
+		msgg += "<p style='font-size: 16px; color: #333;'>감사합니다.</p>";
 		msgg += "</div>";
 		message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
 		// 보내는 사람의 이메일 주소, 보내는 사람 이름
@@ -82,9 +75,6 @@ public class RegisterMail implements MailServiceInter {
 	}
 
 	// 메일 발송
-	// sendSimpleMessage 의 매개변수로 들어온 to = 이메일 주소
-	// MimeMessage 객체 안에 내가 전송할 메일의 내용을 담는다.
-	// 그리고 bean 으로 등록해둔 javaMail 객체를 사용해서 이메일 send!!
 	@Override
 	public String sendSimpleMessage(String to) throws Exception {
 

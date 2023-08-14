@@ -3,9 +3,6 @@ package com.josam.clink.user;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.josam.clink.user.mail.RegisterMail;
 
 @RequestMapping("/user")
 
@@ -25,30 +24,38 @@ public class UserController {
 	@Autowired
 	RegisterMail registerMail;
 
-	// 회원가입
 	@PostMapping("/join.do")
 	@ResponseBody
 	public User_MasterVO join(@RequestBody User_MasterVO user_MasterVO) {
-		int r = userService.insert(user_MasterVO);
-		if (r == 1) {
-			return user_MasterVO;
+		User_MasterVO uv = userService.insert(user_MasterVO);
+		if (uv!=null) {
+			return uv;
 		} else {
 			return null;
 		}
+	}
+	
+	// 마이페이지 사용자 정보 가져오기
+	@PostMapping("/mypage.do")
+	@ResponseBody
+	public User_MasterVO getUserInfo(@RequestBody User_MasterVO user_MasterVO) throws Exception {
+		User_MasterVO getUserInfo = userService.getUserInfo(user_MasterVO);
+		return getUserInfo;
+		// 없으면 null 반환
 	}
 
 	// 로그인
 	@PostMapping("/login.do")
 	@ResponseBody
-	public User_MasterVO login(@RequestBody User_MasterVO user_MasterVO) throws Exception {
-		User_MasterVO login = userService.login(user_MasterVO);
+	public Map<String, Object> login(@RequestBody User_MasterVO user_MasterVO) throws Exception {
+		Map<String, Object> login = userService.login(user_MasterVO);
 		if (login == null) {
 			return null;
 		} else {
 			return login;
 		}
 	}
-
+	
 	// 아이디 중복체크
 	@PostMapping("/check-duplicate-id.do")
 	@ResponseBody
@@ -72,9 +79,9 @@ public class UserController {
 			return "success";
 		}
 	}
-
+	
 	// 등록된 계좌 있는지 확인
-	@PostMapping("/checkAccount.do")
+	@PostMapping("/check-account.do")
 	@ResponseBody
 	public List<Account_DetailVO> checkAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
 		List<Account_DetailVO> checkAccount = userService.checkAccount(account_DetailVO);
@@ -82,8 +89,9 @@ public class UserController {
 		// 없으면 null 반환
 	}
 
+
 	// 계좌 등록
-	@PostMapping("/registAccount.do")
+	@PostMapping("/regist-account.do")
 	@ResponseBody
 	public int registAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
 		int registAccount = userService.registAccount(account_DetailVO);
@@ -95,7 +103,7 @@ public class UserController {
 	}
 
 	// 계좌 수정
-	@PostMapping("/updateAccount.do")
+	@PostMapping("/update-account.do")
 	@ResponseBody
 	public int updateAccount(@RequestBody Account_DetailVO account_DetailVO) throws Exception {
 		int updateAccount = userService.updateAccount(account_DetailVO);
@@ -106,15 +114,6 @@ public class UserController {
 		}
 	}
 
-	// 마이페이지 사용자 정보 가져오기
-	@PostMapping("/get-userInfo.do")
-	@ResponseBody
-	public User_MasterVO getUserInfo(@RequestBody User_MasterVO user_MasterVO) throws Exception {
-		User_MasterVO getUserInfo = userService.getUserInfo(user_MasterVO);
-		return getUserInfo;
-		// 없으면 null 반환
-	}
-
 	// 프로필 이미지 등록
 	@PostMapping("/photo-url.do")
 	@ResponseBody
@@ -123,7 +122,6 @@ public class UserController {
 		System.out.println("file" + file);
 		if (!file.isEmpty()) {
 			String org = file.getOriginalFilename();
-//			System.out.println("업로드된 파일 이름:" + org);
 			user_MasterVO.setPhoto_url(org);
 			String uploadFolder = "C:\\Users\\User\\Desktop\\2차Clink\\clink_server\\clink\\src\\main\\resources\\static\\img";
 			File saveFile = new File(uploadFolder + "\\" + org);

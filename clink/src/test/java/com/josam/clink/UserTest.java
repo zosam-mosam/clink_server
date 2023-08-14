@@ -2,6 +2,8 @@ package com.josam.clink;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,15 @@ public class UserTest {
 	
 	@Test
 	public void test() {
-		System.out.println("sss");
+		long time = System.currentTimeMillis();
+		System.out.println(time);
+//		String time1 = Long.toString(time);
+		
+		String time1 = Long.toString(System.currentTimeMillis()).substring(8);
+		
+		System.out.println(time1);
+//		1691737305034
+	//  1691737331468
 	}
 	
 	@Autowired
@@ -31,6 +41,19 @@ public class UserTest {
 	
     @Autowired
     private PasswordEncoder passwordEncoder;
+//    @Test
+//    public void encrypt() {
+//    	String dbpwd = passwordEncoder.encode("t1");
+//    	System.out.println(dbpwd);
+//    	User_MasterVO vo = new User_MasterVO();
+//    	vo.setUser_id("t1");
+//    	vo.setPassword("t1");
+//    	User_MasterVO newVO = mapper.login(vo);
+//    	System.out.println(vo.getPassword());
+//    	System.out.println(newVO.getPassword());
+//    	System.out.println(passwordEncoder.matches(vo.getPassword(), newVO.getPassword()));
+//    	//System.out.println(passwordEncoder.matches("t6", "$2a$10$lO471nPoOLK3yQ7MmtK8Uu1UmZZNa8G3B6pu3T3LvEoVR.MTplMEe"));
+//    }
     @Test
     public void encrypt() {
     	String dbpwd = passwordEncoder.encode("t1");
@@ -38,10 +61,10 @@ public class UserTest {
     	User_MasterVO vo = new User_MasterVO();
     	vo.setUser_id("t1");
     	vo.setPassword("t1");
-    	User_MasterVO newVO = mapper.login(vo);
+    	Map<String, Object> newVO = mapper.login(vo);
     	System.out.println(vo.getPassword());
-    	System.out.println(newVO.getPassword());
-    	System.out.println(passwordEncoder.matches(vo.getPassword(), newVO.getPassword()));
+    	System.out.println(((User_MasterVO) newVO).getPassword());
+    	System.out.println(passwordEncoder.matches(vo.getPassword(), ((User_MasterVO) newVO).getPassword()));
     	//System.out.println(passwordEncoder.matches("t6", "$2a$10$lO471nPoOLK3yQ7MmtK8Uu1UmZZNa8G3B6pu3T3LvEoVR.MTplMEe"));
     }
 //	@Test

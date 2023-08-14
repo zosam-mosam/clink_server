@@ -12,7 +12,13 @@ public interface UserMapper {
 	int insert(User_MasterVO vo);
 
 	// 로그인
-	User_MasterVO login(User_MasterVO vo);
+	Map<String, Object> login(User_MasterVO vo);
+	
+	// 유저 번호 가져오기
+	String getUserNo(String user_id);
+	
+	// 챌린지 등록 정보 가져오기
+	List<Map<String, Object>> getChallengeDetailsByUserId(String user_no);
 
 	// 아이디 중복체크
 	int checkDuplicateId(String user_id);

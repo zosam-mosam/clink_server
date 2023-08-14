@@ -140,5 +140,13 @@
 		SET board_views = #{getBoardViews}
 		WHERE board_no=#{board_no}
 	</update>
+	<select id="hasReply" parameterType="INTEGER" resultType="INTEGER">
+		SELECT EXISTS (
+			SELECT comment_id
+			FROM Comment_Detail
+			WHERE parent_id = #{parent_id}
+			AND comment_id != parent_id
+	    ) as success;
+	</select>
 
 </mapper>

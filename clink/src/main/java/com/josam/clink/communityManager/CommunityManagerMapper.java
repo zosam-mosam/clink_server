@@ -3,6 +3,7 @@ package com.josam.clink.communityManager;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.josam.clink.communityPost.CommunityPostVO;
 
@@ -30,6 +31,7 @@ public interface CommunityManagerMapper {
 
 	public int getBoardViews(int board_no);
 	public void updateBoardViews(int getBoardViews,int board_no);
+	public int hasReply(int parent_id);
 	
 
 }

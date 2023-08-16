@@ -41,8 +41,8 @@
 	</select>
 
 	<select id="getChallengeDetailsByUserId" parameterType="String"
-		resultType="map">
-		SELECT * FROM Challenge_Detail WHERE user_no = #{user_no}
+		resultType="INTEGER">
+		SELECT count(challenge_no) FROM Challenge_Detail WHERE user_no = #{user_no}
 	</select>
 	
 	<!-- 정보 확인 -->

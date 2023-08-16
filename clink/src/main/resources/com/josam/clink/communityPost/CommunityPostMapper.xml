@@ -31,7 +31,7 @@
 		    b.board_delete_yn,
 		    SUM(IF(c.comment_delete_yn="N",1,0)) comment_count
 		FROM Board_Detail b
-		JOIN Comment_Detail c
+		LEFT OUTER JOIN Comment_Detail c
 		ON b.board_no = c.board_no
 		WHERE category_no=#{category_no} 
 		AND board_delete_yn ='N'
@@ -72,7 +72,7 @@
 		    b.board_delete_yn,
 		    SUM(IF(c.comment_delete_yn="N",1,0)) comment_count
 		FROM Board_Detail b
-		JOIN Comment_Detail c
+		LEFT OUTER JOIN Comment_Detail c
 		ON b.board_no = c.board_no
 		WHERE category_no=#{category_no} 
 		AND hashtag_content like CONCAT('%', #{hashtag}, '%')
@@ -96,7 +96,7 @@
 		    b.board_delete_yn,
 		    SUM(IF(c.comment_delete_yn="N",1,0)) comment_count
 		FROM Board_Detail b
-		JOIN Comment_Detail c
+		LEFT OUTER JOIN Comment_Detail c
 		ON b.board_no = c.board_no
 		WHERE board_like_count >= 10
 		AND board_delete_yn ='N'
@@ -106,7 +106,7 @@
 	</select>
 	<select id="getHashtag">
 		SELECT hashtag_content
-		FROM Hashtag_Detail as h , (select board_no from Board_Detail where board_delete_yn="N") as b
+		FROM (select * from Hashtag_Detail where hashtag_content != "") as h , (select board_no from Board_Detail where board_delete_yn="N") as b
 		where  h.board_no = b.board_no and h.category_no = #{category_no}
 		group by hashtag_content
 		order by count(hashtag_content) desc Limit 3;

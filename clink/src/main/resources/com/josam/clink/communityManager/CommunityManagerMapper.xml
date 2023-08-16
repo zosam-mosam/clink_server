@@ -58,12 +58,12 @@
             c.comment_delete_yn,
             c.user_no,
             u.photo_url 
-		FROM Comment_Detail 
+		FROM Comment_Detail c
 		LEFT OUTER JOIN User_Master u
 		ON c.user_no = u.user_no
-		WHERE board_no=#{board_no} 	
-		AND comment_delete_yn ='N'
-		ORDER BY parent_id ASC, register_datetime ASC;
+		WHERE c.board_no=#{board_no} 	
+		AND c.comment_delete_yn ='N'
+		ORDER BY c.parent_id ASC, c.register_datetime ASC;
 	</select>
 	
 	<update id="deleteComment" parameterType="INTEGER">

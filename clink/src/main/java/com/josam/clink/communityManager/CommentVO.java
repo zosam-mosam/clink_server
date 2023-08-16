@@ -14,4 +14,6 @@ public class CommentVO {
 	private Timestamp update_datetime;
 	private String update_id;
 	private int parent_id;
+	private String photo_url;
+	private String user_no;
 }

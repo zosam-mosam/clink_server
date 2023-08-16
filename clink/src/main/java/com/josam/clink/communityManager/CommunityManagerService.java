@@ -2,6 +2,7 @@ package com.josam.clink.communityManager;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -73,5 +74,8 @@ public class CommunityManagerService {
 		int getBoardViews=communityManagerMapper.getBoardViews(board_no)+1;
 		communityManagerMapper.updateBoardViews(getBoardViews,board_no);
 
+	}
+	public int hasReply(int parent_id) {
+		return communityManagerMapper.hasReply(parent_id);
 	}
 }

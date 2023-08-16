@@ -162,6 +162,7 @@
 			FROM Comment_Detail
 			WHERE parent_id = #{parent_id}
 			AND comment_id != parent_id
+			AND comment_delete_yn = "N"
 	    ) as success;
 	</select>
 </mapper>

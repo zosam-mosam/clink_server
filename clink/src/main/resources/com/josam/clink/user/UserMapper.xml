@@ -18,7 +18,7 @@
 		#{user_id}, #{user_name}, #{nick_name},
 		#{password},
 		#{email}, #{phone_number},
-		#{photo_url}, "Y",
+		"pig.png", "Y",
 		now(),
 		#{register_id},#{update_datetime},#{updater_id}
 		)

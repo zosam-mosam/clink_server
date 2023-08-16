@@ -13,19 +13,22 @@
 	
 	<select id="getPost" parameterType="INTEGER" resultType="com.josam.clink.communityPost.CommunityPostVO">
 		SELECT 
-			board_no, 
-			board_title, 
-			board_content, 
-			register_datetime, 
-			register_id, 
-			board_like_count,
-			hashtag_content,
-			board_views,
-			category_no
-		FROM Board_Detail 
+			b.board_no, 
+			b.board_title, 
+			b.board_content, 
+			b.register_datetime, 
+			b.register_id, 
+			b.board_like_count,
+			b.hashtag_content,
+			b.board_views,
+			b.category_no,
+            u.photo_url
+		FROM Board_Detail b
+        LEFT OUTER JOIN User_Master u
+			ON b.user_no = u.user_no
 		WHERE board_no=#{board_no}
 		AND board_delete_yn ='N'
-		ORDER BY register_datetime DESC;
+		ORDER BY b.register_datetime DESC;
 	</select>
 	<update id="updateBoard" parameterType="com.josam.clink.communityPost.CommunityPostVO" >
 		UPDATE Board_Detail SET 

@@ -19,4 +19,5 @@ public class CommunityPostVO {
 	private Timestamp update_datetime;
 	private String update_id;
 	private int comment_count;
+	private String photo_url;
 }

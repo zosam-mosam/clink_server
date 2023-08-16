@@ -16,7 +16,7 @@ public class CustomServletConfig implements WebMvcConfigurer{
 //				.setCachePeriod(20); // 초단위
 		// 이미지URL
 		registry.addResourceHandler("/images/**")
- 		.addResourceLocations("file:///home/ubuntu/property/img/");
+ 		.addResourceLocations("file:///var/property/img/");
 	}
 	
 }
